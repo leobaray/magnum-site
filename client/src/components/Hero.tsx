@@ -14,7 +14,7 @@ export default function Hero() {
       <div 
         className="hidden lg:block absolute inset-0 z-1 opacity-10 lg:opacity-15 xl:opacity-18 bg-no-repeat bg-contain" 
         style={{
-          backgroundImage: `url(/logo_magnum_final.png)`,
+          backgroundImage: `url(/logo_magnum_final.webp)`,
           backgroundSize: '1200px 700px',
           backgroundPosition: 'left 3% center',
           filter: 'blur(0.2px) saturate(0.9)'

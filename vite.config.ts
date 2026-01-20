@@ -1,4 +1,5 @@
 import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
 import react from "@vitejs/plugin-react";
 import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
 import path, { dirname } from "path";
@@ -10,6 +11,7 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [
+    visualizer({ open: true, gzipSize: true, brotliSize: true, filename: "stats.html" }),
     react(),
     runtimeErrorOverlay(),
     themePlugin(),

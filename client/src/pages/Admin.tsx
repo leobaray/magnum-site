@@ -110,7 +110,7 @@ export default function Admin() {
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 to-slate-800 shadow-lg">
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-3">
-            <img src="/logo_10anos.png" alt="Magnum Torque" className="h-8 w-auto" />
+            <img src="/logo_10anos.webp" alt="Magnum Torque" className="h-8 w-auto" />
             <span className="font-bold text-white">Admin</span>
           </div>
           <Button
@@ -175,7 +175,7 @@ export default function Admin() {
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gradient-to-b from-gray-900 to-slate-800 px-6 pb-4">
           {/* Logo */}
           <div className="flex h-20 shrink-0 items-center justify-center border-b border-white/10">
-            <img src="/logo_10anos.png" alt="Magnum Torque" className="h-14 w-auto" />
+            <img src="/logo_10anos.webp" alt="Magnum Torque" className="h-14 w-auto" />
           </div>
           
           {/* Navigation */}
