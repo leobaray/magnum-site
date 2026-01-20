@@ -40,14 +40,14 @@ export default function Partners() {
     {
       name: "Tricomponent",
       url: "https://tricomponent.com/",
-      logoPath: "/partners/tricomponent.png",
+      logoPath: "/partners/tricomponent.webp",
       altText: "Logo da Tricomponent",
       maxHeight: "60px"
     },
     {
       name: "Touver",
       url: "https://www.touvertreinamentos.com.br/",
-      logoPath: "/partners/touver.png",
+      logoPath: "/partners/touver.webp",
       altText: "Logo da Touver",
       maxHeight: "55px",
       customStyle: {
@@ -64,14 +64,14 @@ export default function Partners() {
     {
       name: "TRANStec",
       url: "https://transtec.com/",
-      logoPath: "/partners/transtec.png",
+      logoPath: "/partners/transtec.webp",
       altText: "Logo da TRANStec",
       maxHeight: "70px"
     },
     {
       name: "Valeo",
       url: "https://www.valeoservice.com.br/pt-br",
-      logoPath: "/partners/valeo.png",
+      logoPath: "/partners/valeo.webp",
       altText: "Logo da Valeo",
       maxHeight: "55px",
       customStyle: {
@@ -81,7 +81,7 @@ export default function Partners() {
     {
       name: "Alto USA",
       url: "https://www.altousa.com/",
-      logoPath: "/partners/alto.png",
+      logoPath: "/partners/alto.webp",
       altText: "Logo da Alto USA",
       maxHeight: "70px"
     }

@@ -126,7 +126,7 @@ export default function About() {
             <div className="hidden sm:block">
               <div className="relative h-48 md:h-56 lg:h-64 flex items-center justify-center bg-white/50 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-lg overflow-hidden">
                 <img 
-                  src="/logo_10anos.png" 
+                  src="/logo_10anos.webp" 
                   alt="Magnum Torque - 10 Anos" 
                   className="max-w-full max-h-full object-contain p-4"
                   style={{ imageRendering: '-webkit-optimize-contrast' }}
