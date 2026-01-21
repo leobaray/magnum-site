@@ -105,5 +105,9 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.8"
+  },
+  "overrides": {
+    "glob": "10.5.0",
+    "qs": "6.13.1"
   }
 }
