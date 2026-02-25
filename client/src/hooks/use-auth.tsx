@@ -76,8 +76,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
     },
     onSuccess: () => {
-      // Refetch auth status and invalidate user-related queries
-      queryClient.invalidateQueries();
+      // Invalida só a sessão — preserva cache de produtos e filtros
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/status"] });
       setLocation("/login");
     },
   });

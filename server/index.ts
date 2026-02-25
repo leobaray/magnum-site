@@ -55,7 +55,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Servir arquivos estáticos da pasta public (imagens de produtos, logos)
-app.use(express.static(path.join(process.cwd(), 'public')));
+// Em produção, cache de 7 dias para imagens; em dev, sem cache para facilitar hot-reload
+app.use(express.static(path.join(process.cwd(), 'public'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
+  etag: true,
+  lastModified: true,
+}));
 
 // Avisa em produção se SESSION_SECRET não estiver configurado
 if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) {
