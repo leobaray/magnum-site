@@ -79,10 +79,22 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  // Assets com hash no nome (JS/CSS gerados pelo Vite) — cache de 1 ano
+  app.use("/assets", express.static(path.join(distPath, "assets"), {
+    maxAge: "1y",
+    immutable: true,
+  }));
 
-  // fall through to index.html if the file doesn't exist
+  // Outros arquivos estáticos (imagens, ícones) — cache de 7 dias
+  app.use(express.static(distPath, {
+    maxAge: "7d",
+    etag: true,
+    lastModified: true,
+  }));
+
+  // SPA fallback: index.html nunca é cacheado (sempre fresco para routing funcionar)
   app.use("*", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }

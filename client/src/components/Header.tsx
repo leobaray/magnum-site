@@ -17,6 +17,8 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Depoimentos",  section: "depoimentos" },
 ];
 
+const PENDING_SECTION_KEY = "pendingSection";
+
 function isSectionItem(item: NavItem): item is SectionItem {
   return "section" in item;
 }
@@ -25,9 +27,22 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   const isHome = location === "/";
+
+  // Quando a home monta, verifica se há seção pendente para scroll
+  useEffect(() => {
+    if (!isHome) return;
+    const pending = sessionStorage.getItem(PENDING_SECTION_KEY);
+    if (pending) {
+      sessionStorage.removeItem(PENDING_SECTION_KEY);
+      // Aguarda o DOM renderizar antes de fazer scroll
+      requestAnimationFrame(() => {
+        setTimeout(() => utilScrollToSection(pending, 60), 50);
+      });
+    }
+  }, [isHome]);
 
   const navigateToSection = (sectionId: string) => {
     utilScrollToSection(sectionId, 60);
@@ -35,19 +50,27 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  // Navega para uma seção da home — direto se já estiver lá, client-side se não
+  const goToHomeSection = (sectionId: string) => {
+    if (isHome) {
+      navigateToSection(sectionId);
+    } else {
+      sessionStorage.setItem(PENDING_SECTION_KEY, sectionId);
+      setLocation("/");
+    }
+    setIsMenuOpen(false);
+  };
+
   const handleItemClick = (e: React.MouseEvent, item: NavItem) => {
     if (!isSectionItem(item)) return;
     e.preventDefault();
-    if (isHome) {
-      navigateToSection(item.section);
-    } else {
-      window.location.href = `/#${item.section}`;
-    }
+    goToHomeSection(item.section);
   };
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
+      if (!isHome) return; // Só rastreia seções na home
       const sectionIds = NAV_ITEMS.filter(isSectionItem).map((i) => i.section);
       const offset = 60;
       for (const id of sectionIds) {
@@ -63,10 +86,12 @@ export default function Header() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
-  const isActive = (item: NavItem) =>
-    isSectionItem(item) ? activeSection === item.section : location.startsWith(item.href);
+  const isActive = (item: NavItem) => {
+    if (!isSectionItem(item)) return location === item.href;
+    return isHome && activeSection === item.section;
+  };
 
   const DesktopNavItem = ({ item }: { item: NavItem }) => {
     const active = isActive(item);
@@ -121,14 +146,13 @@ export default function Header() {
       variant="default"
       className={`bg-primary hover:bg-primary/90 text-white transition-all duration-300 shadow-md hover:shadow-lg ${
         mobile ? "w-full mt-2" : ""
-      } ${activeSection === "contato" ? "ring-2 ring-primary/30" : ""}`}
+      } ${isHome && activeSection === "contato" ? "ring-2 ring-primary/30" : ""}`}
     >
       <a
         href="#contato"
         onClick={(e) => {
           e.preventDefault();
-          if (isHome) navigateToSection("contato");
-          else window.location.href = "/#contato";
+          goToHomeSection("contato");
         }}
       >
         Entre em Contato
@@ -143,9 +167,9 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <a
-          href={isHome ? "#inicio" : "/"}
+        {/* Logo — client-side navigation, sem reload */}
+        <Link
+          to="/"
           onClick={(e) => {
             if (isHome) {
               e.preventDefault();
@@ -157,7 +181,7 @@ export default function Header() {
           <span className="font-montserrat text-2xl font-bold text-gray-900">
             Magnum <span className="text-primary">Torque</span>
           </span>
-        </a>
+        </Link>
 
         {/* Mobile toggle */}
         <button
