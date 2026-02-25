@@ -7,7 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import { AuthProvider } from "@/hooks/use-auth";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import ScrollToTop from "@/components/ScrollToTop";
+import BackToTopButton from "@/components/BackToTopButton";
 import CookieBanner from "@/components/CookieBanner";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
@@ -43,7 +43,7 @@ function App() {
       <AuthProvider>
         <Router />
         <Toaster />
-        <ScrollToTop />
+        <BackToTopButton />
         <CookieBanner />
       </AuthProvider>
     </QueryClientProvider>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronUp } from "lucide-react";
 
-export default function ScrollToTop() {
+export default function BackToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

@@ -1,16 +1,20 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
+import { createServer } from "http";
 import { setupVite, serveStatic, log } from "./vite";
+import { isAdmin } from "./middlewares/isAdmin";
+import { registerProductRoutes } from "./api/productRoutes";
+import { registerAuthRoutes } from "./api/authRoutes";
 import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { storage } from "./storage";
 import bcrypt from "bcryptjs";
-import MemoryStore from "memorystore";
+import connectPgSimple from "connect-pg-simple";
+import { pool } from "./db";
 import path from "path";
 
-const MemorySessionStore = MemoryStore(session);
+const PgSession = connectPgSimple(session);
 
 // Set up passport authentication
 passport.use(new LocalStrategy(async (username, password, done) => {
@@ -73,9 +77,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || "torque-converter-secret-123",
   resave: false,
   saveUninitialized: false,
-  store: new MemorySessionStore({
-    checkPeriod: 86400000 // prune expired entries every 24h
-  }),
+  store: new PgSession({ pool, createTableIfMissing: true }),
   cookie: {
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     httpOnly: true,
@@ -119,7 +121,13 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  const server = await registerRoutes(app);
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+  registerProductRoutes(app, isAdmin);
+  registerAuthRoutes(app);
+
+  const server = createServer(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

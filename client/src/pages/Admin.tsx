@@ -15,18 +15,11 @@ import {
 
 export default function Admin() {
   const { user, logout } = useAuth();
-  const [activeTab, setActiveTab] = useState("produtos");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
   };
-
-  const menuItems = [
-    { id: "produtos", label: "Produtos", icon: <Package2 className="h-5 w-5" />, description: "Gerenciar catálogo" },
-  ];
-
-  const renderTabContent = () => <ProductAdmin />;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -53,28 +46,13 @@ export default function Admin() {
         <div className="lg:hidden fixed inset-0 z-40 bg-black/50" onClick={() => setIsMobileMenuOpen(false)}>
           <div className="absolute top-16 left-0 right-0 bg-white shadow-xl rounded-b-xl" onClick={(e) => e.stopPropagation()}>
             <nav className="p-4 space-y-2">
-              {menuItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
-                    activeTab === item.id
-                      ? "bg-primary text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                >
-                  {item.icon}
-                  <div className="text-left">
-                    <p className="font-medium">{item.label}</p>
-                    <p className={`text-xs ${activeTab === item.id ? "text-white/70" : "text-gray-500"}`}>
-                      {item.description}
-                    </p>
-                  </div>
-                </button>
-              ))}
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-primary text-white">
+                <Package2 className="h-5 w-5" />
+                <div className="text-left">
+                  <p className="font-medium">Produtos</p>
+                  <p className="text-xs text-white/70">Gerenciar catálogo</p>
+                </div>
+              </div>
               <Separator className="my-4" />
               <Link href="/">
                 <button className="w-full flex items-center gap-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-all">
@@ -101,37 +79,24 @@ export default function Admin() {
           <div className="flex h-20 shrink-0 items-center justify-center border-b border-white/10">
             <img src="/logo_10anos.webp" alt="Magnum Torque" className="h-14 w-auto" />
           </div>
-          
+
           {/* Navigation */}
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-2">
-              {menuItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => setActiveTab(item.id)}
-                    className={`w-full group flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium transition-all ${
-                      activeTab === item.id
-                        ? "bg-primary text-white shadow-lg shadow-primary/30"
-                        : "text-gray-300 hover:text-white hover:bg-white/10"
-                    }`}
-                  >
-                    {item.icon}
-                    <div className="flex-1 text-left">
-                      <p>{item.label}</p>
-                      <p className={`text-xs ${activeTab === item.id ? "text-white/70" : "text-gray-500"}`}>
-                        {item.description}
-                      </p>
-                    </div>
-                    {activeTab === item.id && (
-                      <ChevronRight className="h-4 w-4" />
-                    )}
-                  </button>
-                </li>
-              ))}
+              <li>
+                <div className="w-full group flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium bg-primary text-white shadow-lg shadow-primary/30">
+                  <Package2 className="h-5 w-5" />
+                  <div className="flex-1 text-left">
+                    <p>Produtos</p>
+                    <p className="text-xs text-white/70">Gerenciar catálogo</p>
+                  </div>
+                  <ChevronRight className="h-4 w-4" />
+                </div>
+              </li>
             </ul>
-            
+
             <Separator className="my-4 bg-white/10" />
-            
+
             {/* Back to site */}
             <Link href="/">
               <button className="w-full group flex items-center gap-x-3 rounded-lg p-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 transition-all">
@@ -139,7 +104,7 @@ export default function Admin() {
                 <span>Voltar ao Site</span>
               </button>
             </Link>
-            
+
             {/* User info and logout */}
             <div className="mt-auto pt-4 border-t border-white/10">
               <div className="flex items-center gap-3 p-3 rounded-lg bg-white/5">
@@ -171,29 +136,21 @@ export default function Admin() {
         <main className="py-6 lg:py-10">
           {/* Mobile top padding for fixed header */}
           <div className="h-16 lg:hidden"></div>
-          
+
           <div className="px-4 sm:px-6 lg:px-8">
             {/* Page header */}
             <div className="mb-8">
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
                 <span>Painel Administrativo</span>
                 <ChevronRight className="h-4 w-4" />
-                <span className="text-gray-900 font-medium">
-                  {menuItems.find(item => item.id === activeTab)?.label}
-                </span>
+                <span className="text-gray-900 font-medium">Produtos</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                {menuItems.find(item => item.id === activeTab)?.label}
-              </h1>
-              <p className="text-gray-500 mt-1">
-                {activeTab === "produtos" 
-                  ? "Adicione, edite ou remova produtos do catálogo" 
-                  : "Gerencie as configurações do sistema"}
-              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Produtos</h1>
+              <p className="text-gray-500 mt-1">Adicione, edite ou remova produtos do catálogo</p>
             </div>
-            
+
             {/* Content */}
-            {renderTabContent()}
+            <ProductAdmin />
           </div>
         </main>
       </div>
