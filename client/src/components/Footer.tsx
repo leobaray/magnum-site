@@ -1,22 +1,24 @@
 import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Users, Briefcase, Send } from "lucide-react";
 import { SiTiktok, SiWhatsapp } from "react-icons/si";
-import { handleAnchorClick } from "@/utils/scroll";
+import { scrollToSection } from "@/utils/scroll";
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
+const PENDING_SECTION_KEY = "pendingSection";
+
 export default function Footer() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const handleNavigationClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault();
-    
-    if (location === '/catalogo' || location === '/produtos') {
-      window.location.href = `/#${sectionId}`;
+    if (location === "/") {
+      scrollToSection(sectionId, 60);
     } else {
-      handleAnchorClick(e, sectionId);
+      sessionStorage.setItem(PENDING_SECTION_KEY, sectionId);
+      setLocation("/");
     }
   };
 

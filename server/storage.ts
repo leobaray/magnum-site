@@ -1,24 +1,13 @@
-// Storage module for managing users, contacts, and products with PostgreSQL database.
-// It includes helper methods to deduplicate filter results, used by the
-// filtering endpoints in the API.
-import { users, contactForm, products, type User, type InsertUser, type Contact, type InsertContact, 
-  type Product, type InsertProduct } from "@shared/schema";
+import { users, products, type User, type InsertUser, type Product, type InsertProduct } from "@shared/schema";
 import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
-
-// Storage module for managing users, contacts, and products in memory.
-// It includes helper methods to deduplicate filter results, used by the
-// filtering endpoints in the API.
 
 export interface IStorage {
   // User operations
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
-  // Contact operations
-  createContactMessage(contact: InsertContact & { createdAt: string }): Promise<Contact>;
   
   // Product operations
   getAllProducts(): Promise<Product[]>;
@@ -105,15 +94,6 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return user;
-  }
-  
-  // Contact methods
-  async createContactMessage(contactData: InsertContact & { createdAt: string }): Promise<Contact> {
-    const [contact] = await db
-      .insert(contactForm)
-      .values(contactData)
-      .returning();
-    return contact;
   }
   
   // Product methods
