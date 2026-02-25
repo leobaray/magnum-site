@@ -4,25 +4,8 @@ export default function Partners() {
 
   return (
     <section id="parceiros" className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 overflow-hidden">
-      {/* Background decorative elements - responsive sizing */}
       <div className="absolute top-0 right-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-primary/5 rounded-full filter blur-3xl translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 left-0 w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 bg-primary/3 rounded-full filter blur-3xl -translate-x-1/2 translate-y-1/2"></div>
-      
-      {/* Geometric patterns for subtle visual interest - hidden on mobile */}
-      <div className="absolute top-1/4 right-1/4 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 opacity-5 hidden sm:block">
-        <div className="w-full h-full border-2 border-white rotate-12 rounded-lg"></div>
-      </div>
-      <div className="absolute top-3/4 left-1/4 w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24 opacity-5 hidden sm:block">
-        <div className="w-full h-full border-2 border-primary rotate-45 rounded-full"></div>
-      </div>
-      
-      {/* Floating dots pattern - reduced on mobile */}
-      <div className="absolute inset-0 opacity-5 sm:opacity-10 hidden xs:block">
-        <div className="absolute top-32 right-20 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full"></div>
-        <div className="absolute top-48 left-32 w-1 h-1 bg-primary rounded-full"></div>
-        <div className="absolute bottom-40 right-1/3 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-white rounded-full"></div>
-        <div className="absolute bottom-32 left-20 w-1 h-1 bg-primary rounded-full"></div>
-      </div>
 
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 max-w-7xl relative z-10">
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
