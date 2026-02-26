@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -15,24 +15,6 @@ export const insertUserSchema = createInsertSchema(users, {
   username: true,
   password: true,
   isAdmin: true,
-});
-
-export const contactForm = pgTable("contact_form", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone").notNull(),
-  subject: text("subject").notNull(),
-  message: text("message").notNull(),
-  createdAt: text("created_at").notNull(),
-});
-
-export const insertContactSchema = createInsertSchema(contactForm).pick({
-  name: true,
-  email: true,
-  phone: true,
-  subject: true,
-  message: true,
 });
 
 export const products = pgTable("products", {
@@ -61,9 +43,6 @@ export const insertProductSchema = createInsertSchema(products, {
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
-
-export type InsertContact = z.infer<typeof insertContactSchema>;
-export type Contact = typeof contactForm.$inferSelect;
 
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type Product = typeof products.$inferSelect;

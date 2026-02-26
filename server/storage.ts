@@ -3,56 +3,11 @@ import { db } from "./db";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
-export interface IStorage {
-  // User operations
-  getUser(id: number): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-  
-  // Product operations
-  getAllProducts(): Promise<Product[]>;
-  getProductById(id: number): Promise<Product | undefined>;
-  createProduct(product: InsertProduct & { createdAt: string }): Promise<Product>;
-  updateProduct(id: number, product: Partial<InsertProduct>): Promise<Product | undefined>;
-  deleteProduct(id: number): Promise<boolean>;
-  
-  // Product filtering operations
-  getCarModels(): Promise<string[]>;
-  getTransmissionsByCarModel(carModel: string): Promise<string[]>;
-  getMotorizationsByTransmission(carModel: string, transmission: string): Promise<string[]>;
-  getYearsByMotorization(carModel: string, transmission: string, motorization: string): Promise<string[]>;
-  getFilteredProducts(filters: {
-    carModel?: string;
-    transmission?: string;
-    motorization?: string;
-    year?: string;
-  }): Promise<Product[]>;
-  
-  // All filter values (for admin form)
-  getAllTransmissions(): Promise<string[]>;
-  getAllMotorizations(): Promise<string[]>;
-  getAllYears(): Promise<string[]>;
-}
-
-export class DatabaseStorage implements IStorage {
+export class DatabaseStorage {
   constructor() {
-    // Create a default admin user for testing
     this.createDefaultAdminUser();
   }
 
-  /**
-   * Helper to extract unique values from an array while preserving order.
-   * Using a simple filter + indexOf approach avoids allocating a Set and
-   * works with primitive types. This method can be reused by the various
-   * filter functions below to eliminate duplicate strings.
-   * 
-   * @param values Array of primitive values (e.g. strings) to deduplicate
-   * @returns Array containing only the first occurrence of each unique value
-   */
-  private getUniqueValues<T>(values: T[]): T[] {
-    return values.filter((value, index, self) => self.indexOf(value) === index);
-  }
-  
   private async createDefaultAdminUser() {
     const adminPassword = process.env.ADMIN_PASSWORD;
     if (!adminPassword) {
@@ -88,133 +43,103 @@ export class DatabaseStorage implements IStorage {
   async createUser(insertUser: InsertUser): Promise<User> {
     const [user] = await db
       .insert(users)
-      .values({
-        ...insertUser,
-        isAdmin: insertUser.isAdmin === true
-      })
+      .values({ ...insertUser, isAdmin: insertUser.isAdmin === true })
       .returning();
     return user;
   }
-  
+
   // Product methods
   async getAllProducts(): Promise<Product[]> {
-    const allProducts = await db.select().from(products);
-    return allProducts;
+    return db.select().from(products);
   }
-  
+
   async getProductById(id: number): Promise<Product | undefined> {
     const [product] = await db.select().from(products).where(eq(products.id, id));
     return product || undefined;
   }
-  
+
   async createProduct(productData: InsertProduct & { createdAt: string }): Promise<Product> {
     const [product] = await db
       .insert(products)
-      .values({
-        ...productData,
-        imageUrl: productData.imageUrl || null
-      })
+      .values({ ...productData, imageUrl: productData.imageUrl || null })
       .returning();
     return product;
   }
-  
+
   async updateProduct(id: number, productData: Partial<InsertProduct>): Promise<Product | undefined> {
-    const [updatedProduct] = await db
+    const [updated] = await db
       .update(products)
       .set(productData)
       .where(eq(products.id, id))
       .returning();
-    return updatedProduct || undefined;
+    return updated || undefined;
   }
-  
+
   async deleteProduct(id: number): Promise<boolean> {
     const result = await db.delete(products).where(eq(products.id, id));
     return (result.rowCount ?? 0) > 0;
   }
-  
-  // Product filtering methods
+
+  // Cascading filter methods (used by public catalog)
   async getCarModels(): Promise<string[]> {
-    const result = await db
-      .selectDistinct({ carModel: products.carModel })
-      .from(products);
-    return result.map(row => row.carModel);
+    const rows = await db.selectDistinct({ carModel: products.carModel }).from(products);
+    return rows.map(r => r.carModel);
   }
-  
+
   async getTransmissionsByCarModel(carModel: string): Promise<string[]> {
-    const result = await db
+    const rows = await db
       .selectDistinct({ transmission: products.transmission })
       .from(products)
       .where(eq(products.carModel, carModel));
-    return result.map(row => row.transmission);
+    return rows.map(r => r.transmission);
   }
-  
+
   async getMotorizationsByTransmission(carModel: string, transmission: string): Promise<string[]> {
-    const result = await db
+    const rows = await db
       .selectDistinct({ motorization: products.motorization })
       .from(products)
       .where(sql`${products.carModel} = ${carModel} AND ${products.transmission} = ${transmission}`);
-    return result.map(row => row.motorization);
+    return rows.map(r => r.motorization);
   }
-  
+
   async getYearsByMotorization(carModel: string, transmission: string, motorization: string): Promise<string[]> {
-    const result = await db
+    const rows = await db
       .selectDistinct({ year: products.year })
       .from(products)
       .where(sql`${products.carModel} = ${carModel} AND ${products.transmission} = ${transmission} AND ${products.motorization} = ${motorization}`);
-    return result.map(row => row.year);
+    return rows.map(r => r.year);
   }
-  
+
   async getFilteredProducts(filters: {
     carModel?: string;
     transmission?: string;
     motorization?: string;
     year?: string;
   }): Promise<Product[]> {
-    const query = db.select().from(products);
-    
     const conditions = [];
-    if (filters.carModel) {
-      conditions.push(eq(products.carModel, filters.carModel));
-    }
-    if (filters.transmission) {
-      conditions.push(eq(products.transmission, filters.transmission));
-    }
-    if (filters.motorization) {
-      conditions.push(eq(products.motorization, filters.motorization));
-    }
-    if (filters.year) {
-      conditions.push(eq(products.year, filters.year));
-    }
-    
-    if (conditions.length > 0) {
-      return await query.where(sql.join(conditions, sql` AND `));
-    }
-    
-    return await query;
+    if (filters.carModel)     conditions.push(eq(products.carModel, filters.carModel));
+    if (filters.transmission) conditions.push(eq(products.transmission, filters.transmission));
+    if (filters.motorization) conditions.push(eq(products.motorization, filters.motorization));
+    if (filters.year)         conditions.push(eq(products.year, filters.year));
+
+    const query = db.select().from(products);
+    return conditions.length > 0 ? query.where(sql.join(conditions, sql` AND `)) : query;
   }
-  
-  // Get all unique transmissions
+
+  // All-values methods (used by admin form)
   async getAllTransmissions(): Promise<string[]> {
-    const result = await db
-      .selectDistinct({ transmission: products.transmission })
-      .from(products);
-    return result.map(row => row.transmission);
+    const rows = await db.selectDistinct({ transmission: products.transmission }).from(products);
+    return rows.map(r => r.transmission);
   }
-  
-  // Get all unique motorizations
+
   async getAllMotorizations(): Promise<string[]> {
-    const result = await db
-      .selectDistinct({ motorization: products.motorization })
-      .from(products);
-    return result.map(row => row.motorization);
+    const rows = await db.selectDistinct({ motorization: products.motorization }).from(products);
+    return rows.map(r => r.motorization);
   }
-  
-  // Get all unique years
+
   async getAllYears(): Promise<string[]> {
-    const result = await db
-      .selectDistinct({ year: products.year })
-      .from(products);
-    return result.map(row => row.year);
+    const rows = await db.selectDistinct({ year: products.year }).from(products);
+    return rows.map(r => r.year);
   }
 }
 
