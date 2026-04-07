@@ -1,0 +1,479 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Magnum Torque" [ref=e4] [cursor=pointer]:
+        - /url: "#inicio"
+      - navigation [ref=e5]:
+        - link "Início" [ref=e6] [cursor=pointer]:
+          - /url: "#inicio"
+        - link "Sobre" [ref=e7] [cursor=pointer]:
+          - /url: "#sobre"
+        - link "Serviços" [ref=e8] [cursor=pointer]:
+          - /url: "#servicos"
+        - link "Peças" [ref=e9] [cursor=pointer]:
+          - /url: "#pecas"
+        - link "Parceiros" [ref=e10] [cursor=pointer]:
+          - /url: "#parceiros"
+        - link "Depoimentos" [ref=e11] [cursor=pointer]:
+          - /url: "#depoimentos"
+        - link "FAQ" [ref=e12] [cursor=pointer]:
+          - /url: "#faq"
+        - link "Entre em Contato" [ref=e13] [cursor=pointer]:
+          - /url: "#contato"
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - img [ref=e21]
+      - text: Atendimento especializado
+    - heading "Especialistas em Retífica de Conversores de Torque" [level=1] [ref=e23]
+    - paragraph [ref=e24]: Soluções completas para manutenção e reparo de conversores de torque com qualidade superior e garantia de excelência.
+    - link "Entre em Contato" [ref=e26] [cursor=pointer]:
+      - /url: "#contato"
+      - text: Entre em Contato
+      - img [ref=e27]
+    - generic [ref=e29]:
+      - paragraph [ref=e30]: Orçamento rápido em até 2 dias úteis
+      - paragraph [ref=e32]: Serviço completo em até 4 dias úteis após aprovação
+  - generic [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e37]: Sobre Nós
+      - heading "Conheça a Magnum Torque" [level=2] [ref=e38]
+      - paragraph [ref=e39]: Referência nacional em retífica de conversores de torque. Técnicas exclusivas, peças premium e garantia em todos os serviços.
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - img [ref=e44]
+          - heading "Nossa História" [level=3] [ref=e48]
+        - paragraph [ref=e50]: Com mais de 10 anos de experiência, a Magnum Torque desenvolveu métodos únicos para reparar conversores considerados irreparáveis por outras empresas. Atendemos todo o Brasil via transportadora.
+      - img "Magnum Torque - 10 Anos" [ref=e52]
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]: 10+
+        - heading "Anos de Experiência" [level=3] [ref=e56]
+        - paragraph [ref=e57]: Mais de uma década especializada exclusivamente em conversores de torque.
+      - generic [ref=e58]:
+        - img [ref=e60]
+        - heading "Técnicas Exclusivas" [level=3] [ref=e63]
+        - paragraph [ref=e64]: Recuperamos conversores considerados irreparáveis por outras empresas.
+      - generic [ref=e65]:
+        - img [ref=e67]
+        - heading "Peças Premium" [level=3] [ref=e70]
+        - paragraph [ref=e71]: Raybestos, Sonnax, Tricomponent, Transtec, Alto.
+      - generic [ref=e72]:
+        - img [ref=e74]
+        - heading "Garantia de 6 Meses" [level=3] [ref=e76]
+        - paragraph [ref=e77]: Todos os serviços com garantia estendida.
+      - generic [ref=e78]:
+        - img [ref=e80]
+        - heading "Entrega em 3-5 Dias" [level=3] [ref=e83]
+        - paragraph [ref=e84]: Orçamento em 1-2 dias. Serviço completo em até 4 dias úteis.
+      - generic [ref=e85]:
+        - img [ref=e87]
+        - heading "Atendimento Nacional" [level=3] [ref=e90]
+        - paragraph [ref=e91]: Recebemos e devolvemos via transportadora para todo o Brasil.
+  - generic [ref=e93]:
+    - generic [ref=e94]:
+      - generic [ref=e95]:
+        - img [ref=e96]
+        - text: Nossos Serviços
+      - heading "Soluções Especializadas" [level=2] [ref=e98]
+      - paragraph [ref=e99]: Técnicas exclusivas e resultados comprovados para todos os tipos de conversores de torque.
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - img [ref=e104]
+          - img "Retífica Completa de Conversores" [ref=e106]
+        - generic [ref=e107]:
+          - heading "Retífica Completa de Conversores" [level=3] [ref=e108]
+          - paragraph [ref=e110]: Recondicionamento completo de conversores de torque para todos os tipos de veículos, incluindo carros de passeio, caminhões e máquinas pesadas.
+          - list [ref=e111]:
+            - listitem [ref=e112]: Diagnóstico computadorizado
+            - listitem [ref=e113]: Remanufatura total de componentes
+            - listitem [ref=e114]: Garantia de 6 meses
+          - link "Solicitar Orçamento" [ref=e115] [cursor=pointer]:
+            - /url: "#contato"
+            - text: Solicitar Orçamento
+            - img [ref=e116]
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - img [ref=e121]
+          - img "Orçamento Rápido" [ref=e124]
+        - generic [ref=e125]:
+          - heading "Orçamento Rápido" [level=3] [ref=e126]
+          - paragraph [ref=e128]: Diagnóstico técnico e orçamento em apenas 1-2 dias, com análise detalhada do seu conversor de torque usando equipamentos especializados.
+          - list [ref=e129]:
+            - listitem [ref=e130]: Avaliação técnica gratuita
+            - listitem [ref=e131]: Resposta em até 2 dias úteis
+            - listitem [ref=e132]: Sem compromisso
+          - link "Solicitar Orçamento" [ref=e133] [cursor=pointer]:
+            - /url: "#contato"
+            - text: Solicitar Orçamento
+            - img [ref=e134]
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - img [ref=e139]
+          - img "Substituição de Componentes" [ref=e141]
+        - generic [ref=e142]:
+          - heading "Substituição de Componentes" [level=3] [ref=e143]
+          - paragraph [ref=e145]: Troca de peças danificadas utilizando componentes de parceiros premium como Raybestos, Sonnax e Tricomponent, com garantia de 6 meses.
+          - list [ref=e146]:
+            - listitem [ref=e147]: Peças originais de parceiros premium
+            - listitem [ref=e148]: Compatibilidade 100% garantida
+            - listitem [ref=e149]: Instalação profissional
+          - link "Solicitar Orçamento" [ref=e150] [cursor=pointer]:
+            - /url: "#contato"
+            - text: Solicitar Orçamento
+            - img [ref=e151]
+  - generic [ref=e154]:
+    - generic [ref=e155]:
+      - generic [ref=e156]: Venda de Peças
+      - heading "Peças para Transmissão Automática" [level=2] [ref=e157]
+      - paragraph [ref=e158]: Ampla variedade de peças e componentes para transmissão automática das melhores marcas do mercado.
+    - generic [ref=e159]:
+      - generic [ref=e160]:
+        - img [ref=e162]
+        - heading "Kits de Reparo" [level=3] [ref=e165]
+        - paragraph [ref=e166]: Kits completos com todas as peças necessárias para rebuild de transmissões.
+      - generic [ref=e167]:
+        - img [ref=e169]
+        - heading "Discos e Embreagens" [level=3] [ref=e172]
+        - paragraph [ref=e173]: Discos de atrito e steel discs de alta qualidade para todas as aplicações.
+      - generic [ref=e174]:
+        - img [ref=e176]
+        - heading "Bombas e Válvulas" [level=3] [ref=e178]
+        - paragraph [ref=e179]: Bombas de óleo e corpos de válvula para diversos modelos de transmissão.
+      - generic [ref=e180]:
+        - img [ref=e182]
+        - heading "Filtros e Juntas" [level=3] [ref=e185]
+        - paragraph [ref=e186]: Linhas completas de filtros e kits de junta para manutenção preventiva.
+      - generic [ref=e187]:
+        - img [ref=e189]
+        - heading "Marcas Premium" [level=3] [ref=e191]
+        - paragraph [ref=e192]: Raybestos, Sonnax, Tricomponent, Transtec, Alto e outras marcas líderes.
+      - generic [ref=e193]:
+        - img [ref=e195]
+        - heading "Envio para Todo Brasil" [level=3] [ref=e198]
+        - paragraph [ref=e199]: Despachamos peças para qualquer região do país com frete rápido e seguro.
+    - link "Solicitar Cotação de Peças" [ref=e201] [cursor=pointer]:
+      - /url: "#contato"
+      - text: Solicitar Cotação de Peças
+      - img [ref=e202]
+  - generic [ref=e205]:
+    - generic [ref=e206]:
+      - generic [ref=e207]: Parceiros
+      - heading "Nossos Parceiros" [level=2] [ref=e208]
+      - paragraph [ref=e209]: Trabalhamos com os melhores parceiros do mercado para garantir a qualidade dos nossos serviços.
+    - generic [ref=e210]:
+      - link "Logo da Raybestos" [ref=e211] [cursor=pointer]:
+        - /url: https://www.raybestospowertrain.com/
+        - img "Logo da Raybestos"
+      - link "Logo da TCRA" [ref=e212] [cursor=pointer]:
+        - /url: https://tcraonline.com/
+        - img "Logo da TCRA"
+      - link "Logo da Allomatic" [ref=e213] [cursor=pointer]:
+        - /url: https://www.allomatic.com/
+        - img "Logo da Allomatic"
+      - link "Logo da Tricomponent" [ref=e214] [cursor=pointer]:
+        - /url: https://tricomponent.com/
+        - img "Logo da Tricomponent"
+      - link "Logo da Touver" [ref=e215] [cursor=pointer]:
+        - /url: https://www.touvertreinamentos.com.br/
+        - img "Logo da Touver"
+      - link "Logo da Sonnax" [ref=e216] [cursor=pointer]:
+        - /url: https://www.sonnax.com/
+        - img "Logo da Sonnax"
+      - link "Logo da TRANStec" [ref=e217] [cursor=pointer]:
+        - /url: https://transtec.com/
+        - img "Logo da TRANStec"
+      - link "Logo da Valeo" [ref=e218] [cursor=pointer]:
+        - /url: https://www.valeoservice.com.br/pt-br
+        - img "Logo da Valeo"
+      - link "Logo da Alto USA" [ref=e219] [cursor=pointer]:
+        - /url: https://www.altousa.com/
+        - img "Logo da Alto USA"
+  - generic [ref=e221]:
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - img [ref=e224]
+        - text: Depoimentos
+      - heading "O Que Nossos Clientes Dizem" [level=2] [ref=e226]
+      - paragraph [ref=e227]: Conheça as experiências reais de quem já utilizou nossos serviços e comprovou nossa qualidade excepcional.
+    - generic [ref=e228]:
+      - generic [ref=e230]:
+        - generic [ref=e231]:
+          - generic [ref=e232]:
+            - img [ref=e234]
+            - generic [ref=e236]:
+              - img [ref=e237]
+              - img [ref=e239]
+              - img [ref=e241]
+              - img [ref=e243]
+              - img [ref=e245]
+          - blockquote [ref=e247]: "\"Tive o prazer de conhecer a empresa e acompanhar com detalhes o trabalho por eles desenvolvido. Gostei muito da transparência e honestidade e qualidade no trabalho que fazem. Parabéns a toda equipe!\""
+          - generic [ref=e248]:
+            - generic [ref=e249]: EF
+            - generic [ref=e250]:
+              - heading "Edevan Ferrarezi" [level=4] [ref=e251]
+              - paragraph [ref=e252]: Cliente
+        - generic [ref=e253]:
+          - generic [ref=e254]:
+            - img [ref=e256]
+            - generic [ref=e258]:
+              - img [ref=e259]
+              - img [ref=e261]
+              - img [ref=e263]
+              - img [ref=e265]
+              - img [ref=e267]
+          - blockquote [ref=e269]: "\"Fiz uma consulta por telefone, e fui muito bem atendido, com respostas claras, técnicas e cordiais...\""
+          - generic [ref=e270]:
+            - generic [ref=e271]: CS
+            - generic [ref=e272]:
+              - heading "Carlos H. de Seixas" [level=4] [ref=e273]
+              - paragraph [ref=e274]: Cliente
+        - generic [ref=e275]:
+          - generic [ref=e276]:
+            - img [ref=e278]
+            - generic [ref=e280]:
+              - img [ref=e281]
+              - img [ref=e283]
+              - img [ref=e285]
+              - img [ref=e287]
+              - img [ref=e289]
+          - blockquote [ref=e291]: "\"Sempre muito prestativos e respeitosos com o cliente. Super recomendo!\""
+          - generic [ref=e292]:
+            - generic [ref=e293]: AD
+            - generic [ref=e294]:
+              - heading "Agnaldo Durant" [level=4] [ref=e295]
+              - paragraph [ref=e296]: Cliente
+        - generic [ref=e297]:
+          - generic [ref=e298]:
+            - img [ref=e300]
+            - generic [ref=e302]:
+              - img [ref=e303]
+              - img [ref=e305]
+              - img [ref=e307]
+              - img [ref=e309]
+              - img [ref=e311]
+          - blockquote [ref=e313]: "\"Serviço de primeira qualidade e preço justo, ótimo atendimento!\""
+          - generic [ref=e314]:
+            - generic [ref=e315]: GS
+            - generic [ref=e316]:
+              - heading "Geson Junior Soares" [level=4] [ref=e317]
+              - paragraph [ref=e318]: Cliente
+        - generic [ref=e319]:
+          - generic [ref=e320]:
+            - img [ref=e322]
+            - generic [ref=e324]:
+              - img [ref=e325]
+              - img [ref=e327]
+              - img [ref=e329]
+              - img [ref=e331]
+              - img [ref=e333]
+          - blockquote [ref=e335]: "\"Pessoal muito atencioso e educado, o serviço é top, estou satisfeito.\""
+          - generic [ref=e336]:
+            - generic [ref=e337]: MN
+            - generic [ref=e338]:
+              - heading "Mauricio Negrão" [level=4] [ref=e339]
+              - paragraph [ref=e340]: Cliente
+        - generic [ref=e341]:
+          - generic [ref=e342]:
+            - img [ref=e344]
+            - generic [ref=e346]:
+              - img [ref=e347]
+              - img [ref=e349]
+              - img [ref=e351]
+              - img [ref=e353]
+              - img [ref=e355]
+          - blockquote [ref=e357]: "\"Ótimo atendimento, trabalho de qualidade e preço justo.\""
+          - generic [ref=e358]:
+            - generic [ref=e359]: MV
+            - generic [ref=e360]:
+              - heading "Marcos Paulo Vicari" [level=4] [ref=e361]
+              - paragraph [ref=e362]: Cliente
+        - generic [ref=e363]:
+          - generic [ref=e364]:
+            - img [ref=e366]
+            - generic [ref=e368]:
+              - img [ref=e369]
+              - img [ref=e371]
+              - img [ref=e373]
+              - img [ref=e375]
+              - img [ref=e377]
+          - blockquote [ref=e379]: "\"Ótimo atendimento. Parabéns a toda equipe.\""
+          - generic [ref=e380]:
+            - generic [ref=e381]: JB
+            - generic [ref=e382]:
+              - heading "Jean Borges" [level=4] [ref=e383]
+              - paragraph [ref=e384]: Cliente
+      - generic [ref=e385]:
+        - button "Depoimento anterior" [ref=e386] [cursor=pointer]:
+          - img [ref=e387]
+        - generic [ref=e389]:
+          - button "Ver depoimento 1" [ref=e390] [cursor=pointer]
+          - button "Ver depoimento 2" [ref=e391] [cursor=pointer]
+          - button "Ver depoimento 3" [ref=e392] [cursor=pointer]
+          - button "Ver depoimento 4" [ref=e393] [cursor=pointer]
+          - button "Ver depoimento 5" [ref=e394] [cursor=pointer]
+          - button "Ver depoimento 6" [ref=e395] [cursor=pointer]
+        - button "Próximo depoimento" [ref=e396] [cursor=pointer]:
+          - img [ref=e397]
+  - generic [ref=e400]:
+    - generic [ref=e401]:
+      - heading "Entre em Contato" [level=2] [ref=e402]
+      - paragraph [ref=e403]: Estamos prontos para atender suas necessidades e esclarecer quaisquer dúvidas. Entre em contato através dos nossos canais ou envie sua mensagem.
+    - generic [ref=e405]:
+      - generic [ref=e407]:
+        - generic [ref=e408]: Contato Direto
+        - heading "Informações de Contato" [level=3] [ref=e409]
+        - paragraph [ref=e410]: "Estamos prontos para atender sua necessidade. Entre em contato pelos nossos canais:"
+        - generic [ref=e411]:
+          - img [ref=e413]
+          - generic [ref=e415]:
+            - heading "Telefone/WhatsApp" [level=4] [ref=e416]
+            - paragraph [ref=e417]:
+              - link "(41) 3503-6828" [ref=e418] [cursor=pointer]:
+                - /url: https://wa.me/554135036828
+        - generic [ref=e419]:
+          - img [ref=e421]
+          - generic [ref=e424]:
+            - heading "E-mail" [level=4] [ref=e425]
+            - paragraph [ref=e426]: contato@magnumtorque.com.br
+        - generic [ref=e427]:
+          - img [ref=e429]
+          - generic [ref=e432]:
+            - heading "Endereço" [level=4] [ref=e433]
+            - paragraph [ref=e434]: Rua Irmã Maria Lucia Roland, 403 - Hauer
+            - paragraph [ref=e435]: Curitiba - PR, 81610-090
+        - generic [ref=e436]:
+          - img [ref=e438]
+          - generic [ref=e441]:
+            - heading "Horário de Atendimento" [level=4] [ref=e442]
+            - paragraph [ref=e443]: "Segunda a Sexta: 8h às 18h"
+            - paragraph [ref=e444]: Sem fechamento para almoço
+      - generic [ref=e445]:
+        - generic [ref=e446]: Formulário de Contato
+        - heading "Envie sua Mensagem" [level=3] [ref=e447]
+        - paragraph [ref=e448]: Preencha o formulário abaixo e entraremos em contato o mais breve possível.
+        - generic [ref=e449]:
+          - generic [ref=e450]:
+            - generic [ref=e451]:
+              - generic [ref=e452]: Nome Completo
+              - textbox "Nome Completo" [ref=e453]:
+                - /placeholder: Seu nome
+            - generic [ref=e454]:
+              - generic [ref=e455]: E-mail
+              - textbox "E-mail" [ref=e456]:
+                - /placeholder: seu@email.com
+          - generic [ref=e458]:
+            - generic [ref=e459]: Assunto
+            - combobox "Assunto" [ref=e460] [cursor=pointer]:
+              - option "Selecione um assunto" [selected]
+              - option "Orçamento"
+              - option "Dúvida Técnica"
+              - option "Agendamento"
+              - option "Outro"
+          - generic [ref=e462]:
+            - generic [ref=e463]: Mensagem
+            - textbox "Mensagem" [ref=e464]:
+              - /placeholder: Digite sua mensagem aqui...
+          - button "Enviar Mensagem" [ref=e465] [cursor=pointer]
+  - generic [ref=e467]:
+    - generic [ref=e468]:
+      - generic [ref=e469]: Perguntas Frequentes
+      - heading "Dúvidas Comuns" [level=2] [ref=e470]
+      - paragraph [ref=e471]: Tire suas dúvidas sobre nossos serviços de retífica de conversores de torque.
+    - generic [ref=e472]:
+      - group [ref=e473]:
+        - generic "Qual o prazo para retífica completa de um conversor de torque?" [ref=e474] [cursor=pointer]:
+          - generic [ref=e475]: Qual o prazo para retífica completa de um conversor de torque?
+          - img [ref=e476]
+      - group [ref=e478]:
+        - generic "Vocês atendem apenas Curitiba ou todo o Brasil?" [ref=e479] [cursor=pointer]:
+          - generic [ref=e480]: Vocês atendem apenas Curitiba ou todo o Brasil?
+          - img [ref=e481]
+      - group [ref=e483]:
+        - generic "Qual a garantia dos serviços?" [ref=e484] [cursor=pointer]:
+          - generic [ref=e485]: Qual a garantia dos serviços?
+          - img [ref=e486]
+      - group [ref=e488]:
+        - generic "Vocês trabalham com quais tipos de veículos?" [ref=e489] [cursor=pointer]:
+          - generic [ref=e490]: Vocês trabalham com quais tipos de veículos?
+          - img [ref=e491]
+      - group [ref=e493]:
+        - generic "Vocês vendem peças para transmissão?" [ref=e494] [cursor=pointer]:
+          - generic [ref=e495]: Vocês vendem peças para transmissão?
+          - img [ref=e496]
+      - group [ref=e498]:
+        - generic "Por que escolher a Magnum Torque?" [ref=e499] [cursor=pointer]:
+          - generic [ref=e500]: Por que escolher a Magnum Torque?
+          - img [ref=e501]
+      - group [ref=e503]:
+        - generic "Como solicitar um orçamento?" [ref=e504] [cursor=pointer]:
+          - generic [ref=e505]: Como solicitar um orçamento?
+          - img [ref=e506]
+      - group [ref=e508]:
+        - generic "Vale a pena retificar ou é melhor comprar um novo?" [ref=e509] [cursor=pointer]:
+          - generic [ref=e510]: Vale a pena retificar ou é melhor comprar um novo?
+          - img [ref=e511]
+  - contentinfo [ref=e513]:
+    - generic [ref=e514]:
+      - generic [ref=e515]:
+        - generic [ref=e516]:
+          - heading "Magnum Torque" [level=3] [ref=e517]
+          - paragraph [ref=e518]: Retífica de conversores de torque há mais de 10 anos.
+          - generic [ref=e519]:
+            - link "Facebook" [ref=e520] [cursor=pointer]:
+              - /url: https://www.facebook.com/magnumtorque
+              - img [ref=e521]
+            - link "Instagram" [ref=e523] [cursor=pointer]:
+              - /url: https://www.instagram.com/magnumtorque
+              - img [ref=e524]
+            - link "TikTok" [ref=e527] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@magnumtorque
+              - img [ref=e528]
+            - link "WhatsApp" [ref=e530] [cursor=pointer]:
+              - /url: https://wa.me/554135036828
+              - img [ref=e531]
+        - generic [ref=e533]:
+          - heading "Navegação" [level=3] [ref=e534]
+          - list [ref=e535]:
+            - listitem [ref=e536]:
+              - link "Início" [ref=e537] [cursor=pointer]:
+                - /url: "#inicio"
+            - listitem [ref=e538]:
+              - link "Sobre" [ref=e539] [cursor=pointer]:
+                - /url: "#sobre"
+            - listitem [ref=e540]:
+              - link "Serviços" [ref=e541] [cursor=pointer]:
+                - /url: "#servicos"
+            - listitem [ref=e542]:
+              - link "Peças" [ref=e543] [cursor=pointer]:
+                - /url: "#pecas"
+            - listitem [ref=e544]:
+              - link "FAQ" [ref=e545] [cursor=pointer]:
+                - /url: "#faq"
+            - listitem [ref=e546]:
+              - link "Contato" [ref=e547] [cursor=pointer]:
+                - /url: "#contato"
+        - generic [ref=e548]:
+          - heading "Contato" [level=3] [ref=e549]
+          - list [ref=e550]:
+            - listitem [ref=e551]:
+              - img [ref=e552]
+              - link "(41) 3503-6828" [ref=e554] [cursor=pointer]:
+                - /url: https://wa.me/554135036828
+            - listitem [ref=e555]:
+              - img [ref=e556]
+              - link "contato@magnumtorque.com.br" [ref=e559] [cursor=pointer]:
+                - /url: mailto:contato@magnumtorque.com.br
+            - listitem [ref=e560]:
+              - img [ref=e561]
+              - generic [ref=e564]: Curitiba - PR
+          - button "Trabalhe Conosco" [ref=e565] [cursor=pointer]
+      - generic [ref=e566]:
+        - paragraph [ref=e567]: © 2026 Magnum Torque. Todos os direitos reservados.
+        - paragraph [ref=e568]:
+          - text: Desenvolvido por
+          - link "LBWMA INC." [ref=e569] [cursor=pointer]:
+            - /url: https://lbwma.com
+  - button "Voltar ao topo":
+    - img

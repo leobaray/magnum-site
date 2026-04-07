@@ -32,7 +32,7 @@ function scrollToSection(id, offset = 80) {
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 10);
 
-    const sections = ['inicio', 'sobre', 'servicos', 'parceiros', 'depoimentos', 'contato'];
+    const sections = ['inicio', 'sobre', 'servicos', 'pecas', 'parceiros', 'depoimentos', 'faq', 'contato'];
     for (const id of sections) {
       const el = document.getElementById(id);
       if (el) {
