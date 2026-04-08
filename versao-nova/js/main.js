@@ -157,4 +157,5 @@ function scrollToSection(id, offset = 80) {
   openBtn.addEventListener('click', () => overlay.classList.add('open'));
   overlay.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => overlay.classList.remove('open')));
   overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) overlay.classList.remove('open'); });
 })();
