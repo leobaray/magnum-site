@@ -136,7 +136,9 @@ function scrollToSection(id, offset = 80) {
 
     const labels = { orcamento: 'Orçamento', duvida: 'Dúvida Técnica', agendamento: 'Agendamento', outro: 'Outro' };
     const text = `${labels[subject.value] || subject.value}\n\n${message.value}\n\n${name.value}\n${email.value}`;
-    window.open(`https://wa.me/554135036828?text=${encodeURIComponent(text)}`, '_blank');
+    const waUrl = `https://wa.me/554135036828?text=${encodeURIComponent(text)}`;
+    const opened = window.open(waUrl, '_blank');
+    if (!opened) { window.location.href = waUrl; }
     form.reset();
   });
 })();
