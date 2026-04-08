@@ -99,7 +99,7 @@ function scrollToSection(id, offset = 80) {
   track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend', (e) => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) { diff > 0 ? nextBtn.click() : prevBtn.click(); }
+    if (Math.abs(diff) > 50) { e.preventDefault(); diff > 0 ? nextBtn.click() : prevBtn.click(); }
   });
 
   window.addEventListener('resize', () => {
