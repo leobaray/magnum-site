@@ -1,0 +1,9 @@
+/* TEAM */
+Empresa: Magnum Torque Retifica LTDA
+Contato: contato@magnumtorque.com.br
+Localização: Curitiba, PR, Brasil
+
+/* SITE */
+Desenvolvido por: LBWMA — https://lbwma.com
+Linguagens: HTML5, CSS3, JavaScript
+Padrões: HTML5, CSS3, Schema.org, Open Graph

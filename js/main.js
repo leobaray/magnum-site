@@ -12,7 +12,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
     if (!el) return;
     requestAnimationFrame(() => {
       const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'instant' in window ? 'instant' : 'auto' });
+      window.scrollTo({ top, behavior: 'instant' });
     });
   });
 })();
@@ -39,12 +39,22 @@ function scrollToSection(id, offset = 80) {
   const sectionIds = ['inicio', 'sobre', 'servicos', 'pecas', 'parceiros', 'depoimentos', 'faq', 'contato'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
-  function closeMobile() {
-    if (mobileNav.classList.contains('open')) {
-      mobileNav.classList.remove('open');
-      hamburger.innerHTML = iconMenu;
-    }
+  function setMobileOpen(open) {
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+    hamburger.innerHTML = open ? iconX : iconMenu;
+    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    hamburger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
   }
+  function closeMobile() {
+    if (mobileNav.classList.contains('open')) setMobileOpen(false);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
+      closeMobile();
+      hamburger.focus();
+    }
+  });
 
   // Header shadow on scroll
   window.addEventListener('scroll', () => {
@@ -92,7 +102,7 @@ function scrollToSection(id, offset = 80) {
   updateActive();
 
   hamburger.addEventListener('click', () => {
-    hamburger.innerHTML = mobileNav.classList.toggle('open') ? iconX : iconMenu;
+    setMobileOpen(!mobileNav.classList.contains('open'));
   });
 
   logoLink.addEventListener('click', (e) => { e.preventDefault(); scrollToSection('inicio'); closeMobile(); });
@@ -109,11 +119,16 @@ function scrollToSection(id, offset = 80) {
   const nextBtn = document.getElementById('carousel-next');
   const dotsContainer = document.getElementById('carousel-dots');
   if (!track) return;
+  const wrapper = track.closest('.carousel-wrapper');
 
   const cards = track.children;
   const total = cards.length;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const AUTOPLAY_MS = 6000;
+
   let current = 0;
   let perView = getPerView();
+  let timer = null;
 
   function getPerView() {
     if (window.innerWidth >= 1024) return 3;
@@ -125,30 +140,65 @@ function scrollToSection(id, offset = 80) {
   function update() {
     const gap = 24;
     track.style.transform = `translateX(-${current * (cards[0].offsetWidth + gap)}px)`;
-    Array.from(dotsContainer.children).forEach((d, i) => d.classList.toggle('active', i === current));
+    Array.from(dotsContainer.children).forEach((d, i) => {
+      const active = i === current;
+      d.classList.toggle('active', active);
+      d.setAttribute('aria-selected', active ? 'true' : 'false');
+      d.setAttribute('tabindex', active ? '0' : '-1');
+    });
+  }
+
+  function go(idx) {
+    const max = maxIdx();
+    current = idx < 0 ? max : idx > max ? 0 : idx;
+    update();
   }
 
   function buildDots() {
     dotsContainer.innerHTML = '';
     for (let i = 0; i <= maxIdx(); i++) {
       const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('role', 'tab');
       dot.setAttribute('aria-label', `Ver depoimento ${i + 1}`);
+      dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      dot.setAttribute('tabindex', i === current ? '0' : '-1');
       if (i === current) dot.classList.add('active');
-      dot.addEventListener('click', () => { current = i; update(); });
+      dot.addEventListener('click', () => { stopAuto(); go(i); startAuto(); });
       dotsContainer.appendChild(dot);
     }
   }
 
-  prevBtn.addEventListener('click', () => { current = current > 0 ? current - 1 : maxIdx(); update(); });
-  nextBtn.addEventListener('click', () => { current = current < maxIdx() ? current + 1 : 0; update(); });
+  function startAuto() {
+    if (reduceMotion.matches) return;
+    stopAuto();
+    timer = setInterval(() => go(current + 1), AUTOPLAY_MS);
+  }
+  function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+  prevBtn.addEventListener('click', () => { stopAuto(); go(current - 1); startAuto(); });
+  nextBtn.addEventListener('click', () => { stopAuto(); go(current + 1); startAuto(); });
+
+  // Pausa em hover/focus
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', stopAuto);
+    wrapper.addEventListener('mouseleave', startAuto);
+    wrapper.addEventListener('focusin', stopAuto);
+    wrapper.addEventListener('focusout', startAuto);
+    wrapper.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stopAuto(); go(current - 1); startAuto(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); stopAuto(); go(current + 1); startAuto(); }
+    });
+  }
 
   // Touch swipe
   let startX = 0;
-  track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchstart', (e) => { stopAuto(); startX = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend', (e) => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) { e.preventDefault(); diff > 0 ? nextBtn.click() : prevBtn.click(); }
-  });
+    if (Math.abs(diff) > 50) { diff > 0 ? go(current + 1) : go(current - 1); }
+    startAuto();
+  }, { passive: true });
 
   window.addEventListener('resize', () => {
     perView = getPerView();
@@ -156,6 +206,17 @@ function scrollToSection(id, offset = 80) {
     buildDots();
     update();
   });
+
+  reduceMotion.addEventListener('change', () => { reduceMotion.matches ? stopAuto() : startAuto(); });
+
+  // Pausa quando não visível (economiza bateria)
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      entry.isIntersecting ? startAuto() : stopAuto();
+    }, { threshold: 0.2 }).observe(track);
+  } else {
+    startAuto();
+  }
 
   buildDots();
   update();
@@ -165,29 +226,71 @@ function scrollToSection(id, offset = 80) {
 (function () {
   const form = document.getElementById('contact-form');
   if (!form) return;
+  const status = document.getElementById('form-status');
+  const honeypot = form.querySelector('#hp-field');
+
+  function setStatus(msg, type) {
+    if (!status) return;
+    status.textContent = msg;
+    status.classList.remove('is-success', 'is-error');
+    if (type) status.classList.add(`is-${type}`);
+  }
+
+  function markInvalid(field, invalid) {
+    field.closest('.form-group').classList.toggle('has-error', invalid);
+    field.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+
+    // Honeypot: se preenchido, provavelmente bot. Silenciosamente aborta.
+    if (honeypot && honeypot.value) { form.reset(); return; }
 
     const name = form.querySelector('#name');
     const email = form.querySelector('#email');
     const subject = form.querySelector('#subject');
     const message = form.querySelector('#message');
     let valid = true;
+    let firstInvalid = null;
 
-    if (name.value.trim().length < 3) { name.closest('.form-group').classList.add('has-error'); valid = false; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email.closest('.form-group').classList.add('has-error'); valid = false; }
-    if (!subject.value) { subject.closest('.form-group').classList.add('has-error'); valid = false; }
-    if (message.value.trim().length < 10) { message.closest('.form-group').classList.add('has-error'); valid = false; }
-    if (!valid) return;
+    const checks = [
+      [name, name.value.trim().length >= 3],
+      [email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())],
+      [subject, !!subject.value],
+      [message, message.value.trim().length >= 10],
+    ];
+    for (const [field, ok] of checks) {
+      markInvalid(field, !ok);
+      if (!ok) { valid = false; firstInvalid = firstInvalid || field; }
+    }
+
+    if (!valid) {
+      setStatus('Revise os campos destacados antes de enviar.', 'error');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
 
     const labels = { orcamento: 'Orçamento', duvida: 'Dúvida Técnica', agendamento: 'Agendamento', outro: 'Outro' };
-    const text = `${labels[subject.value] || subject.value}\n\n${message.value}\n\n${name.value}\n${email.value}`;
+    const text = `${labels[subject.value] || subject.value}\n\n${message.value.trim()}\n\n${name.value.trim()}\n${email.value.trim()}`;
     const waUrl = `https://wa.me/554135036828?text=${encodeURIComponent(text)}`;
-    const opened = window.open(waUrl, '_blank');
-    if (!opened) { window.location.href = waUrl; }
+
+    setStatus('Abrindo WhatsApp...', 'success');
+    const opened = window.open(waUrl, '_blank', 'noopener');
+    if (!opened) { window.location.href = waUrl; return; }
     form.reset();
+    form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+    form.querySelectorAll('[aria-invalid]').forEach(f => f.setAttribute('aria-invalid', 'false'));
+    setTimeout(() => setStatus('', null), 4000);
+  });
+
+  // Limpa o erro ao digitar novamente
+  form.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('input', () => {
+      if (field.closest('.form-group')?.classList.contains('has-error')) {
+        markInvalid(field, false);
+      }
+    });
   });
 })();
 
@@ -204,8 +307,37 @@ function scrollToSection(id, offset = 80) {
   const overlay = document.getElementById('modal-overlay');
   const openBtn = document.getElementById('open-modal');
   if (!overlay || !openBtn) return;
-  openBtn.addEventListener('click', () => overlay.classList.add('open'));
-  overlay.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => overlay.classList.remove('open')));
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) overlay.classList.remove('open'); });
+  const modal = overlay.querySelector('.modal');
+  const FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])';
+  let lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    overlay.classList.add('open');
+    document.body.classList.add('modal-open');
+    const first = modal.querySelector(FOCUSABLE);
+    if (first) first.focus();
+  }
+  function close() {
+    overlay.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+  function trap(e) {
+    if (e.key !== 'Tab') return;
+    const items = modal.querySelectorAll(FOCUSABLE);
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  openBtn.addEventListener('click', open);
+  overlay.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', close));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else trap(e);
+  });
 })();
