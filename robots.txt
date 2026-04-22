@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /.gstack/
+Disallow: /.playwright-mcp/
+
+Sitemap: https://www.magnumtorque.com.br/sitemap.xml

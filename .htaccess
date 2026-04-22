@@ -1,0 +1,101 @@
+# ============================================================
+#  Magnum Torque - Configuracao Apache
+# ============================================================
+
+# Pagina de erro 404 personalizada
+ErrorDocument 404 /404.html
+
+# Define a pagina inicial
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ---- HTTPS + www canonico ---------------------------------
+  # Forca HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+  # Forca www (canonico)
+  RewriteCond %{HTTP_HOST} ^magnumtorque\.com\.br$ [NC]
+  RewriteRule ^ https://www.magnumtorque.com.br%{REQUEST_URI} [R=301,L,NE]
+
+  # ---- Rewrite de subpaginas legado para ancoras do SPA -----
+  # Permite que /sobre, /contato, /servicos, etc. redirecionem
+  # para a secao correspondente na home
+  RewriteRule ^(inicio|home|index)/?$ / [R=301,L,NE]
+  RewriteRule ^(sobre|about|empresa|quem-somos)/?$ /#sobre [R=301,L,NE]
+  RewriteRule ^(servicos|services|retifica|conversor|conversores)/?$ /#servicos [R=301,L,NE]
+  RewriteRule ^(pecas|parts|produtos)/?$ /#pecas [R=301,L,NE]
+  RewriteRule ^(parceiros|partners|marcas)/?$ /#parceiros [R=301,L,NE]
+  RewriteRule ^(depoimentos|testimonials|avaliacoes)/?$ /#depoimentos [R=301,L,NE]
+  RewriteRule ^(faq|duvidas|perguntas)/?$ /#faq [R=301,L,NE]
+  RewriteRule ^(contato|contact|orcamento|fale-conosco)/?$ /#contato [R=301,L,NE]
+</IfModule>
+
+# ============================================================
+#  Performance e cache
+# ============================================================
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                                      "access plus 1 month"
+
+  # HTML sempre fresco
+  ExpiresByType text/html                             "access plus 0 seconds"
+
+  # Assets com cache longo
+  ExpiresByType text/css                              "access plus 1 year"
+  ExpiresByType application/javascript                "access plus 1 year"
+  ExpiresByType image/webp                            "access plus 1 year"
+  ExpiresByType image/png                             "access plus 1 year"
+  ExpiresByType image/jpeg                            "access plus 1 year"
+  ExpiresByType image/svg+xml                         "access plus 1 year"
+  ExpiresByType image/x-icon                          "access plus 1 year"
+
+  # Fontes
+  ExpiresByType font/woff2                            "access plus 1 year"
+  ExpiresByType font/woff                             "access plus 1 year"
+
+  # SEO
+  ExpiresByType text/xml                              "access plus 1 day"
+  ExpiresByType application/xml                       "access plus 1 day"
+  ExpiresByType text/plain                            "access plus 1 day"
+</IfModule>
+
+# ============================================================
+#  Seguranca
+# ============================================================
+
+<IfModule mod_headers.c>
+  # Clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # MIME sniffing
+  Header always set X-Content-Type-Options "nosniff"
+  # Referrer
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Permissoes
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# Bloqueia acesso a diretorios ocultos e arquivos sensiveis
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(md|log|yml|yaml|json|lock)$">
+  Require all denied
+</FilesMatch>
+
+# Permite robots.txt e sitemap
+<Files "robots.txt">
+  Require all granted
+</Files>
+<Files "sitemap.xml">
+  Require all granted
+</Files>
