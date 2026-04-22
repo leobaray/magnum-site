@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Página não encontrada - Magnum Torque</title>
+  <link rel="icon" type="image/webp" href="/assets/logo_magnum_final.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Open Sans',system-ui,sans-serif;
+      background:linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 100%);
+      color:#f5f5f5;
+      display:flex;align-items:center;justify-content:center;
+      padding:2rem;
+      line-height:1.6;
+    }
+    .wrap{max-width:560px;text-align:center}
+    .logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.75rem;margin-bottom:2rem;letter-spacing:-.02em}
+    .logo span{color:#eb060f}
+    h1{font-family:'Montserrat',sans-serif;font-size:clamp(3rem,12vw,5rem);font-weight:800;color:#eb060f;line-height:1;margin-bottom:.5rem}
+    h2{font-family:'Montserrat',sans-serif;font-size:clamp(1.25rem,4vw,1.75rem);font-weight:700;margin-bottom:1rem}
+    p{color:#bdbdbd;margin-bottom:2rem}
+    .btn{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:#eb060f;color:#fff;text-decoration:none;
+      padding:.875rem 2rem;border-radius:.5rem;
+      font-weight:600;font-size:1rem;
+      transition:background .2s;
+    }
+    .btn:hover,.btn:focus{background:#c20509}
+    .countdown{font-size:.875rem;color:#888;margin-top:1.5rem}
+  </style>
+  <script>
+    // Mapa de caminhos legado -> seções do SPA
+    var sectionMap = {
+      'inicio':'inicio','home':'inicio','index':'inicio',
+      'sobre':'sobre','about':'sobre','empresa':'sobre','quem-somos':'sobre',
+      'servicos':'servicos','services':'servicos','retifica':'servicos','conversor':'servicos','conversores':'servicos',
+      'pecas':'pecas','parts':'pecas','produtos':'pecas',
+      'parceiros':'parceiros','partners':'parceiros','marcas':'parceiros',
+      'depoimentos':'depoimentos','testimonials':'depoimentos','avaliacoes':'depoimentos',
+      'faq':'faq','duvidas':'faq','perguntas':'faq',
+      'contato':'contato','contact':'contato','orcamento':'contato','fale-conosco':'contato'
+    };
+    (function(){
+      try{
+        var path = location.pathname.replace(/^\/+|\/+$/g,'').toLowerCase();
+        var firstSeg = path.split('/')[0];
+        var target = sectionMap[firstSeg];
+        var url = target ? ('/#' + target) : '/';
+        // Redireciona imediatamente se houver match ou o path for vazio
+        if (target) {
+          location.replace(url);
+          return;
+        }
+        // Caso contrário, mostra página 404 e agenda redirect
+        window.__redirectUrl = url;
+      }catch(e){ window.__redirectUrl = '/'; }
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo">Magnum <span>Torque</span></div>
+    <h1>404</h1>
+    <h2>Página não encontrada</h2>
+    <p>A página que você procura não existe ou foi movida. Vamos te levar de volta ao site.</p>
+    <a href="/" class="btn" id="home-btn">Ir para a página inicial</a>
+    <p class="countdown" id="countdown">Redirecionando em <span id="secs">5</span> segundos...</p>
+  </div>
+  <script>
+    (function(){
+      var secs = 5;
+      var secsEl = document.getElementById('secs');
+      var target = window.__redirectUrl || '/';
+      var btn = document.getElementById('home-btn');
+      btn.setAttribute('href', target);
+      var id = setInterval(function(){
+        secs--;
+        if (secsEl) secsEl.textContent = secs;
+        if (secs <= 0) { clearInterval(id); location.replace(target); }
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>

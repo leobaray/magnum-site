@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /login
-Disallow: /admin
-
-Sitemap: https://magnumtorque.com.br/sitemap.xml
