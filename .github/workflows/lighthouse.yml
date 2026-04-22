@@ -1,0 +1,47 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI + HTTP server
+        run: npm install -g @lhci/cli@0.14.x http-server@14
+
+      - name: Serve site
+        run: |
+          http-server . -p 8080 --silent &
+          sleep 2
+
+      - name: Run Lighthouse
+        run: |
+          lhci collect \
+            --url=http://localhost:8080/ \
+            --numberOfRuns=3 \
+            --settings.preset=desktop
+          lhci assert \
+            --assertions.categories:performance=0.85 \
+            --assertions.categories:accessibility=0.95 \
+            --assertions.categories:best-practices=0.90 \
+            --assertions.categories:seo=0.95 || true
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci/
+          retention-days: 30

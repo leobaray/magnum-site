@@ -68,11 +68,21 @@ DirectoryIndex index.html
   ExpiresByType text/plain                            "access plus 1 day"
 </IfModule>
 
+# Garante MIME types corretos (alguns hosts nao tem por padrao)
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/svg+xml .svg .svgz
+  AddType application/manifest+json .webmanifest
+  AddType text/plain .txt
+</IfModule>
+
 # ============================================================
 #  Seguranca
 # ============================================================
 
 <IfModule mod_headers.c>
+  # HSTS (ignorado pelo browser em HTTP, seguro emitir sempre)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   # Clickjacking
   Header always set X-Frame-Options "SAMEORIGIN"
   # MIME sniffing
@@ -80,11 +90,18 @@ DirectoryIndex index.html
   # Referrer
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   # Permissoes
-  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+  # Cross-Origin
+  Header always set Cross-Origin-Opener-Policy "same-origin"
 </IfModule>
 
-# Bloqueia acesso a diretorios ocultos e arquivos sensiveis
-<FilesMatch "^\.">
+# Permite o diretorio .well-known (Let's Encrypt, etc.)
+<IfModule mod_alias.c>
+  RedirectMatch 403 ^/\.(?!well-known/).*
+</IfModule>
+
+# Bloqueia acesso a arquivos ocultos, exceto .well-known
+<FilesMatch "^\.(?!well-known)">
   Require all denied
 </FilesMatch>
 
@@ -92,10 +109,20 @@ DirectoryIndex index.html
   Require all denied
 </FilesMatch>
 
-# Permite robots.txt e sitemap
+# Permite robots.txt, sitemap, humans.txt
 <Files "robots.txt">
   Require all granted
 </Files>
 <Files "sitemap.xml">
   Require all granted
 </Files>
+<Files "humans.txt">
+  Require all granted
+</Files>
+
+# security.txt dentro de .well-known (forca text/plain)
+<IfModule mod_headers.c>
+  <Files "security.txt">
+    Header set Content-Type "text/plain; charset=utf-8"
+  </Files>
+</IfModule>

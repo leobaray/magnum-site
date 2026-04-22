@@ -1,0 +1,28 @@
+name: HTML + Links Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install validator
+        run: npm install -g html-validate@9.x linkinator@6.x
+
+      - name: Validate HTML
+        run: html-validate '**/*.html' --ignore .git --ignore node_modules
+
+      - name: Check links (internal + external)
+        run: linkinator . --recurse --skip "^https?://(localhost|127\." --retry
