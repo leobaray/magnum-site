@@ -1,0 +1,46 @@
+{
+  "name": "Magnum Torque - Retífica de Conversores de Torque",
+  "short_name": "Magnum Torque",
+  "description": "Especialistas em retífica e recondicionamento de conversores de torque em Curitiba-PR. Mais de 10 anos de experiência, atendimento para todo o Brasil.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#eb060f",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["business", "automotive"],
+  "icons": [
+    {
+      "src": "/assets/logo_magnum_final.webp",
+      "sizes": "any",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/logo_magnum_final.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Falar no WhatsApp",
+      "short_name": "WhatsApp",
+      "description": "Abrir conversa com Magnum Torque no WhatsApp",
+      "url": "https://wa.me/554135036828"
+    },
+    {
+      "name": "Nossos serviços",
+      "short_name": "Serviços",
+      "url": "/#servicos"
+    },
+    {
+      "name": "Solicitar orçamento",
+      "short_name": "Orçamento",
+      "url": "/#contato"
+    }
+  ]
+}

@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.magnumtorque.com.br/</loc>
-    <lastmod>2026-04-22</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/logo_magnum_final.webp</image:loc>
+      <image:title>Magnum Torque - Especialistas em Retífica de Conversores de Torque</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/products/retifica_completa.webp</image:loc>
+      <image:title>Retífica Completa de Conversores de Torque</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/products/orcamento_rapido.webp</image:loc>
+      <image:title>Orçamento Rápido</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/products/substituicao_componentes.webp</image:loc>
+      <image:title>Substituição de Componentes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/sinais-conversor-torque-precisa-retifica/</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/conversor-torque-interior@2x.jpg</image:loc>
+      <image:title>Conversor de torque seccionado mostrando turbina e estator</image:title>
+    </image:image>
   </url>
 </urlset>
