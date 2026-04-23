@@ -109,6 +109,12 @@ DirectoryIndex index.html
   Require all denied
 </FilesMatch>
 
+# Whitelist: indice de busca do blog (consumido via fetch pelo JS)
+<Files "search-index.json">
+  Require all granted
+  Header set Cache-Control "public, max-age=3600"
+</Files>
+
 # Permite robots.txt, sitemap, humans.txt
 <Files "robots.txt">
   Require all granted
