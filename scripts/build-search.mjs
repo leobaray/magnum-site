@@ -68,9 +68,11 @@ function extractPost(html, slug) {
   const rt = html.match(/(\d+)\s*min\s+de\s+leitura|(\d+)\s*min</i);
   const readTime = rt ? Number(rt[1] || rt[2]) : null;
 
-  const postContentMatch = html.match(/<div\s+class=["']post-content["'][^>]*>([\s\S]*?)<\/div>\s*<\/div>\s*<\/article>/i)
-    || html.match(/<article[^>]*class=["'][^"']*post["'][^>]*>([\s\S]*?)<\/article>/i);
-  const body = postContentMatch ? stripTags(postContentMatch[1]) : stripTags(html);
+  // Strip HTML comments first so they don't break the closing-div anchors below.
+  const htmlNoComments = html.replace(/<!--[\s\S]*?-->/g, '');
+  const postContentMatch = htmlNoComments.match(/<div\s+class=["']post-content["'][^>]*>([\s\S]*?)<\/div>\s*<\/div>\s*<\/article>/i)
+    || htmlNoComments.match(/<article[^>]*class=["'][^"']*post["'][^>]*>([\s\S]*?)<\/article>/i);
+  const body = postContentMatch ? stripTags(postContentMatch[1]) : stripTags(htmlNoComments);
 
   return {
     id: slug,

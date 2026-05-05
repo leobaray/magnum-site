@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, follow">
   <title>Página não encontrada - Magnum Torque</title>
-  <link rel="icon" type="image/webp" href="/assets/logo_magnum_final.webp">
+  <link rel="icon" type="image/webp" href="/assets/logo_magnum_64.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -86,6 +86,15 @@
         if (secsEl) secsEl.textContent = secs;
         if (secs <= 0) { clearInterval(id); location.replace(target); }
       }, 1000);
+      // Cancela o auto-redirect se o usuário interagir (foco, clique, tecla).
+      function cancel(){
+        clearInterval(id);
+        var cd = document.getElementById('countdown');
+        if (cd) cd.hidden = true;
+      }
+      ['keydown','pointerdown','focusin'].forEach(function(ev){
+        document.addEventListener(ev, cancel, { once: true, passive: true });
+      });
     })();
   </script>
 </body>

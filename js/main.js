@@ -46,8 +46,15 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
     }
   }
 
+  let intervalId = null;
+  function start() { if (intervalId == null) intervalId = setInterval(update, 60 * 1000); }
+  function stop()  { if (intervalId != null) { clearInterval(intervalId); intervalId = null; } }
   update();
-  setInterval(update, 60 * 1000);
+  start();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else { update(); start(); }
+  });
 })();
 
 // ===== GA4 event helper =====
@@ -85,14 +92,19 @@ function trackEvent(name, params) {
     if (!el) return;
     requestAnimationFrame(() => {
       const top = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: 'instant' });
+      // Temporariamente desliga scroll-behavior:smooth para reposicionar sem animação.
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, top);
+      root.style.scrollBehavior = prev;
     });
   });
 })();
 
 // ===== Icons (only the ones actually swapped by JS) =====
-const iconMenu = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`;
-const iconX = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+const iconMenu = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>`;
+const iconX = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 
 // ===== Scroll =====
 function scrollToSection(id, offset = 80) {
@@ -145,8 +157,11 @@ function scrollToSection(id, offset = 80) {
   updateHeaderShadow();
   window.addEventListener('scroll', updateHeaderShadow, { passive: true });
 
-  // Scrollspy: so roda em paginas que tem as secoes (home)
-  if (sections.length > 0) {
+  // Em paginas de blog, scrollspy fica desabilitado (posts podem ter secoes
+  // com id colidindo com o menu, ex: id="faq"). So marca o item "Blog" ativo.
+  if (isBlogPage) {
+    document.querySelectorAll('.nav-desktop a[href="/blog/"], .nav-mobile a[href="/blog/"]').forEach(a => a.classList.add('active'));
+  } else if (sections.length > 0) {
     function updateActive() {
       const headerH = header.offsetHeight || 80;
       const viewportH = window.innerHeight;
@@ -180,9 +195,6 @@ function scrollToSection(id, offset = 80) {
     window.addEventListener('resize', updateActive, { passive: true });
     window.addEventListener('load', updateActive);
     updateActive();
-  } else if (isBlogPage) {
-    // Em paginas de blog, marca o item "Blog" como ativo
-    document.querySelectorAll('.nav-desktop a[href^="/blog"], .nav-mobile a[href^="/blog"]').forEach(a => a.classList.add('active'));
   }
 
   // Logo click: so intercepta se tem a secao #inicio na pagina; senao deixa navegar normal
@@ -216,7 +228,7 @@ function scrollToSection(id, offset = 80) {
   const prevBtn = document.getElementById('carousel-prev');
   const nextBtn = document.getElementById('carousel-next');
   const dotsContainer = document.getElementById('carousel-dots');
-  if (!track) return;
+  if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
   const wrapper = track.closest('.carousel-wrapper');
 
   const cards = track.children;
@@ -241,8 +253,7 @@ function scrollToSection(id, offset = 80) {
     Array.from(dotsContainer.children).forEach((d, i) => {
       const active = i === current;
       d.classList.toggle('active', active);
-      d.setAttribute('aria-selected', active ? 'true' : 'false');
-      d.setAttribute('tabindex', active ? '0' : '-1');
+      d.setAttribute('aria-current', active ? 'true' : 'false');
     });
   }
 
@@ -257,10 +268,8 @@ function scrollToSection(id, offset = 80) {
     for (let i = 0; i <= maxIdx(); i++) {
       const dot = document.createElement('button');
       dot.type = 'button';
-      dot.setAttribute('role', 'tab');
       dot.setAttribute('aria-label', `Ver depoimento ${i + 1}`);
-      dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
-      dot.setAttribute('tabindex', i === current ? '0' : '-1');
+      dot.setAttribute('aria-current', i === current ? 'true' : 'false');
       if (i === current) dot.classList.add('active');
       dot.addEventListener('click', () => { stopAuto(); go(i); startAuto(); });
       dotsContainer.appendChild(dot);
@@ -269,6 +278,7 @@ function scrollToSection(id, offset = 80) {
 
   function startAuto() {
     if (reduceMotion.matches) return;
+    if (maxIdx() === 0) return;
     stopAuto();
     timer = setInterval(() => go(current + 1), AUTOPLAY_MS);
   }
@@ -294,7 +304,10 @@ function scrollToSection(id, offset = 80) {
   track.addEventListener('touchstart', (e) => { stopAuto(); startX = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend', (e) => {
     const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) { diff > 0 ? go(current + 1) : go(current - 1); }
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) go(current + 1);
+      else go(current - 1);
+    }
     startAuto();
   }, { passive: true });
 
@@ -388,7 +401,7 @@ function scrollToSection(id, offset = 80) {
     trackEvent('form_submit', { form_id: 'contact-form' });
 
     setStatus('Abrindo WhatsApp...', 'success');
-    const opened = window.open(waUrl, '_blank', 'noopener');
+    const opened = window.open(waUrl, '_blank', 'noopener,noreferrer');
     if (!opened) { window.location.href = waUrl; return; }
     form.reset();
     form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
