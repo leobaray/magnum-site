@@ -25,4 +25,4 @@ jobs:
         run: html-validate '**/*.html' --ignore .git --ignore node_modules
 
       - name: Check links (internal + external)
-        run: linkinator . --recurse --skip "^https?://(localhost|127\." --retry
+        run: linkinator . --recurse --skip "^https?://(localhost|127\\.)" --retry

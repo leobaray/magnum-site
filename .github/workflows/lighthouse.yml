@@ -30,6 +30,8 @@ jobs:
         run: |
           lhci collect \
             --url=http://localhost:8080/ \
+            --url=http://localhost:8080/blog/ \
+            --url=http://localhost:8080/blog/sinais-conversor-torque-precisa-retifica/ \
             --numberOfRuns=3 \
             --settings.preset=desktop
           lhci assert \

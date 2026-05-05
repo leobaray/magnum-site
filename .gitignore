@@ -1,0 +1,6 @@
+.claude
+.lighthouseci/
+node_modules/
+.gstack/
+.playwright-mcp/
+notes/
