@@ -2,6 +2,63 @@
 const _yearEl = document.getElementById('year');
 if (_yearEl) _yearEl.textContent = new Date().getFullYear();
 
+// ===== Cookie consent banner (LGPD + Google Consent Mode v2) =====
+(function () {
+  let stored = null;
+  try { stored = localStorage.getItem('mg_consent'); } catch (_) {}
+  if (stored === 'granted' || stored === 'denied') return;
+
+  function persist(value) {
+    try { localStorage.setItem('mg_consent', value); } catch (_) {}
+    if (typeof window.gtag === 'function') {
+      try {
+        window.gtag('consent', 'update', {
+          analytics_storage: value === 'granted' ? 'granted' : 'denied'
+        });
+      } catch (_) {}
+    }
+  }
+
+  function mount() {
+    if (document.getElementById('cookie-consent')) return;
+    const banner = document.createElement('div');
+    banner.id = 'cookie-consent';
+    banner.className = 'cookie-consent';
+    banner.setAttribute('role', 'dialog');
+    banner.setAttribute('aria-labelledby', 'cookie-consent-title');
+    banner.setAttribute('aria-describedby', 'cookie-consent-desc');
+    banner.innerHTML = `
+      <div class="cookie-consent__inner">
+        <div class="cookie-consent__text">
+          <p id="cookie-consent-title" class="cookie-consent__title">Cookies e privacidade</p>
+          <p id="cookie-consent-desc" class="cookie-consent__desc">Usamos cookies de medição (Google Analytics) para entender como você usa o site. Você pode aceitar ou recusar. Cookies essenciais sempre ficam ativos.</p>
+        </div>
+        <div class="cookie-consent__actions">
+          <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Recusar</button>
+          <button type="button" class="btn btn-primary btn-sm" data-consent="granted">Aceitar</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    requestAnimationFrame(() => banner.classList.add('is-visible'));
+
+    banner.querySelectorAll('[data-consent]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const value = btn.dataset.consent;
+        persist(value);
+        banner.classList.remove('is-visible');
+        setTimeout(() => banner.remove(), 250);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount, { once: true });
+  } else {
+    mount();
+  }
+})();
+
 // ===== Indicador de horário de funcionamento (Seg-Sex 8h-18h, America/Sao_Paulo) =====
 (function () {
   const el = document.querySelector('[data-business-hours]');
@@ -85,7 +142,8 @@ function trackEvent(name, params) {
 (function () {
   const hash = window.location.hash;
   if (!hash || hash.length < 2) return;
-  const id = hash.slice(1);
+  let id;
+  try { id = decodeURIComponent(hash.slice(1)); } catch (_) { id = hash.slice(1); }
   // Espera o layout estabilizar antes de reposicionar
   window.addEventListener('load', () => {
     const el = document.getElementById(id);

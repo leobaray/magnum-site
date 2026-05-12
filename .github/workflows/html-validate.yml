@@ -19,10 +19,15 @@ jobs:
           node-version: '20'
 
       - name: Install validator
-        run: npm install -g html-validate@9.x linkinator@6.x
+        run: npm install -g html-validate@9.x linkinator@6.x http-server@14
 
       - name: Validate HTML
-        run: html-validate '**/*.html' --ignore .git --ignore node_modules
+        run: html-validate index.html 404.html "blog/**/*.html"
+
+      - name: Serve site
+        run: |
+          http-server . -p 8080 --silent &
+          sleep 2
 
       - name: Check links (internal + external)
-        run: linkinator . --recurse --skip "^https?://(localhost|127\\.)" --retry
+        run: linkinator http://127.0.0.1:8080/ --config linkinator.config.json

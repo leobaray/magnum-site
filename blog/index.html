@@ -31,7 +31,7 @@
   <meta name="twitter:image:alt" content="Conversor de torque seccionado mostrando turbina e estator">
 
   <link rel="icon" type="image/webp" href="/assets/logo_magnum_64.webp">
-  <link rel="apple-touch-icon" href="/assets/logo_magnum_64.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-180.png">
   <link rel="manifest" href="/manifest.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,16 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    try { if (localStorage.getItem('mg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch(_) {}
     gtag('config', 'G-0HJYEEB2XR');
   </script>
 
@@ -184,7 +194,7 @@
                srcset="/assets/blog/conversor-torque-interior.jpg 1040w, /assets/blog/conversor-torque-interior@2x.jpg 2080w"
                sizes="(max-width: 768px) 100vw, 420px"
                alt="Conversor de torque seccionado mostrando turbina e estator"
-               width="1040" height="585" loading="lazy" decoding="async">
+               width="1040" height="585" loading="eager" fetchpriority="high" decoding="async">
         </div>
         <div class="blog-list-card__body">
           <span class="blog-list-card__category">Diagnóstico</span>
@@ -212,14 +222,14 @@
     <div class="blog-search__empty-inner">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <h2>Nenhum artigo encontrado para "<span id="blog-search-empty-query"></span>"</h2>
-      <p>Ainda não temos um artigo sobre esse tema — mas a equipe técnica pode te ajudar diretamente pelo WhatsApp em até 2 dias úteis.</p>
+      <p>Ainda não temos um artigo sobre esse tema — mas a equipe técnica pode te ajudar diretamente pelo WhatsApp, respondemos em poucos minutos no horário comercial.</p>
       <a href="https://wa.me/554135036828?text=Ol%C3%A1%2C%20procurei%20no%20blog%20por%20um%20tema%20e%20n%C3%A3o%20achei.%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Falar no WhatsApp</a>
     </div>
   </div>
 
   <!-- CTA enxuto -->
   <aside class="blog-list-cta container">
-    <p>Está com um conversor com problema? <a href="/#contato">Fale com a equipe técnica</a> — resposta em 2 dias úteis.</p>
+    <p>Está com um conversor com problema? <a href="/#contato">Fale com a equipe técnica</a> — respondemos em poucos minutos.</p>
     <a href="https://wa.me/554135036828?text=Ol%C3%A1%2C%20vim%20pelo%20blog%20da%20Magnum%20Torque."
        target="_blank" rel="noopener noreferrer"
        class="btn btn-primary btn-sm">WhatsApp</a>
@@ -272,7 +282,7 @@
         <span class="dot" aria-hidden="true"></span>
         <span class="hours-text">Seg a Sex · 8h às 18h</span>
       </p>
-      <p>Desenvolvido por <a href="https://lbwma.com" target="_blank" rel="noopener noreferrer">LBWMA</a></p>
+      <p>Desenvolvido por LBWMA</p>
     </div>
   </div>
 </footer>
