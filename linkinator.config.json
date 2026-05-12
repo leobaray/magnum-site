@@ -1,0 +1,25 @@
+{
+  "recurse": true,
+  "retry": true,
+  "concurrency": 10,
+  "timeout": 20000,
+  "skip": [
+    "^https?://(www\\.)?magnumtorque\\.com\\.br",
+    "^https?://(www\\.)?facebook\\.com",
+    "^https?://(www\\.)?instagram\\.com",
+    "^https?://(www\\.)?tiktok\\.com",
+    "^https?://wa\\.me/",
+    "^https?://(www\\.)?lbwma\\.com",
+    "^https?://(www\\.)?tcraonline\\.com",
+    "^https?://(www\\.)?raybestospowertrain\\.com",
+    "^https?://(www\\.)?allomatic\\.com",
+    "^https?://(www\\.)?tricomponent\\.com",
+    "^https?://(www\\.)?touvertreinamentos\\.com\\.br",
+    "^https?://(www\\.)?sonnax\\.com",
+    "^https?://(www\\.)?transtec\\.com",
+    "^https?://(www\\.)?valeoservice\\.com\\.br",
+    "^https?://(www\\.)?altousa\\.com",
+    "^https?://([a-z0-9-]+\\.)?google\\.com/maps",
+    "^https?://([a-z0-9-]+\\.)?google\\.com/recaptcha"
+  ]
+}

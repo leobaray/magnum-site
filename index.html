@@ -10,6 +10,16 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    try { if (localStorage.getItem('mg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch(_) {}
     gtag('config', 'G-0HJYEEB2XR');
   </script>
   <title>Retífica de Conversor de Torque em Curitiba | Magnum Torque</title>
@@ -17,7 +27,7 @@
   <meta name="author" content="Magnum Torque Retifica LTDA">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#eb060f">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://maps.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://maps.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.google.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
   <link rel="canonical" href="https://www.magnumtorque.com.br/">
 
   <!-- Open Graph / Facebook -->
@@ -42,7 +52,7 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/webp" href="assets/logo_magnum_64.webp">
-  <link rel="apple-touch-icon" href="assets/logo_magnum_64.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="author" href="humans.txt">
 
@@ -138,58 +148,7 @@
           }
         }
       ]
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "bestRating": "5",
-      "worstRating": "1",
-      "reviewCount": "7"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Edevan Ferrarezi" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Tive o prazer de conhecer a empresa e acompanhar com detalhes o trabalho por eles desenvolvido. Gostei muito da transparência, honestidade e qualidade no trabalho que fazem. Parabéns a toda equipe!"
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Carlos H. de Seixas" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Fiz uma consulta por telefone, e fui muito bem atendido, com respostas claras, técnicas e cordiais."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Agnaldo Durant" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Sempre muito prestativos e respeitosos com o cliente. Super recomendo!"
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Geson Junior Soares" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Serviço de primeira qualidade e preço justo, ótimo atendimento!"
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Mauricio Negrão" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Pessoal muito atencioso e educado, o serviço é top, estou satisfeito."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Marcos Paulo Vicari" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Ótimo atendimento, trabalho de qualidade e preço justo."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Jean Borges" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "Ótimo atendimento. Parabéns a toda equipe."
-      }
-    ]
+    }
   }
   </script>
 </head>
@@ -282,21 +241,21 @@
           <div class="icon-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           </div>
-          <h3>Diagnóstico Preciso</h3>
+          <h2>Diagnóstico Preciso</h2>
           <p>Utilizamos tecnologia avançada para identificar com precisão os problemas do seu conversor.</p>
         </div>
         <div class="hero-card">
           <div class="icon-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           </div>
-          <h3>Remanufatura Completa</h3>
+          <h2>Remanufatura Completa</h2>
           <p>Renovamos todas as peças garantindo o desempenho original do seu conversor.</p>
         </div>
         <div class="hero-card">
           <div class="icon-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
           </div>
-          <h3>Garantia de Qualidade</h3>
+          <h2>Garantia de Qualidade</h2>
           <p>Todos os serviços acompanham garantia e testes rigorosos de desempenho.</p>
         </div>
       </div>
@@ -604,7 +563,7 @@
             <blockquote>"Tive o prazer de conhecer a empresa e acompanhar com detalhes o trabalho por eles desenvolvido. Gostei muito da transparência, honestidade e qualidade no trabalho que fazem. Parabéns a toda equipe!"</blockquote>
             <div class="testimonial-author">
               <div class="avatar">EF</div>
-              <div><h4>Edevan Ferrarezi</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Edevan Ferrarezi</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -622,7 +581,7 @@
             <blockquote>"Fiz uma consulta por telefone, e fui muito bem atendido, com respostas claras, técnicas e cordiais..."</blockquote>
             <div class="testimonial-author">
               <div class="avatar">CS</div>
-              <div><h4>Carlos H. de Seixas</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Carlos H. de Seixas</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -640,7 +599,7 @@
             <blockquote>"Sempre muito prestativos e respeitosos com o cliente. Super recomendo!"</blockquote>
             <div class="testimonial-author">
               <div class="avatar">AD</div>
-              <div><h4>Agnaldo Durant</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Agnaldo Durant</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -658,7 +617,7 @@
             <blockquote>"Serviço de primeira qualidade e preço justo, ótimo atendimento!"</blockquote>
             <div class="testimonial-author">
               <div class="avatar">GS</div>
-              <div><h4>Geson Junior Soares</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Geson Junior Soares</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -676,7 +635,7 @@
             <blockquote>"Pessoal muito atencioso e educado, o serviço é top, estou satisfeito."</blockquote>
             <div class="testimonial-author">
               <div class="avatar">MN</div>
-              <div><h4>Mauricio Negrão</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Mauricio Negrão</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -694,7 +653,7 @@
             <blockquote>"Ótimo atendimento, trabalho de qualidade e preço justo."</blockquote>
             <div class="testimonial-author">
               <div class="avatar">MV</div>
-              <div><h4>Marcos Paulo Vicari</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Marcos Paulo Vicari</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -712,7 +671,7 @@
             <blockquote>"Ótimo atendimento. Parabéns a toda equipe."</blockquote>
             <div class="testimonial-author">
               <div class="avatar">JB</div>
-              <div><h4>Jean Borges</h4><p>Cliente</p></div>
+              <div><p class="testimonial-author-name">Jean Borges</p><p>Cliente</p></div>
             </div>
           </div>
 
@@ -729,145 +688,6 @@
         </button>
       </div>
     </section>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contato">
-  <div class="container">
-    <div class="text-center">
-      <h2 class="section-title">Entre em <span class="accent">Contato</span></h2>
-      <p class="section-subtitle">Estamos prontos para atender suas necessidades e esclarecer quaisquer dúvidas. Entre em contato através dos nossos canais ou envie sua mensagem.</p>
-    </div>
-
-    <div class="contact-wrapper">
-      <div class="contact-inner">
-        <!-- Info -->
-        <div class="contact-info">
-          <div class="contact-info-inner">
-            <div class="badge badge-on-dark contact-info-badge">Contato Direto</div>
-            <h3>Informações de Contato</h3>
-            <p class="contact-info-desc">Estamos prontos para atender sua necessidade. Entre em contato pelos nossos canais:</p>
-
-            <div class="info-card">
-              <div class="icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              </div>
-              <div>
-                <h4>Telefone/WhatsApp</h4>
-                <p><a href="https://wa.me/554135036828">(41)&nbsp;3503&#8209;6828</a></p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              </div>
-              <div>
-                <h4>E-mail</h4>
-                <p><a href="mailto:contato@magnumtorque.com.br">contato@magnumtorque.com.br</a></p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
-              </div>
-              <div>
-                <h4>Endereço</h4>
-                <p>Rua Irmã Maria Lucia Roland, 403 - Hauer</p>
-                <p>Curitiba - PR, 81610-090</p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <div class="icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <div>
-                <h4>Horário de Atendimento</h4>
-                <p>Segunda a Sexta: 8h às 18h</p>
-                <p>Sem fechamento para almoço</p>
-              </div>
-            </div>
-
-            <div class="contact-map">
-              <iframe
-                src="https://www.google.com/maps?q=Rua+Irm%C3%A3+Maria+Lucia+Roland+403+Hauer+Curitiba+PR&output=embed"
-                title="Mapa Magnum Torque - Rua Irmã Maria Lucia Roland, 403 - Hauer, Curitiba-PR"
-                width="600" height="220"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen></iframe>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Irm%C3%A3+Maria+Lucia+Roland+403+Hauer+Curitiba+PR"
-                 target="_blank" rel="noopener noreferrer" class="contact-map__link">
-                Traçar rota no Google Maps
-                <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Form -->
-        <div class="contact-form">
-          <div class="badge form-badge">Formulário de Contato</div>
-          <h3>Envie sua Mensagem</h3>
-          <p>Preencha o formulário abaixo e entraremos em contato o mais breve possível.</p>
-
-          <form id="contact-form" novalidate>
-            <div class="visually-hidden" aria-hidden="true">
-              <label for="hp-field">Deixe este campo em branco</label>
-              <input type="text" id="hp-field" name="_gotcha" tabindex="-1" autocomplete="off">
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">Nome Completo</label>
-                <input type="text" id="name" placeholder="Seu nome completo" autocomplete="name" required minlength="3" aria-describedby="name-error">
-                <span class="error-msg" id="name-error">Nome deve ter pelo menos 3 caracteres</span>
-              </div>
-              <div class="form-group">
-                <label for="phone">Telefone/WhatsApp</label>
-                <input type="tel" id="phone" placeholder="(41) 99999-9999" autocomplete="tel" inputmode="tel" required aria-describedby="phone-error">
-                <span class="error-msg" id="phone-error">Informe um telefone válido (DDD + número)</span>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">E-mail <span class="label-optional">(opcional)</span></label>
-                <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" aria-describedby="email-error">
-                <span class="error-msg" id="email-error">Email inválido</span>
-              </div>
-              <div class="form-group">
-                <label for="subject">Assunto</label>
-                <select id="subject" required aria-describedby="subject-error">
-                  <option value="">Selecione um assunto</option>
-                  <option value="orcamento">Orçamento</option>
-                  <option value="duvida">Dúvida Técnica</option>
-                  <option value="agendamento">Agendamento</option>
-                  <option value="outro">Outro</option>
-                </select>
-                <span class="error-msg" id="subject-error">Selecione um assunto</span>
-              </div>
-            </div>
-
-            <div class="form-row form-row--single">
-              <div class="form-group">
-                <label for="message">Mensagem</label>
-                <textarea id="message" placeholder="Descreva seu conversor, modelo do veículo e o problema..." rows="5" required minlength="10" aria-describedby="message-hint message-error"></textarea>
-                <span class="form-hint" id="message-hint">Quanto mais detalhes, mais rápido conseguimos te responder.</span>
-                <span class="error-msg" id="message-error">Mensagem deve ter pelo menos 10 caracteres</span>
-              </div>
-            </div>
-
-            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
-
-            <button type="submit" class="btn btn-primary btn-submit">Enviar Mensagem</button>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -952,6 +772,157 @@
         </summary>
         <p>Trepidação em velocidade constante, patinagem (motor acelera mas o carro não responde), barulho de zumbido em ponto morto, dificuldade pra engatar marchas e fluido escuro/queimado são os sinais mais comuns. Detalhamos os 7 sintomas no nosso artigo: <a href="/blog/sinais-conversor-torque-precisa-retifica/">7 sinais de que seu conversor precisa de retífica</a>.</p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contato">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title">Entre em <span class="accent">Contato</span></h2>
+      <p class="section-subtitle">Estamos prontos para atender suas necessidades e esclarecer quaisquer dúvidas. Entre em contato através dos nossos canais ou envie sua mensagem.</p>
+    </div>
+
+    <div class="contact-wrapper">
+      <div class="contact-inner">
+        <!-- Info -->
+        <div class="contact-info">
+          <div class="contact-info-inner">
+            <div class="badge badge-on-dark contact-info-badge">Contato Direto</div>
+            <h3>Informações de Contato</h3>
+            <p class="contact-info-desc">Estamos prontos para atender sua necessidade. Entre em contato pelos nossos canais:</p>
+
+            <div class="info-card">
+              <div class="icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <h4>Telefone/WhatsApp</h4>
+                <p><a href="https://wa.me/554135036828">(41)&nbsp;3503&#8209;6828</a></p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div>
+                <h4>E-mail</h4>
+                <p><a href="mailto:contato@magnumtorque.com.br">contato@magnumtorque.com.br</a></p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <h4>Endereço</h4>
+                <p>Rua Irmã Maria Lucia Roland, 403 - Hauer</p>
+                <p>Curitiba - PR, 81610-090</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <h4>Horário de Atendimento</h4>
+                <p>Segunda a Sexta: 8h às 18h</p>
+                <p>Sem fechamento para almoço</p>
+              </div>
+            </div>
+
+            <div class="contact-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3601.6537941561005!2d-49.24420862338138!3d-25.48323333500246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcfad5c8661a59%3A0x4e902eb0316a8d72!2sR.%20Irm%C3%A3%20Maria%20L%C3%BAcia%20Roland%2C%20403%20-%20Hauer%2C%20Curitiba%20-%20PR%2C%2081610-090!5e0!3m2!1spt-BR!2sbr!4v1778584009220!5m2!1spt-BR!2sbr"
+                title="Mapa Magnum Torque - Rua Irmã Maria Lucia Roland, 403 - Hauer, Curitiba-PR"
+                width="600" height="220"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen></iframe>
+              <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Irm%C3%A3+Maria+Lucia+Roland+403+Hauer+Curitiba+PR"
+                 target="_blank" rel="noopener noreferrer" class="contact-map__link">
+                Traçar rota no Google Maps
+                <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form">
+          <div class="badge form-badge">Formulário de Contato</div>
+          <h3>Envie sua Mensagem</h3>
+          <p>Preencha o formulário abaixo e entraremos em contato o mais breve possível.</p>
+
+          <noscript>
+            <style>#contact-form{display:none}</style>
+            <div class="contact-form-fallback">
+              <p>O envio do formulário precisa de JavaScript. Sem ele, fale conosco diretamente:</p>
+              <ul>
+                <li>Telefone: <a href="tel:+554135036828">(41)&nbsp;3503&#8209;6828</a></li>
+                <li>WhatsApp: <a href="https://wa.me/554135036828">(41)&nbsp;3503&#8209;6828</a></li>
+                <li><a href="mailto:contato@magnumtorque.com.br">contato@magnumtorque.com.br</a></li>
+              </ul>
+            </div>
+          </noscript>
+
+          <form id="contact-form" novalidate>
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="hp-field">Deixe este campo em branco</label>
+              <input type="text" id="hp-field" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" placeholder="Seu nome completo" autocomplete="name" required minlength="3" aria-describedby="name-error">
+                <span class="error-msg" id="name-error">Nome deve ter pelo menos 3 caracteres</span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefone/WhatsApp</label>
+                <input type="tel" id="phone" placeholder="(41) 99999-9999" autocomplete="tel" inputmode="tel" required aria-describedby="phone-error">
+                <span class="error-msg" id="phone-error">Informe um telefone válido (DDD + número)</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">E-mail <span class="label-optional">(opcional)</span></label>
+                <input type="email" id="email" placeholder="seu@email.com" autocomplete="email" aria-describedby="email-error">
+                <span class="error-msg" id="email-error">Email inválido</span>
+              </div>
+              <div class="form-group">
+                <label for="subject">Assunto</label>
+                <select id="subject" required aria-describedby="subject-error">
+                  <option value="">Selecione um assunto</option>
+                  <option value="orcamento">Orçamento</option>
+                  <option value="duvida">Dúvida Técnica</option>
+                  <option value="agendamento">Agendamento</option>
+                  <option value="outro">Outro</option>
+                </select>
+                <span class="error-msg" id="subject-error">Selecione um assunto</span>
+              </div>
+            </div>
+
+            <div class="form-row form-row--single">
+              <div class="form-group">
+                <label for="message">Mensagem</label>
+                <textarea id="message" placeholder="Descreva seu conversor, modelo do veículo e o problema..." rows="5" required minlength="10" aria-describedby="message-hint message-error"></textarea>
+                <span class="form-hint" id="message-hint">Quanto mais detalhes, mais rápido conseguimos te responder.</span>
+                <span class="error-msg" id="message-error">Mensagem deve ter pelo menos 10 caracteres</span>
+              </div>
+            </div>
+
+            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+
+            <button type="submit" class="btn btn-primary btn-submit">Enviar Mensagem</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1085,7 +1056,7 @@
         <span class="dot" aria-hidden="true"></span>
         <span class="hours-text">Seg a Sex · 8h às 18h</span>
       </p>
-      <p>Desenvolvido por <a href="https://lbwma.com" target="_blank" rel="noopener noreferrer">LBWMA</a></p>
+      <p>Desenvolvido por LBWMA</p>
     </div>
   </div>
 </footer>

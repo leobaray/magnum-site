@@ -10,6 +10,16 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted',
+      wait_for_update: 500
+    });
+    try { if (localStorage.getItem('mg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch(_) {}
     gtag('config', 'G-0HJYEEB2XR');
   </script>
 
@@ -48,7 +58,7 @@
   <meta name="twitter:image:alt" content="Conversor de torque automotivo seccionado sobre bancada de retífica, revelando turbina e estator internos">
 
   <link rel="icon" type="image/webp" href="/assets/logo_magnum_64.webp">
-  <link rel="apple-touch-icon" href="/assets/logo_magnum_64.webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-180.png">
   <link rel="manifest" href="/manifest.webmanifest">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -364,7 +374,7 @@
         <aside class="post-cta" aria-label="Solicitar pré-diagnóstico">
           <div class="post-cta-inner">
             <h2>Desconfia que seu conversor está com problema?</h2>
-            <p>Mande uma foto ou descrição pelo WhatsApp. A equipe técnica da Magnum Torque responde com um pré-diagnóstico sem compromisso em até 2 dias úteis.</p>
+            <p>Mande uma foto ou descrição pelo WhatsApp. A equipe técnica da Magnum Torque responde em poucos minutos com um pré-diagnóstico sem compromisso. Orçamento completo em até 2 dias úteis.</p>
             <div class="post-cta-buttons">
               <a href="https://wa.me/554135036828?text=Ol%C3%A1%2C%20quero%20um%20pr%C3%A9-diagn%C3%B3stico%20do%20meu%20conversor%20de%20torque."
                  target="_blank" rel="noopener noreferrer"
@@ -488,7 +498,7 @@
         <span class="dot" aria-hidden="true"></span>
         <span class="hours-text">Seg a Sex · 8h às 18h</span>
       </p>
-      <p>Desenvolvido por <a href="https://lbwma.com" target="_blank" rel="noopener noreferrer">LBWMA</a></p>
+      <p>Desenvolvido por LBWMA</p>
     </div>
   </div>
 </footer>
