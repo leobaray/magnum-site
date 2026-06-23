@@ -1,7 +1,10 @@
-.claude
 .lighthouseci/
 node_modules/
 .gstack/
 .playwright-mcp/
 notes/
 public_html/
+
+# Environment
+.env
+.env.local
