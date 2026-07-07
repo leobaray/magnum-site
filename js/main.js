@@ -459,8 +459,12 @@ function scrollToSection(id, offset = 80) {
     trackEvent('form_submit', { form_id: 'contact-form' });
 
     setStatus('Abrindo WhatsApp...', 'success');
-    const opened = window.open(waUrl, '_blank', 'noopener,noreferrer');
+    // 'noopener' na string de features faz window.open retornar sempre null (spec),
+    // o que dispararia o fallback junto com o popup (WhatsApp aberto 2x).
+    // Isola o opener manualmente para manter a detecção de popup bloqueado.
+    const opened = window.open(waUrl, '_blank');
     if (!opened) { window.location.href = waUrl; return; }
+    try { opened.opener = null; } catch (_) {}
     form.reset();
     form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
     form.querySelectorAll('[aria-invalid]').forEach(f => f.setAttribute('aria-invalid', 'false'));
