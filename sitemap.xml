@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.magnumtorque.com.br/</loc>
-    <lastmod>2026-04-23</lastmod>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -25,18 +25,54 @@
   </url>
   <url>
     <loc>https://www.magnumtorque.com.br/blog/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.magnumtorque.com.br/blog/sinais-conversor-torque-precisa-retifica/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://www.magnumtorque.com.br/assets/blog/conversor-torque-interior@2x.jpg</image:loc>
       <image:title>Conversor de torque seccionado mostrando turbina e estator</image:title>
     </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/teste-de-stall-conversor-torque/</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/teste-de-stall.jpg</image:loc>
+      <image:title>Teste de stall: o diagnóstico do conversor em 5 segundos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/codigo-p0740-conversor-torque/</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/codigo-p0740.jpg</image:loc>
+      <image:title>Código P0740: nem sempre o conversor é o culpado</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/fluido-atf-errado-conversor-torque/</loc>
+    <lastmod>2026-07-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/fluido-atf.jpg</image:loc>
+      <image:title>ATF errado mata seu conversor: Dexron VI, Mercon LV e outros</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/privacidade/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

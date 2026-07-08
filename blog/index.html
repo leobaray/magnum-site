@@ -9,7 +9,7 @@
   <meta name="author" content="Magnum Torque Retifica LTDA">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#eb060f">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
   <link rel="canonical" href="https://www.magnumtorque.com.br/blog/">
 
   <!-- Open Graph -->
@@ -34,31 +34,15 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-180.png">
   <link rel="manifest" href="/manifest.webmanifest">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/opensans-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/montserrat-700.woff2" crossorigin>
+  <link rel="stylesheet" href="/css/fonts.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/blog.css">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — bootstrap externo p/ CSP sem 'unsafe-inline' -->
+  <script src="/js/analytics.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HJYEEB2XR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('consent', 'default', {
-      analytics_storage: 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      functionality_storage: 'granted',
-      security_storage: 'granted',
-      wait_for_update: 500
-    });
-    try { if (localStorage.getItem('mg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch(_) {}
-    gtag('config', 'G-0HJYEEB2XR');
-  </script>
 
   <!-- Blog schema -->
   <script type="application/ld+json">
@@ -77,6 +61,33 @@
       }
     },
     "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Teste de stall: como a oficina diagnostica o conversor em 5 segundos",
+        "description": "Como o teste de stall revela problemas do conversor de torque em segundos: passo a passo, faixas de RPM, interpretação dos resultados e cuidados.",
+        "url": "https://www.magnumtorque.com.br/blog/teste-de-stall-conversor-torque/",
+        "datePublished": "2026-07-07",
+        "image": "https://www.magnumtorque.com.br/assets/blog/teste-de-stall.jpg",
+        "author": { "@type": "Organization", "name": "Magnum Torque" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "P0740 no scanner: por que o código nem sempre é o conversor",
+        "description": "O código P0740 aponta o sistema da embreagem lock-up, não a peça. As causas possíveis, da mais barata à mais cara, e o fluxo de diagnóstico correto.",
+        "url": "https://www.magnumtorque.com.br/blog/codigo-p0740-conversor-torque/",
+        "datePublished": "2026-07-07",
+        "image": "https://www.magnumtorque.com.br/assets/blog/codigo-p0740.jpg",
+        "author": { "@type": "Organization", "name": "Magnum Torque" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "ATF errado mata seu conversor: Dexron VI, Mercon LV e outros",
+        "description": "Por que usar o fluido exato importa, o que o ATF errado causa no conversor de torque e como trocar do jeito certo.",
+        "url": "https://www.magnumtorque.com.br/blog/fluido-atf-errado-conversor-torque/",
+        "datePublished": "2026-07-07",
+        "image": "https://www.magnumtorque.com.br/assets/blog/fluido-atf.jpg",
+        "author": { "@type": "Organization", "name": "Magnum Torque" }
+      },
       {
         "@type": "BlogPosting",
         "headline": "7 Sinais de que seu Conversor de Torque Precisa de Retífica",
@@ -186,15 +197,99 @@
   <!-- Lista de posts -->
   <section class="blog-list container" id="blog-list" aria-label="Lista de artigos">
 
-    <!-- Post 1 -->
+    <!-- Post: teste de stall -->
+    <article class="blog-list-card" data-slug="teste-de-stall-conversor-torque">
+      <a href="/blog/teste-de-stall-conversor-torque/" class="blog-list-card__link">
+        <div class="blog-list-card__img">
+          <img src="/assets/blog/teste-de-stall.jpg"
+               sizes="(max-width: 768px) 100vw, 420px"
+               alt="Capa do artigo: teste de stall, o diagnóstico do conversor em 5 segundos"
+               width="1200" height="630" loading="eager" fetchpriority="high" decoding="async">
+        </div>
+        <div class="blog-list-card__body">
+          <span class="blog-list-card__category">Diagnóstico</span>
+          <h2 class="blog-list-card__title">Teste de stall: o diagnóstico do conversor em 5 segundos</h2>
+          <p class="blog-list-card__excerpt">Com o veículo travado e 3 segundos de acelerador, o conta-giros revela se a força do motor está chegando ao câmbio. Como o teste é feito, as faixas normais de RPM e o que cada resultado indica.</p>
+          <div class="blog-list-card__meta">
+            <time datetime="2026-07-07">7 de julho de 2026</time>
+            <span aria-hidden="true">•</span>
+            <span>
+              <svg width="14" height="14" aria-hidden="true"><use href="#icon-clock"/></svg>
+              6 min de leitura
+            </span>
+            <span class="blog-list-card__arrow" aria-hidden="true">
+              Ler artigo <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+    <!-- Post: código P0740 -->
+    <article class="blog-list-card" data-slug="codigo-p0740-conversor-torque">
+      <a href="/blog/codigo-p0740-conversor-torque/" class="blog-list-card__link">
+        <div class="blog-list-card__img">
+          <img src="/assets/blog/codigo-p0740.jpg"
+               sizes="(max-width: 768px) 100vw, 420px"
+               alt="Capa do artigo: código P0740, nem sempre o conversor é o culpado"
+               width="1200" height="630" loading="lazy" decoding="async">
+        </div>
+        <div class="blog-list-card__body">
+          <span class="blog-list-card__category">Diagnóstico</span>
+          <h2 class="blog-list-card__title">Código P0740: nem sempre o conversor é o culpado</h2>
+          <p class="blog-list-card__excerpt">O código aponta o sistema da embreagem lock-up — não a peça. Conheça as causas possíveis, da mais barata à mais cara, e o fluxo de diagnóstico que evita a troca desnecessária do conversor.</p>
+          <div class="blog-list-card__meta">
+            <time datetime="2026-07-07">7 de julho de 2026</time>
+            <span aria-hidden="true">•</span>
+            <span>
+              <svg width="14" height="14" aria-hidden="true"><use href="#icon-clock"/></svg>
+              7 min de leitura
+            </span>
+            <span class="blog-list-card__arrow" aria-hidden="true">
+              Ler artigo <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+    <!-- Post: fluido ATF -->
+    <article class="blog-list-card" data-slug="fluido-atf-errado-conversor-torque">
+      <a href="/blog/fluido-atf-errado-conversor-torque/" class="blog-list-card__link">
+        <div class="blog-list-card__img">
+          <img src="/assets/blog/fluido-atf.jpg"
+               sizes="(max-width: 768px) 100vw, 420px"
+               alt="Capa do artigo: ATF errado mata seu conversor de torque"
+               width="1200" height="630" loading="lazy" decoding="async">
+        </div>
+        <div class="blog-list-card__body">
+          <span class="blog-list-card__category">Manutenção</span>
+          <h2 class="blog-list-card__title">ATF errado mata seu conversor: Dexron VI, Mercon LV e outros</h2>
+          <p class="blog-list-card__excerpt">O fluido de transmissão transmite a potência dentro do conversor e tem fricção calibrada pro lock-up. Usar a especificação errada — ou o famoso "universal" — é a receita mais comum de trepidação e retífica antecipada.</p>
+          <div class="blog-list-card__meta">
+            <time datetime="2026-07-07">7 de julho de 2026</time>
+            <span aria-hidden="true">•</span>
+            <span>
+              <svg width="14" height="14" aria-hidden="true"><use href="#icon-clock"/></svg>
+              7 min de leitura
+            </span>
+            <span class="blog-list-card__arrow" aria-hidden="true">
+              Ler artigo <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </article>
+
+    <!-- Post: 7 sinais -->
     <article class="blog-list-card" data-slug="sinais-conversor-torque-precisa-retifica">
       <a href="/blog/sinais-conversor-torque-precisa-retifica/" class="blog-list-card__link">
         <div class="blog-list-card__img">
           <img src="/assets/blog/conversor-torque-interior.jpg"
-               srcset="/assets/blog/conversor-torque-interior.jpg 1040w, /assets/blog/conversor-torque-interior@2x.jpg 2080w"
+               srcset="/assets/blog/conversor-torque-interior-640.jpg 640w, /assets/blog/conversor-torque-interior.jpg 1040w, /assets/blog/conversor-torque-interior@2x.jpg 2080w"
                sizes="(max-width: 768px) 100vw, 420px"
                alt="Conversor de torque seccionado mostrando turbina e estator"
-               width="1040" height="585" loading="eager" fetchpriority="high" decoding="async">
+               width="1040" height="585" loading="lazy" decoding="async">
         </div>
         <div class="blog-list-card__body">
           <span class="blog-list-card__category">Diagnóstico</span>
@@ -277,12 +372,12 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; <span id="year">2026</span> Magnum Torque Retifica LTDA</p>
+      <p>&copy; <span id="year">2026</span> Magnum Torque Retifica Ltda · CNPJ 24.371.535/0001&#8209;37</p>
       <p class="footer-hours" data-business-hours>
         <span class="dot" aria-hidden="true"></span>
         <span class="hours-text">Seg a Sex · 8h às 18h</span>
       </p>
-      <p>Desenvolvido por LBWMA</p>
+      <p><a href="/privacidade/">Política de Privacidade</a> · Desenvolvido por LBWMA</p>
     </div>
   </div>
 </footer>

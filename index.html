@@ -4,42 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) — bootstrap externo p/ CSP sem 'unsafe-inline' -->
+  <script src="js/analytics.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HJYEEB2XR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('consent', 'default', {
-      analytics_storage: 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      functionality_storage: 'granted',
-      security_storage: 'granted',
-      wait_for_update: 500
-    });
-    try { if (localStorage.getItem('mg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch(_) {}
-    gtag('config', 'G-0HJYEEB2XR');
-  </script>
   <title>Retífica de Conversor de Torque em Curitiba | Magnum Torque</title>
   <meta name="description" content="Especialistas em retífica e recondicionamento de conversores de torque em Curitiba-PR. Mais de 10 anos de experiência, atendimento rápido (3-5 dias) e garantia de 6 meses. Envie para todo o Brasil.">
   <meta name="author" content="Magnum Torque Retifica LTDA">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#eb060f">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.googleusercontent.com https://maps.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.google.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.googleusercontent.com https://maps.gstatic.com https://www.google-analytics.com https://www.googletagmanager.com; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.analytics.google.com https://*.google-analytics.com https://www.googletagmanager.com; frame-src https://www.google.com; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
   <link rel="canonical" href="https://www.magnumtorque.com.br/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.magnumtorque.com.br/">
   <meta property="og:title" content="Magnum Torque - Retífica de Conversores de Torque em Curitiba">
-  <meta property="og:description" content="Especialistas em retífica de conversores de torque há mais de 10 anos. Orçamento em 2 dias, serviço completo em 3-5 dias. Garantia de 6 meses.">
-  <meta property="og:image" content="https://www.magnumtorque.com.br/assets/logo_magnum_final.webp">
+  <meta property="og:description" content="Especialistas em retífica de conversores de torque há mais de 10 anos. Orçamento em 1-2 dias úteis, serviço completo em 2-3 dias úteis após a aprovação. Garantia de 6 meses.">
+  <meta property="og:image" content="https://www.magnumtorque.com.br/assets/og-home.jpg">
   <meta property="og:image:alt" content="Magnum Torque - Especialistas em Retífica de Conversores de Torque">
-  <meta property="og:image:type" content="image/webp">
-  <meta property="og:image:width" content="1449">
-  <meta property="og:image:height" content="840">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Magnum Torque">
   <meta property="og:locale" content="pt_BR">
 
@@ -47,7 +32,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Magnum Torque - Retífica de Conversores de Torque">
   <meta name="twitter:description" content="Especialistas em retífica de conversores de torque em Curitiba. +10 anos de experiência, garantia de 6 meses, atendimento para todo o Brasil.">
-  <meta name="twitter:image" content="https://www.magnumtorque.com.br/assets/logo_magnum_final.webp">
+  <meta name="twitter:image" content="https://www.magnumtorque.com.br/assets/og-home.jpg">
   <meta name="twitter:image:alt" content="Magnum Torque - Especialistas em Retífica de Conversores de Torque">
 
   <!-- Favicon -->
@@ -56,10 +41,9 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="author" href="humans.txt">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/opensans-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/montserrat-700.woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Schema Markup - LocalBusiness -->
@@ -68,6 +52,8 @@
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     "name": "Magnum Torque Retifica LTDA",
+    "legalName": "Magnum Torque Retifica Ltda",
+    "taxID": "24.371.535/0001-37",
     "alternateName": "Magnum Torque",
     "description": "Especialistas em retífica e recondicionamento de conversores de torque para carros de passeio, caminhões e máquinas pesadas.",
     "url": "https://www.magnumtorque.com.br",
@@ -75,7 +61,7 @@
     "email": "contato@magnumtorque.com.br",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Rua Irma Maria Lucia Roland, 403 - Hauer",
+      "streetAddress": "Rua Irmã Maria Lucia Roland, 403 - Hauer",
       "addressLocality": "Curitiba",
       "addressRegion": "PR",
       "postalCode": "81610-090",
@@ -83,8 +69,8 @@
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "-25.5040",
-      "longitude": "-49.2440"
+      "latitude": "-25.4832",
+      "longitude": "-49.2442"
     },
     "hasMap": "https://www.google.com/maps?q=Rua+Irm%C3%A3+Maria+Lucia+Roland+403+Hauer+Curitiba+PR",
     "openingHoursSpecification": [
@@ -148,6 +134,24 @@
           }
         }
       ]
+    }
+  }
+  </script>
+
+  <!-- Schema Markup - WebSite + busca do blog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Magnum Torque",
+    "url": "https://www.magnumtorque.com.br/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.magnumtorque.com.br/blog/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
     }
   }
   </script>
@@ -230,8 +234,8 @@
         </div>
 
         <div class="hero-bullets">
-          <p><span class="dot"></span>Orçamento rápido em até 2 dias úteis</p>
-          <p><span class="dot"></span>Serviço completo em até 4 dias úteis após aprovação</p>
+          <p><span class="dot"></span>Orçamento em 1-2 dias úteis</p>
+          <p><span class="dot"></span>Serviço completo em 2-3 dias úteis após a aprovação</p>
         </div>
       </div>
 
@@ -323,7 +327,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <h3>Entrega em 3-5 Dias</h3>
-        <p>Orçamento em 1-2 dias. Serviço completo em até 4 dias úteis.</p>
+        <p>Orçamento em 1-2 dias úteis. Serviço completo em 2-3 dias úteis após a aprovação.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">
@@ -384,7 +388,7 @@
         <div class="content">
           <h3>Orçamento Rápido</h3>
           <div class="title-line"></div>
-          <p class="desc">Diagnóstico técnico e orçamento em apenas 1-2 dias, com análise detalhada do seu conversor de torque usando equipamentos especializados.</p>
+          <p class="desc">Diagnóstico técnico e orçamento em 1-2 dias úteis, com análise detalhada do seu conversor de torque usando equipamentos especializados.</p>
           <ul class="benefits">
             <li>Avaliação técnica gratuita</li>
             <li>Resposta em até 2 dias úteis</li>
@@ -688,6 +692,15 @@
         </button>
       </div>
     </section>
+
+    <div class="reviews-source">
+      <p>Depoimentos de clientes reais publicados no Google.</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Magnum+Torque+Retifica+Curitiba"
+         target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">
+        Ver avaliações no Google
+        <svg width="16" height="16"><use href="#icon-arrow-right"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -706,7 +719,7 @@
           <span>Qual o prazo para retífica completa de um conversor de torque?</span>
           <svg class="chevron" width="20" height="20" aria-hidden="true"><use href="#icon-chevron-down"/></svg>
         </summary>
-        <p>O serviço completo é realizado em até <strong>4 dias úteis</strong> após a aprovação do orçamento. O diagnóstico inicial leva apenas 1-2 dias úteis.</p>
+        <p>O serviço completo é realizado em <strong>2 a 3 dias úteis</strong> após a aprovação do orçamento. O diagnóstico e o orçamento levam de 1 a 2 dias úteis.</p>
       </details>
 
       <details class="faq-item" name="faq" id="faq-atendimento-nacional">
@@ -940,7 +953,7 @@
       "name": "Qual o prazo para retífica completa de um conversor de torque?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "O serviço completo é realizado em até 4 dias úteis após a aprovação do orçamento. O diagnóstico inicial leva apenas 1-2 dias úteis."
+        "text": "O serviço completo é realizado em 2 a 3 dias úteis após a aprovação do orçamento. O diagnóstico e o orçamento levam de 1 a 2 dias úteis."
       }
     },
     {
@@ -1051,12 +1064,12 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; <span id="year">2026</span> Magnum Torque Retifica LTDA</p>
+      <p>&copy; <span id="year">2026</span> Magnum Torque Retifica Ltda · CNPJ 24.371.535/0001&#8209;37</p>
       <p class="footer-hours" data-business-hours>
         <span class="dot" aria-hidden="true"></span>
         <span class="hours-text">Seg a Sex · 8h às 18h</span>
       </p>
-      <p>Desenvolvido por LBWMA</p>
+      <p><a href="/privacidade/">Política de Privacidade</a> · Desenvolvido por LBWMA</p>
     </div>
   </div>
 </footer>

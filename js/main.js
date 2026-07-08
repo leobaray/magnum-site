@@ -6,6 +6,15 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
 (function () {
   let stored = null;
   try { stored = localStorage.getItem('mg_consent'); } catch (_) {}
+
+  // Revogação de consentimento (botão na Política de Privacidade)
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-revoke-consent]');
+    if (!b) return;
+    try { localStorage.removeItem('mg_consent'); } catch (_) {}
+    window.location.reload();
+  });
+
   if (stored === 'granted' || stored === 'denied') return;
 
   function persist(value) {
@@ -31,7 +40,7 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
       <div class="cookie-consent__inner">
         <div class="cookie-consent__text">
           <p id="cookie-consent-title" class="cookie-consent__title">Cookies e privacidade</p>
-          <p id="cookie-consent-desc" class="cookie-consent__desc">Usamos cookies de medição (Google Analytics) para entender como você usa o site. Você pode aceitar ou recusar. Cookies essenciais sempre ficam ativos.</p>
+          <p id="cookie-consent-desc" class="cookie-consent__desc">Usamos cookies de medição (Google Analytics) para entender como você usa o site. Você pode aceitar ou recusar. Cookies essenciais sempre ficam ativos. Detalhes na <a href="/privacidade/">Política de Privacidade</a>.</p>
         </div>
         <div class="cookie-consent__actions">
           <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Recusar</button>

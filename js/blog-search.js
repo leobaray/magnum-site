@@ -191,6 +191,7 @@
 
   // Debounce
   let debounceTimer = null;
+  let lastTrackedSearch = '';
   function onInput() {
     const raw = input.value.trim();
     if (clearBtn) clearBtn.hidden = raw.length === 0;
@@ -202,7 +203,10 @@
         await loadIndex();
         const results = search(raw);
         applyResults(raw, results);
-        if (typeof window.gtag === 'function') {
+        // Só rastreia termos "assentados" (>=3 chars) e não repetidos,
+        // senão cada pausa de digitação infla a métrica de busca no GA.
+        if (typeof window.gtag === 'function' && raw.length >= 3 && raw !== lastTrackedSearch) {
+          lastTrackedSearch = raw;
           window.gtag('event', 'search', { search_term: raw, results: results.length });
         }
       } catch (_) {
@@ -223,4 +227,10 @@
 
   // Pre-carrega no primeiro focus para ter indice pronto ao digitar
   input.addEventListener('focus', () => { loadIndex().catch(() => {}); }, { once: true });
+
+  // Suporte a /blog/?q=termo (usado pelo SearchAction do schema WebSite)
+  try {
+    const q = new URLSearchParams(window.location.search).get('q');
+    if (q) { input.value = q; onInput(); }
+  } catch (_) {}
 })();
