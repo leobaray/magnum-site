@@ -70,6 +70,46 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.magnumtorque.com.br/blog/cambio-automatico-tremendo-shudder/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/cambio-tremendo.jpg</image:loc>
+      <image:title>Câmbio automático tremendo: entenda o shudder</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/cambio-automatico-modo-emergencia/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/modo-emergencia.jpg</image:loc>
+      <image:title>Câmbio automático em modo de emergência: o que fazer</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/superaquecimento-cambio-automatico/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/superaquecimento.jpg</image:loc>
+      <image:title>Superaquecimento do câmbio automático</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.magnumtorque.com.br/blog/teste-pressao-cambio-automatico/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.magnumtorque.com.br/assets/blog/teste-pressao.jpg</image:loc>
+      <image:title>Teste de pressão: o exame de sangue do câmbio automático</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.magnumtorque.com.br/privacidade/</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>yearly</changefreq>
