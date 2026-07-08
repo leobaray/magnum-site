@@ -513,6 +513,27 @@ function scrollToSection(id, offset = 80) {
   btn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 })();
 
+// ===== Botões flutuantes param no footer (o footer é o "chão" deles) =====
+(function () {
+  const footer = document.querySelector('.footer');
+  if (!footer) return;
+  const root = document.documentElement;
+  let ticking = false;
+  function update() {
+    // Quanto do footer já entrou na viewport = quanto os botões precisam subir
+    const overlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+    root.style.setProperty('--float-floor', overlap + 'px');
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(() => { update(); ticking = false; });
+    }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
 // ===== Modal =====
 (function () {
   const overlay = document.getElementById('modal-overlay');

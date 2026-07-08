@@ -421,7 +421,7 @@ body.modal-open,body.nav-open{overflow:hidden}
 
 /* ===== BACK TO TOP ===== */
 /* WhatsApp flutuante */
-.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:45;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.1rem .75rem .85rem;background:#25D366;color:#fff;border-radius:9999px;box-shadow:0 10px 25px -5px rgba(37,211,102,.45),0 8px 10px -6px rgba(0,0,0,.15);text-decoration:none;font-weight:600;font-size:.9375rem;transition:transform .2s ease,box-shadow .2s ease;animation:wa-pulse 2.4s ease-out infinite}
+.wa-float{position:fixed;bottom:calc(1.5rem + var(--float-floor,0px));right:1.5rem;z-index:45;display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.1rem .75rem .85rem;background:#25D366;color:#fff;border-radius:9999px;box-shadow:0 10px 25px -5px rgba(37,211,102,.45),0 8px 10px -6px rgba(0,0,0,.15);text-decoration:none;font-weight:600;font-size:.9375rem;transition:transform .2s ease,box-shadow .2s ease;animation:wa-pulse 2.4s ease-out infinite}
 .wa-float:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 30px -5px rgba(37,211,102,.55),0 8px 10px -6px rgba(0,0,0,.2);animation:none}
 .wa-float:active{transform:translateY(0) scale(.98)}
 .wa-float__label{white-space:nowrap}
@@ -429,9 +429,9 @@ body.modal-open,body.nav-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.wa-float{animation:none}}
 @keyframes wa-pulse{0%{box-shadow:0 10px 25px -5px rgba(37,211,102,.45),0 8px 10px -6px rgba(0,0,0,.15),0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 10px 25px -5px rgba(37,211,102,.45),0 8px 10px -6px rgba(0,0,0,.15),0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 10px 25px -5px rgba(37,211,102,.45),0 8px 10px -6px rgba(0,0,0,.15),0 0 0 0 rgba(37,211,102,0)}}
 
-.back-to-top{position:fixed;bottom:1.5rem;right:1.5rem;width:3rem;height:3rem;border-radius:50%;background:var(--primary);color:var(--white);border:none;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;transition:var(--transition);opacity:0;pointer-events:none;transform:translateY(1rem);z-index:40}
-.wa-float ~ .back-to-top,body:has(.wa-float) .back-to-top{bottom:5.25rem}
-@media(max-width:540px){.wa-float ~ .back-to-top,body:has(.wa-float) .back-to-top{bottom:5.5rem;right:1.75rem;width:2.75rem;height:2.75rem}}
+.back-to-top{position:fixed;bottom:calc(1.5rem + var(--float-floor,0px));right:1.5rem;width:3rem;height:3rem;border-radius:50%;background:var(--primary);color:var(--white);border:none;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center;transition:var(--transition);opacity:0;pointer-events:none;transform:translateY(1rem);z-index:40}
+.wa-float ~ .back-to-top,body:has(.wa-float) .back-to-top{bottom:calc(5.25rem + var(--float-floor,0px))}
+@media(max-width:540px){.wa-float ~ .back-to-top,body:has(.wa-float) .back-to-top{bottom:calc(5.5rem + var(--float-floor,0px));right:1.75rem;width:2.75rem;height:2.75rem}}
 .back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .back-to-top:hover{background:#c9050d;transform:translateY(-4px) scale(1.05)}
 .back-to-top svg{width:1.25rem;height:1.25rem}
