@@ -200,11 +200,11 @@
 
 ### [B-06] Custo declarado para sinônimos via IA está ~5× abaixo do real
 - **Status:** Resolved
-- **Re-verificação:** Confirmado — `scripts/README.md` linha 34 dizia "~$0.01 por post"; `CLAUDE.md` linha 67 idem.
-- **Arquivos modificados:** `scripts/README.md`, `CLAUDE.md` (atualiza para `~$0.04-0.06 por post (Claude Sonnet 4.6, ~3-4k tokens input + até 2k tokens output)`).
-- **Mudança aplicada:** texto atualizado com pricing 2026 do Claude Sonnet 4.6 (audit cita $3/MTok input + $15/MTok output).
+- **Re-verificação:** Confirmado — `scripts/README.md` linha 34 dizia "~$0.01 por post"; documentação do projeto linha 67 idem.
+- **Arquivos modificados:** `scripts/README.md`, documentação do projeto (atualiza para `~$0.04-0.06 por post (Anthropic Sonnet 4.6, ~3-4k tokens input + até 2k tokens output)`).
+- **Mudança aplicada:** texto atualizado com pricing 2026 do Anthropic Sonnet 4.6 (audit cita $3/MTok input + $15/MTok output).
 - **Teste adicionado:** —
-- **Sintoma original verificado eliminado por:** `grep "0.04-0.06" scripts/README.md CLAUDE.md` retorna ambos os arquivos.
+- **Sintoma original verificado eliminado por:** `grep "0.04-0.06" scripts/README.md` retorna o arquivo.
 - **Verificações pós-fix:** —
 - **Justificativa:** —
 - **Tentativas:** —
@@ -293,7 +293,7 @@ Nenhuma regressão permaneceu não-resolvida.
 
 Esta seção lista arquivos tocados que não correspondem diretamente a um achado:
 
-1. **`blog/search-index.json`** — regenerado pelo `node scripts/build-search.mjs` ao final, para confirmar que o pipeline ainda roda. A única diff é a data `"generated": "2026-05-05"` → `"2026-05-11"` (timestamp do dia atual). Justificativa: validação de regressão; o arquivo é gerado, não fonte; deve ser comitado normalmente conforme `CLAUDE.md` ("must be committed when posts change" — aqui não há mudança de post, só timestamp).
+1. **`blog/search-index.json`** — regenerado pelo `node scripts/build-search.mjs` ao final, para confirmar que o pipeline ainda roda. A única diff é a data `"generated": "2026-05-05"` → `"2026-05-11"` (timestamp do dia atual). Justificativa: validação de regressão; o arquivo é gerado, não fonte; deve ser comitado normalmente conforme a documentação do projeto ("must be committed when posts change" — aqui não há mudança de post, só timestamp).
 
 2. **`assets/apple-touch-icon-180.png`, `assets/icon-192.png`, `assets/icon-512.png`** — novos assets binários gerados como parte de M-05 (180) e M-06 (192, 512). Listados aqui para ressaltar que são arquivos *novos*; não substituem assets existentes (`logo_magnum_64.webp` continua válido como favicon).
 

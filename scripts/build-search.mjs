@@ -9,7 +9,7 @@
  *   1. Le blog/<slug>/index.html de todos os posts (exceto o /blog/index.html raiz)
  *   2. Extrai: title, excerpt, categoria, data, readTime, url, image, corpo
  *   3. Le sinonimos manuais de blog/<slug>/synonyms.json (opcional)
- *   4. Se a chave ANTHROPIC_API_KEY existir, gera sinonimos via Claude e mescla
+ *   4. Se a chave ANTHROPIC_API_KEY existir, gera sinonimos via IA e mescla
  *   5. Escreve blog/search-index.json
  *
  * Para gerar sinonimos automaticos:
@@ -100,7 +100,7 @@ async function loadManualSynonyms(postDir) {
   }
 }
 
-async function generateSynonymsWithClaude(post) {
+async function generateSynonymsWithAI(post) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return [];
   const prompt = `Voce e especialista em SEO para um blog tecnico sobre conversor de torque e cambio automatico.
@@ -171,7 +171,7 @@ async function main() {
     let ai = [];
     if (process.env.ANTHROPIC_API_KEY) {
       console.log(`  [IA] gerando sinonimos para ${slug}...`);
-      ai = await generateSynonymsWithClaude(post);
+      ai = await generateSynonymsWithAI(post);
     }
     const synonymSet = new Set([...manual, ...ai].map(s => s.trim()).filter(Boolean));
     post.synonyms = Array.from(synonymSet);

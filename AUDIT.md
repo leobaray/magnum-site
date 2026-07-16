@@ -38,7 +38,7 @@
 - **Problema:**
   - **`html-validate --ignore` não existe.** A v9 do `html-validate` aceita só `--ext`, `--formatter`, `--max-warnings`, `--rule`, `--preset` e `--config` (`html-validate --help`). Passar `--ignore` produz `unknown option --ignore` e exit code 1.
   - **`linkinator . --skip "^https?://(localhost|127\\.)"` zera o crawl.** Quando recebe um diretório como alvo, o `linkinator` sobe um servidor estático interno em `http://127.0.0.1:<port>/` e começa o crawl pela raiz desse servidor — que casa exatamente com o regex `--skip` e é pulada antes de visitar qualquer link. Resultado: "Successfully scanned 0 links".
-- **Impacto:** o passo `Validate HTML` falha imediatamente em todo push/PR; o passo `Check links` nunca chega a rodar (depende do anterior). Mesmo se o primeiro fosse consertado, o segundo continuaria não escaneando nada. A "CI" prometida no `CLAUDE.md` é teatro — nem HTML quebrado nem link 404 são detectados.
+- **Impacto:** o passo `Validate HTML` falha imediatamente em todo push/PR; o passo `Check links` nunca chega a rodar (depende do anterior). Mesmo se o primeiro fosse consertado, o segundo continuaria não escaneando nada. A "CI" prometida na documentação do projeto é teatro — nem HTML quebrado nem link 404 são detectados.
 - **Evidência / verificação:**
   ```
   $ npx -y html-validate@9.x '**/*.html' --ignore .git --ignore node_modules
@@ -357,10 +357,10 @@
 - **Esforço estimado:** Trivial.
 
 #### [B-06] Custo declarado para sinônimos via IA está ~5× abaixo do real
-- **Localização:** `scripts/README.md` linhas 34 ("Custo aproximado: ~$0.01 por post"); `CLAUDE.md` parágrafo "Adding a new blog post" ("costs ~$0.01/post")
-- **Problema:** o prompt em `scripts/build-search.mjs` envia ~3-4k tokens de input (prompt + corpo do post) com `max_tokens: 2000`. Usando preço do **Claude Sonnet 4.6** ($3/MTok input + $15/MTok output), uma execução típica chega a ~$0.04-0.06/post, não $0.01. A estimativa parece ter sido feita com pricing antigo de Haiku ou de Sonnet 3.5.
+- **Localização:** `scripts/README.md` linhas 34 ("Custo aproximado: ~$0.01 por post"); documentação do projeto parágrafo "Adding a new blog post" ("costs ~$0.01/post")
+- **Problema:** o prompt em `scripts/build-search.mjs` envia ~3-4k tokens de input (prompt + corpo do post) com `max_tokens: 2000`. Usando preço do **Anthropic Sonnet 4.6** ($3/MTok input + $15/MTok output), uma execução típica chega a ~$0.04-0.06/post, não $0.01. A estimativa parece ter sido feita com pricing antigo de Haiku ou de Sonnet 3.5.
 - **Impacto:** zero funcional; gera surpresa só se alguém rodar o script para 20+ posts de uma vez achando que vai gastar $0.20.
-- **Fonte:** Pricing oficial Claude: https://www.anthropic.com/pricing#anthropic-api (Sonnet 4.6: $3/MTok input, $15/MTok output, válido em 2026).
+- **Fonte:** Pricing oficial Anthropic: https://www.anthropic.com/pricing#anthropic-api (Sonnet 4.6: $3/MTok input, $15/MTok output, válido em 2026).
 - **Recomendação:** atualizar a doc para "~$0.04-0.06 por post" ou medir uma execução real e usar o número observado.
 - **Confiança:** Média (a estimativa precisa varia com tamanho de output da IA).
 - **Esforço estimado:** Trivial.

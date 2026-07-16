@@ -18,7 +18,7 @@ node scripts/build-search.mjs
 
 4. Suba `blog/search-index.json` e os arquivos novos para a Hostinger
 
-### Uso com IA (gera sinonimos automaticamente via Claude)
+### Uso com IA (gera sinonimos automaticamente via Anthropic)
 
 ```powershell
 # PowerShell
@@ -31,7 +31,7 @@ node scripts/build-search.mjs
 ANTHROPIC_API_KEY=sk-ant-... node scripts/build-search.mjs
 ```
 
-A IA gera 30-60 variacoes de busca por post (linguagem informal, termos tecnicos, codigos OBD, perguntas naturais). Custo aproximado: ~$0.04-0.06 por post (Claude Sonnet 4.6, ~3-4k tokens de input + ate 2k tokens de output).
+A IA gera 30-60 variacoes de busca por post (linguagem informal, termos tecnicos, codigos OBD, perguntas naturais). Custo aproximado: ~$0.04-0.06 por post (Anthropic Sonnet 4.6, ~3-4k tokens de input + ate 2k tokens de output).
 
 Os sinonimos manuais (`synonyms.json`) sao MESCLADOS com os gerados por IA. Dedup automatico.
 
