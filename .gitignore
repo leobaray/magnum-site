@@ -1,0 +1,29 @@
+# ---- Secrets / environment ----
+.env
+.env.*
+!.env.example
+
+# ---- Node (only the search-index script) ----
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.npm/
+
+# ---- Python (only the SEO rank script) ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# ---- Local validation / audit output ----
+.lighthouseci/
+*.log
+
+# ---- Editor / OS cruft ----
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
