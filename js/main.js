@@ -33,8 +33,8 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
     const banner = document.createElement('div');
     banner.id = 'cookie-consent';
     banner.className = 'cookie-consent';
-    banner.setAttribute('role', 'dialog');
-    banner.setAttribute('aria-labelledby', 'cookie-consent-title');
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Aviso de cookies');
     banner.setAttribute('aria-describedby', 'cookie-consent-desc');
     banner.innerHTML = `
       <div class="cookie-consent__inner">
@@ -48,7 +48,8 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
         </div>
       </div>
     `;
-    document.body.appendChild(banner);
+    // No início do body (logo após o skip link) para leitores de tela encontrarem cedo
+    document.body.insertBefore(banner, document.body.children[1]);
     requestAnimationFrame(() => banner.classList.add('is-visible'));
 
     banner.querySelectorAll('[data-consent]').forEach((btn) => {
@@ -227,7 +228,10 @@ function scrollToSection(id, offset = 80) {
   // Em paginas de blog, scrollspy fica desabilitado (posts podem ter secoes
   // com id colidindo com o menu, ex: id="faq"). So marca o item "Blog" ativo.
   if (isBlogPage) {
-    document.querySelectorAll('.nav-desktop a[href="/blog/"], .nav-mobile a[href="/blog/"]').forEach(a => a.classList.add('active'));
+    document.querySelectorAll('.nav-desktop a[href="/blog/"], .nav-mobile a[href="/blog/"]').forEach(a => {
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'true');
+    });
   } else if (sections.length > 0) {
     function updateActive() {
       const headerH = header.offsetHeight || 80;
@@ -250,7 +254,12 @@ function scrollToSection(id, offset = 80) {
       setActive(bestId);
     }
     function setActive(id) {
-      navLinks.forEach(link => link.classList.toggle('active', link.dataset.section === id));
+      navLinks.forEach(link => {
+        const isActive = link.dataset.section === id;
+        link.classList.toggle('active', isActive);
+        if (isActive) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
     }
     let ticking = false;
     window.addEventListener('scroll', () => {
@@ -294,6 +303,7 @@ function scrollToSection(id, offset = 80) {
   const track = document.getElementById('carousel-track');
   const prevBtn = document.getElementById('carousel-prev');
   const nextBtn = document.getElementById('carousel-next');
+  const pauseBtn = document.getElementById('carousel-pause');
   const dotsContainer = document.getElementById('carousel-dots');
   if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
   const wrapper = track.closest('.carousel-wrapper');
@@ -306,6 +316,7 @@ function scrollToSection(id, offset = 80) {
   let current = 0;
   let perView = getPerView();
   let timer = null;
+  let userPaused = false; // pausa explícita do usuário: nada reinicia o autoplay
 
   function getPerView() {
     if (window.innerWidth >= 1024) return 3;
@@ -344,6 +355,7 @@ function scrollToSection(id, offset = 80) {
   }
 
   function startAuto() {
+    if (userPaused) return; // guarda central: cobre mouseleave, focusout, IO, etc.
     if (reduceMotion.matches) return;
     if (maxIdx() === 0) return;
     stopAuto();
@@ -353,6 +365,21 @@ function scrollToSection(id, offset = 80) {
 
   prevBtn.addEventListener('click', () => { stopAuto(); go(current - 1); startAuto(); });
   nextBtn.addEventListener('click', () => { stopAuto(); go(current + 1); startAuto(); });
+
+  // Botão pausar/retomar rotação automática
+  if (pauseBtn) {
+    const pauseIcon = pauseBtn.querySelector('[data-icon="pause"]');
+    const playIcon = pauseBtn.querySelector('[data-icon="play"]');
+    pauseBtn.addEventListener('click', () => {
+      userPaused = !userPaused;
+      pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label', userPaused ? 'Retomar rotação automática' : 'Pausar rotação automática');
+      if (pauseIcon) pauseIcon.hidden = userPaused;
+      if (playIcon) playIcon.hidden = !userPaused;
+      if (userPaused) stopAuto();
+      else startAuto();
+    });
+  }
 
   // Pausa em hover/focus
   if (wrapper) {

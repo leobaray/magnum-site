@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google tag (gtag.js) — bootstrap externo p/ CSP sem 'unsafe-inline' -->
-  <script src="/js/analytics.js"></script>
+  <script src="/js/analytics.js?v=20260720"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HJYEEB2XR"></script>
 
   <title>Teste de Stall no Conversor de Torque | Magnum Torque</title>
@@ -19,15 +19,17 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.magnumtorque.com.br/blog/teste-de-stall-conversor-torque/">
-  <meta property="og:title" content="Teste de stall: o diagnóstico do conversor em 5 segundos">
+  <meta property="og:title" content="Teste de stall: o diagnóstico do conversor de torque em 5 segundos">
   <meta property="og:description" content="Como o teste de stall revela problemas do conversor de torque em segundos: passo a passo, faixas de RPM, interpretação dos resultados e cuidados.">
   <meta property="og:image" content="https://www.magnumtorque.com.br/assets/blog/teste-de-stall.jpg">
+  <meta property="og:image:alt" content="Capa do artigo: teste de stall, o diagnóstico do conversor em 5 segundos">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Magnum Torque">
   <meta property="og:locale" content="pt_BR">
   <meta property="article:published_time" content="2026-07-07T09:00:00-03:00">
+  <meta property="article:modified_time" content="2026-07-20T09:00:00-03:00">
   <meta property="article:author" content="Magnum Torque">
   <meta property="article:section" content="Diagnóstico">
   <meta property="article:tag" content="conversor de torque">
@@ -41,25 +43,27 @@
   <meta name="twitter:image" content="https://www.magnumtorque.com.br/assets/blog/teste-de-stall.jpg">
   <meta name="twitter:image:alt" content="Capa do artigo: teste de stall, o diagnóstico do conversor em 5 segundos">
 
-  <link rel="icon" type="image/webp" href="/assets/logo_magnum_64.webp">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-180.png">
+  <link rel="icon" href="/favicon.ico?v=20260721" sizes="32x32">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png?v=20260721">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-180.png?v=20260721">
   <link rel="manifest" href="/manifest.webmanifest">
 
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/opensans-400.woff2" crossorigin>
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/montserrat-700.woff2" crossorigin>
-  <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/opensans-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/montserrat-var.woff2" crossorigin>
+  <link rel="stylesheet" href="/css/fonts.css?v=20260720">
+  <link rel="stylesheet" href="/css/style.css?v=20260720">
+  <link rel="stylesheet" href="/css/blog.css?v=20260720">
 
   <!-- Article Schema -->
   <script type="application/ld+json">
   {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Teste de stall: como a oficina diagnostica o conversor em 5 segundos",
+  "headline": "Teste de stall: o diagnóstico do conversor de torque em 5 segundos",
   "description": "Como o teste de stall revela problemas do conversor de torque em segundos: passo a passo, faixas de RPM, interpretação dos resultados e cuidados.",
   "image": "https://www.magnumtorque.com.br/assets/blog/teste-de-stall.jpg",
   "datePublished": "2026-07-07T09:00:00-03:00",
+  "dateModified": "2026-07-20T09:00:00-03:00",
   "author": {
     "@type": "Organization",
     "name": "Magnum Torque",
@@ -102,7 +106,7 @@
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "Teste de stall: como a oficina diagnostica o conversor em 5 segundos"
+      "name": "Teste de stall: o diagnóstico do conversor em 5 segundos"
     }
   ]
 }
@@ -167,7 +171,7 @@
       <a href="/#pecas" data-section="pecas">Peças</a>
       <a href="/#parceiros" data-section="parceiros">Parceiros</a>
       <a href="/#depoimentos" data-section="depoimentos">Depoimentos</a>
-      <a href="/blog/" class="active">Blog</a>
+      <a href="/blog/" class="active" aria-current="true">Blog</a>
       <a href="/#faq" data-section="faq">FAQ</a>
       <a href="/#contato" data-section="contato" class="btn btn-primary btn-sm">Entre em Contato</a>
     </nav>
@@ -184,7 +188,7 @@
     <a href="/#pecas" data-section="pecas">Peças</a>
     <a href="/#parceiros" data-section="parceiros">Parceiros</a>
     <a href="/#depoimentos" data-section="depoimentos">Depoimentos</a>
-    <a href="/blog/" class="active">Blog</a>
+    <a href="/blog/" class="active" aria-current="true">Blog</a>
     <a href="/#faq" data-section="faq">FAQ</a>
     <a href="/#contato" data-section="contato" class="btn btn-primary btn-block mobile-nav-cta">Entre em Contato</a>
   </nav>
@@ -215,6 +219,10 @@
           <time datetime="2026-07-07">7 de julho de 2026</time>
         </div>
         <div class="post-meta-item">
+          <span class="post-meta-label">Atualizado em</span>
+          <time datetime="2026-07-20">20 de julho de 2026</time>
+        </div>
+        <div class="post-meta-item">
           <span class="post-meta-label">Leitura</span>
           <span><svg width="14" height="14" aria-hidden="true"><use href="#icon-clock"/></svg> 6 min</span>
         </div>
@@ -226,15 +234,15 @@
     </header>
 
     <figure class="post-featured container">
-      <img src="/assets/blog/teste-de-stall.jpg"
-           alt="Capa do artigo: teste de stall, o diagnóstico do conversor de torque em 5 segundos"
+      <img src="/assets/blog/teste-de-stall.webp"
+           alt="Mecânico no banco do motorista fazendo o teste de stall: pé no freio, scanner na mão e o conta-giros com o ponteiro alto, com a roda calçada no piso da oficina."
            width="1200" height="630" loading="eager" decoding="async" fetchpriority="high">
       <figcaption>O teste de stall compara o RPM máximo do motor com o veículo travado contra a faixa de referência do fabricante.</figcaption>
     </figure>
 
     <div class="post-layout container">
 
-      <aside class="post-toc" aria-label="Índice do artigo">
+      <nav class="post-toc" aria-label="Índice do artigo">
         <h2>Neste artigo</h2>
         <ol>
           <li><a href="#o-que-e">O que é o teste de stall</a></li>
@@ -244,7 +252,7 @@
           <li><a href="#limites">O que o teste não revela</a></li>
           <li><a href="#faq">Perguntas frequentes</a></li>
         </ol>
-      </aside>
+      </nav>
 
       <div class="post-content">
 
@@ -291,7 +299,7 @@
             <div class="sign-num">3</div>
             <div>
               <h3>Stall dentro da faixa, mas com sintomas</h3>
-              <p>Stall normal não absolve o conversor: problemas de <strong>lock-up</strong> (a trepidação em velocidade constante, o famoso <em>shudder</em>) não aparecem no teste, porque o lock-up só atua em velocidade de cruzeiro. Nesse caso a investigação segue com scanner e teste de pressão.</p>
+              <p>Stall normal não absolve o conversor: problemas de <strong>lock-up</strong> (a trepidação em velocidade constante, o famoso <a href="/blog/cambio-automatico-tremendo-shudder/"><em>shudder</em></a>) não aparecem no teste, porque o lock-up só atua em velocidade de cruzeiro. Nesse caso a investigação segue com scanner e <a href="/blog/teste-pressao-cambio-automatico/">teste de pressão</a>.</p>
             </div>
           </div>
 
@@ -379,10 +387,10 @@
               <h3>Código P0740: nem sempre o conversor é o culpado</h3>
               <p>O código aponta o sistema do lock-up, não a peça. As 6 causas possíveis, da mais barata à mais cara.</p>
             </a>
-            <a class="related-card" href="/blog/fluido-atf-errado-conversor-torque/">
-              <span class="related-tag">Manutenção</span>
-              <h3>ATF errado mata seu conversor de torque</h3>
-              <p>Dexron VI, Mercon LV, ATF+4: por que não existe "fluido universal" confiável e o que o errado causa.</p>
+            <a class="related-card" href="/blog/teste-pressao-cambio-automatico/">
+              <span class="related-tag">Diagnóstico</span>
+              <h3>Teste de pressão: o exame de sangue do câmbio</h3>
+              <p>O teste que confirma o lado hidráulico antes de condenar qualquer peça — o complemento natural do stall.</p>
             </a>
           </div>
         </section>
@@ -477,6 +485,6 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
 </button>
 
-<script src="/js/main.js"></script>
+<script src="/js/main.js?v=20260720"></script>
 </body>
 </html>

@@ -31,6 +31,7 @@
   let mini = null;
   let indexPosts = [];
   let loadPromise = null;
+  let libPromise = null;
 
   const stripAccents = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '');
   const norm = (s) => stripAccents(String(s || '').toLowerCase());
@@ -63,11 +64,31 @@
     return ms;
   }
 
+  // Injeta a lib MiniSearch sob demanda (nao carrega no page load)
+  function loadLib() {
+    if (window.MiniSearch) return Promise.resolve();
+    if (libPromise) return libPromise;
+    libPromise = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = '/js/vendor/minisearch.min.js?v=20260720';
+      s.onload = resolve;
+      s.onerror = () => {
+        libPromise = null; // permite retry
+        reject(new Error('falha ao carregar MiniSearch'));
+      };
+      document.head.appendChild(s);
+    });
+    return libPromise;
+  }
+
   function loadIndex() {
     if (loadPromise) return loadPromise;
-    loadPromise = fetch('/blog/search-index.json', { cache: 'force-cache' })
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(data => {
+    loadPromise = Promise.all([
+      loadLib(),
+      fetch('/blog/search-index.json', { cache: 'force-cache' })
+        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    ])
+      .then(([, data]) => {
         indexPosts = data.posts || [];
         mini = buildIndex(indexPosts);
         return mini;
