@@ -12,6 +12,11 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
     const b = e.target.closest('[data-revoke-consent]');
     if (!b) return;
     try { localStorage.removeItem('mg_consent'); } catch (_) {}
+    // Faz a revogação valer JÁ neste documento, não só depois do reload.
+    window.mgConsent = 'unset';
+    if (typeof window.gtag === 'function') {
+      try { window.gtag('consent', 'update', { analytics_storage: 'denied' }); } catch (_) {}
+    }
     window.location.reload();
   });
 
@@ -19,12 +24,16 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
 
   function persist(value) {
     try { localStorage.setItem('mg_consent', value); } catch (_) {}
-    if (typeof window.gtag === 'function') {
-      try {
-        window.gtag('consent', 'update', {
-          analytics_storage: value === 'granted' ? 'granted' : 'denied'
-        });
-      } catch (_) {}
+    if (value === 'granted') {
+      // Liga o GA4 agora: consent update + config, e é o config que emite o
+      // page_view desta página — a landing de quem acabou de aceitar.
+      if (typeof window.mgStartAnalytics === 'function') window.mgStartAnalytics();
+      else window.mgConsent = 'granted';
+    } else {
+      window.mgConsent = 'denied';
+      if (typeof window.gtag === 'function') {
+        try { window.gtag('consent', 'update', { analytics_storage: 'denied' }); } catch (_) {}
+      }
     }
   }
 
@@ -50,14 +59,25 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
     `;
     // No início do body (logo após o skip link) para leitores de tela encontrarem cedo
     document.body.insertBefore(banner, document.body.children[1]);
-    requestAnimationFrame(() => banner.classList.add('is-visible'));
+    requestAnimationFrame(() => {
+      banner.classList.add('is-visible');
+      // O banner é chão dos botões flutuantes: recalcula agora que ele existe
+      // e já está na posição final (o translateY(20px) inicial mede errado).
+      if (typeof window.__mgUpdateFloatFloor === 'function') window.__mgUpdateFloatFloor();
+    });
 
     banner.querySelectorAll('[data-consent]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const value = btn.dataset.consent;
         persist(value);
         banner.classList.remove('is-visible');
-        setTimeout(() => banner.remove(), 250);
+        // O botão que acabou de ser clicado vai sumir do DOM: devolve o foco a um
+        // elemento estável, senão o teclado volta pro início do documento em silêncio.
+        try { document.querySelector('.skip-link')?.focus({ preventScroll: true }); } catch (_) {}
+        setTimeout(() => {
+          banner.remove();
+          if (typeof window.__mgUpdateFloatFloor === 'function') window.__mgUpdateFloatFloor();
+        }, 250);
       });
     });
   }
@@ -75,6 +95,10 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
   if (!el) return;
   const dot = el.querySelector('.dot');
   const text = el.querySelector('.hours-text');
+  // Sem este guard, um .hours-text ausente joga um TypeError aqui — e como este é
+  // o 2º IIFE do arquivo, isso derrubaria TODO o resto do main.js (menu, form,
+  // carrossel, botões flutuantes). O bloco é duplicado à mão em 11 HTMLs.
+  if (!text) return;
   const weekdayNames = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
 
   function partsInBrazil() {
@@ -126,6 +150,10 @@ if (_yearEl) _yearEl.textContent = new Date().getFullYear();
 
 // ===== GA4 event helper =====
 function trackEvent(name, params) {
+  // Gate de consentimento. Sem aceite explícito nada é enviado ao Google — nem o
+  // ping sem cookie do Consent Mode, que ainda carrega URL, referrer, dispositivo
+  // e todos os parâmetros do evento. É o que privacidade/index.html promete.
+  if (window.mgConsent !== 'granted') return;
   if (typeof window.gtag === 'function') {
     try { window.gtag('event', name, params || {}); } catch (_) {}
   }
@@ -175,10 +203,15 @@ const iconMenu = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 const iconX = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
 
 // ===== Scroll =====
+// O CSS já força scroll-behavior:auto sob prefers-reduced-motion, mas window.scrollTo
+// com behavior:'smooth' ignora o CSS e anima assim mesmo. Os dois precisam concordar.
+const _reduceMotionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+function scrollBehavior() { return _reduceMotionMQ.matches ? 'auto' : 'smooth'; }
+
 function scrollToSection(id, offset = 80) {
   const el = document.getElementById(id);
   if (!el) return;
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: scrollBehavior() });
 }
 
 // ===== Header =====
@@ -191,9 +224,31 @@ function scrollToSection(id, offset = 80) {
   const logoLink = document.getElementById('logo-link');
   const navLinks = document.querySelectorAll('.nav-desktop a[data-section], .nav-mobile a[data-section]');
   const allSectionLinks = document.querySelectorAll('a[data-section]');
-  const sectionIds = ['inicio', 'sobre', 'servicos', 'pecas', 'parceiros', 'depoimentos', 'faq', 'contato'];
+  // Ordem do DOM, e cada id aqui precisa ter link correspondente no menu:
+  // ativar um id sem link apagaria o estado ativo da barra em vez de movê-lo.
+  const sectionIds = ['inicio', 'sobre', 'servicos', 'parceiros', 'pecas', 'depoimentos', 'faq', 'contato'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const isBlogPage = document.body.classList.contains('blog-page');
+
+  // Mesma lista que o modal usa mais abaixo.
+  const NAV_FOCUSABLE = 'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])';
+
+  // Com a gaveta aberta, o Tab saía dela e ia parar num controle 100% coberto pelo
+  // painel — e como body.nav-open trava o scroll, não havia como chegar até ele.
+  // Foco invisível e página que rola sozinha por baixo: WCAG 2.4.11.
+  function trapNav(e) {
+    if (e.key !== 'Tab' || !mobileNav.classList.contains('open')) return;
+    const items = [hamburger, ...mobileNav.querySelectorAll(NAV_FOCUSABLE)]
+      .filter(el => el.offsetParent !== null || el === hamburger);
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!mobileNav.contains(document.activeElement) && document.activeElement !== hamburger) {
+      // Já escapou (foco veio de fora do ciclo): traz de volta em vez de deixar ir.
+      e.preventDefault(); first.focus();
+    }
+  }
 
   function setMobileOpen(open) {
     if (!mobileNav || !hamburger) return;
@@ -202,6 +257,14 @@ function scrollToSection(id, offset = 80) {
     hamburger.innerHTML = open ? iconX : iconMenu;
     hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
     hamburger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    // inert tira o resto da página do foco E do cursor virtual do leitor de tela.
+    // Onde não houver suporte, o trapNav acima já resolve o teclado sozinho.
+    ['main', '.footer', '.wa-float', '.back-to-top'].forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el && 'inert' in el) el.inert = open;
+    });
+    if (open) document.addEventListener('keydown', trapNav, true);
+    else document.removeEventListener('keydown', trapNav, true);
   }
   function closeMobile() {
     if (mobileNav && mobileNav.classList.contains('open')) setMobileOpen(false);
@@ -216,6 +279,20 @@ function scrollToSection(id, offset = 80) {
     hamburger.addEventListener('click', () => {
       setMobileOpen(!mobileNav.classList.contains('open'));
     });
+
+    // Fecha a gaveta ao cruzar o breakpoint do nav. Sem isto, abrir a gaveta e
+    // girar um tablet (768 retrato -> 1024 paisagem), redimensionar a janela ou
+    // só mudar o tamanho de fonte do navegador deixava a página INTEIRA inerte:
+    // main, footer e os dois flutuantes seguiam com inert, body.nav-open seguia
+    // travando o scroll, e o hambúrguer já estava display:none — zero elementos
+    // focáveis e nada clicável, com a página ainda rolando (parecia viva).
+    // O breakpoint é em em justamente para acompanhar a preferência de fonte,
+    // então esse cruzamento não é um caso raro. addListener é o fallback para
+    // Safari <= 13, mesmo padrão que o carrossel já usa.
+    const navMQ = window.matchMedia('(min-width:55em)');
+    const onNavMQ = (e) => { if (e.matches) closeMobile(); };
+    if (typeof navMQ.addEventListener === 'function') navMQ.addEventListener('change', onNavMQ);
+    else if (typeof navMQ.addListener === 'function') navMQ.addListener(onNavMQ);
   }
 
   // Header shadow on scroll (em paginas de blog fica sempre com sombra)
@@ -277,7 +354,7 @@ function scrollToSection(id, offset = 80) {
   if (logoLink) {
     logoLink.addEventListener('click', (e) => {
       const inicio = document.getElementById('inicio');
-      if (inicio) { e.preventDefault(); scrollToSection('inicio'); closeMobile(); }
+      if (inicio) { e.preventDefault(); closeMobile(); scrollToSection('inicio'); }
       else { closeMobile(); }
     });
   }
@@ -292,8 +369,12 @@ function scrollToSection(id, offset = 80) {
       const targetEl = targetId ? document.getElementById(targetId) : null;
       if (!targetEl) return;
       e.preventDefault();
-      scrollToSection(targetId);
+      // closeMobile() ANTES de medir. A gaveta vive dentro do <header> sticky, então
+      // aberta ela empurra o documento inteiro pra baixo (~577px em 390px de largura).
+      // Medir antes de fechar fazia todo link da gaveta parar uma seção adiante —
+      // tocar "Contato" deixava o formulário abaixo da dobra.
       closeMobile();
+      scrollToSection(targetId);
     });
   });
 })();
@@ -310,6 +391,9 @@ function scrollToSection(id, offset = 80) {
 
   const cards = track.children;
   const total = cards.length;
+  // cards[0].offsetWidth mais abaixo joga TypeError com a track vazia, e isso
+  // derrubaria o formulário, o back-to-top e os botões flutuantes junto.
+  if (!total) return;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const AUTOPLAY_MS = 6000;
 
@@ -325,8 +409,17 @@ function scrollToSection(id, offset = 80) {
   }
   function maxIdx() { return Math.max(0, total - perView); }
 
+  // Lê o gap real do CSS (1.5rem) em vez de assumir 24px. Com root font aumentado
+  // — zoom, "Fonte muito grande" do Chrome — o valor fixo acumulava erro por slide
+  // e cortava o texto do último depoimento.
+  function currentGap() {
+    const cs = getComputedStyle(track);
+    const g = parseFloat(cs.columnGap || cs.gap);
+    return Number.isFinite(g) ? g : 24;
+  }
+
   function update() {
-    const gap = 24;
+    const gap = currentGap();
     track.style.transform = `translateX(-${current * (cards[0].offsetWidth + gap)}px)`;
     Array.from(dotsContainer.children).forEach((d, i) => {
       const active = i === current;
@@ -368,14 +461,13 @@ function scrollToSection(id, offset = 80) {
 
   // Botão pausar/retomar rotação automática
   if (pauseBtn) {
-    const pauseIcon = pauseBtn.querySelector('[data-icon="pause"]');
-    const playIcon = pauseBtn.querySelector('[data-icon="play"]');
     pauseBtn.addEventListener('click', () => {
       userPaused = !userPaused;
+      // aria-pressed é a única fonte de verdade: o CSS troca os ícones a partir dele.
+      // O atributo `hidden` não funciona em <svg> (não é HTMLElement), então os dois
+      // ícones apareciam ao mesmo tempo e nunca trocavam.
       pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
       pauseBtn.setAttribute('aria-label', userPaused ? 'Retomar rotação automática' : 'Pausar rotação automática');
-      if (pauseIcon) pauseIcon.hidden = userPaused;
-      if (playIcon) playIcon.hidden = !userPaused;
       if (userPaused) stopAuto();
       else startAuto();
     });
@@ -393,17 +485,31 @@ function scrollToSection(id, offset = 80) {
     });
   }
 
-  // Touch swipe
-  let startX = 0;
-  track.addEventListener('touchstart', (e) => { stopAuto(); startX = e.touches[0].clientX; }, { passive: true });
+  // Touch swipe. Precisa dos dois eixos: sem comparar dx com dy, rolar a página
+  // verticalmente por cima do carrossel trocava de slide sem querer. E com dois
+  // dedos (pinch pra dar zoom no texto) changedTouches[0] é um dedo arbitrário.
+  let startX = 0, startY = 0, multiTouch = false;
+  track.addEventListener('touchstart', (e) => {
+    stopAuto();
+    if (e.touches.length > 1) { multiTouch = true; return; }
+    multiTouch = false;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
   track.addEventListener('touchend', (e) => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) go(current + 1);
-      else go(current - 1);
+    const t = e.changedTouches[0];
+    if (!multiTouch && t) {
+      const dx = startX - t.clientX;
+      const dy = startY - t.clientY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 0) go(current + 1);
+        else go(current - 1);
+      }
     }
+    multiTouch = false;
     startAuto();
   }, { passive: true });
+  track.addEventListener('touchcancel', () => { multiTouch = false; startAuto(); }, { passive: true });
 
   window.addEventListener('resize', () => {
     perView = getPerView();
@@ -412,7 +518,13 @@ function scrollToSection(id, offset = 80) {
     update();
   });
 
-  reduceMotion.addEventListener('change', () => { reduceMotion.matches ? stopAuto() : startAuto(); });
+  // MediaQueryList só ganhou addEventListener no Safari 14. Chamar direto joga
+  // TypeError no Safari <= 13.7 — e como este arquivo é um script clássico plano,
+  // esse throw levava junto o formulário de contato, o back-to-top, os botões
+  // flutuantes e o modal, que vêm todos depois no arquivo.
+  const onReduceMotionChange = () => { reduceMotion.matches ? stopAuto() : startAuto(); };
+  if (typeof reduceMotion.addEventListener === 'function') reduceMotion.addEventListener('change', onReduceMotionChange);
+  else if (typeof reduceMotion.addListener === 'function') reduceMotion.addListener(onReduceMotionChange);
 
   // Pausa quando não visível (economiza bateria)
   if ('IntersectionObserver' in window) {
@@ -441,13 +553,37 @@ function scrollToSection(id, offset = 80) {
     if (type) status.classList.add(`is-${type}`);
   }
 
+  // Variante para o estado de repasse: os canais de recuperação viram links de
+  // verdade. Num celular, "ligue para (41) 3503-6828" como texto puro obriga a
+  // pessoa a decorar e digitar — e essa é justamente a saída de quem o WhatsApp
+  // não abriu. Monta por DOM (sem innerHTML) para não abrir superfície de HTML.
+  function setStatusWithChannels(before, after) {
+    if (!status) return;
+    status.textContent = '';
+    status.classList.remove('is-success', 'is-error');
+    const tel = document.createElement('a');
+    tel.href = 'tel:+554135036828';
+    tel.textContent = '(41) 3503-6828';
+    const mail = document.createElement('a');
+    mail.href = 'mailto:contato@magnumtorque.com.br';
+    mail.textContent = 'contato@magnumtorque.com.br';
+    status.append(before, tel, ' ou escreva para ', mail, after);
+  }
+
   function markInvalid(field, invalid) {
     field.closest('.form-group').classList.toggle('has-error', invalid);
     field.setAttribute('aria-invalid', invalid ? 'true' : 'false');
   }
 
+  // Trava de reentrada. Um duplo clique no enviar abria o WhatsApp DUAS vezes e
+  // contava generate_lead duas vezes — e o generate_lead é justamente a métrica
+  // que o PRODUCT.md diz que reabriria a discussão do handler server-side, então
+  // inflá-la corrompe uma decisão de produto, não só um número.
+  let sending = false;
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (sending) return;
 
     // Honeypot: se preenchido, provavelmente bot. Silenciosamente aborta.
     if (honeypot && honeypot.value) { form.reset(); return; }
@@ -465,7 +601,9 @@ function scrollToSection(id, offset = 80) {
 
     const checks = [
       [name, name.value.trim().length >= 3],
-      [phone, phoneDigits.length >= 10 && phoneDigits.length <= 13],
+      // Teto 11, não 13: a máscara normaliza pra no máximo 11 dígitos, então 12-13
+      // era faixa morta que só servia pra deixar passar número truncado.
+      [phone, phoneDigits.length >= 10 && phoneDigits.length <= 11],
       [email, emailVal === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)],
       [subject, !!subject.value],
       [message, message.value.trim().length >= 10],
@@ -494,17 +632,31 @@ function scrollToSection(id, offset = 80) {
     });
     trackEvent('form_submit', { form_id: 'contact-form' });
 
-    setStatus('Abrindo WhatsApp...', 'success');
+    sending = true;
+    setTimeout(() => { sending = false; }, 1500);
+    setStatus('Abrindo o WhatsApp com sua mensagem...', null);
     // 'noopener' na string de features faz window.open retornar sempre null (spec),
     // o que dispararia o fallback junto com o popup (WhatsApp aberto 2x).
     // Isola o opener manualmente para manter a detecção de popup bloqueado.
     const opened = window.open(waUrl, '_blank');
     if (!opened) { window.location.href = waUrl; return; }
     try { opened.opener = null; } catch (_) {}
-    form.reset();
+
+    // NÃO diz "enviado" e NÃO é verde de sucesso: o wa.me abre o WhatsApp com o
+    // texto pronto, mas quem envia é a pessoa. Antes isto dizia "Abrindo
+    // WhatsApp..." em verde de sucesso, limpava o formulário e apagava o status
+    // em 4s — três afirmações de que deu certo para algo que ainda não aconteceu,
+    // e no desktop sem WhatsApp Web não acontece nunca.
+    setStatusWithChannels(
+      'Abrimos o WhatsApp com sua mensagem pronta — confira e toque em enviar por lá. Não abriu? Ligue para ',
+      '.'
+    );
+
+    // form.reset() removido de propósito: o texto digitado é o ÚNICO artefato que
+    // sobra se o repasse falhar. Limpar aqui destruía o trabalho da pessoa no
+    // momento de menor certeza. Só o estado de erro é limpo.
     form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
     form.querySelectorAll('[aria-invalid]').forEach(f => f.setAttribute('aria-invalid', 'false'));
-    setTimeout(() => setStatus('', null), 4000);
   });
 
   // Limpa o erro ao digitar novamente
@@ -513,6 +665,13 @@ function scrollToSection(id, offset = 80) {
       if (field.closest('.form-group')?.classList.contains('has-error')) {
         markInvalid(field, false);
       }
+      // E some com o aviso vermelho quando NÃO sobrou mais nenhum campo com erro.
+      // Antes, "Revise os campos destacados antes de enviar." continuava lá em
+      // vermelho mesmo depois de a pessoa corrigir os quatro — o aviso apontava
+      // para destaques que já não existiam.
+      if (status && status.classList.contains('is-error') && !form.querySelector('.form-group.has-error')) {
+        setStatus('', null);
+      }
     });
   });
 
@@ -520,14 +679,52 @@ function scrollToSection(id, offset = 80) {
   const phoneField = form.querySelector('#phone');
   if (phoneField) {
     phoneField.addEventListener('input', () => {
-      let d = phoneField.value.replace(/\D/g, '').slice(0, 11);
-      let out = '';
+      let raw = phoneField.value.replace(/\D/g, '');
+
+      // Normaliza em vez de cortar. O .slice(0,11) cego transformava um número
+      // colado com +55 ou com 0 na frente em OUTRO número — que passava na
+      // validação e ia pro WhatsApp errado, sem nenhum aviso.
+      // As duas normalizações são travadas em length > 11: DDD 55 (Santa Maria)
+      // com celular de 9 dígitos dá exatamente 11 e nunca é tocado.
+      if (raw.length > 11 && raw.slice(0, 2) === '55') raw = raw.slice(2);
+      if (raw.length > 11 && raw[0] === '0') raw = raw.slice(1);
+      // Ainda longo demais: deixa o texto do usuário intacto e sai. A validação
+      // rejeita com erro visível em vez de descartar dígitos em silêncio.
+      if (raw.length > 11) return;
+
+      const d = raw;
       if (d.length === 0) { phoneField.value = ''; return; }
+
+      let out = '';
       if (d.length < 3)       out = `(${d}`;
       else if (d.length <= 6) out = `(${d.slice(0,2)}) ${d.slice(2)}`;
       else if (d.length <= 10)out = `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
       else                    out = `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+
+      if (out === phoneField.value) return; // não mexe no caret à toa (IME/autofill)
+
+      // Preserva o caret contando DÍGITOS, não caracteres: os separadores mudam de
+      // posição conforme a contagem, então reescrever o valor jogava o cursor pro
+      // fim a cada edição no meio do campo.
+      const isActive = phoneField === document.activeElement;
+      const pos = isActive ? phoneField.selectionStart : null;
+      const digitsBefore = isActive
+        ? phoneField.value.slice(0, pos).replace(/\D/g, '').length
+        : 0;
+
       phoneField.value = out;
+
+      if (isActive) {
+        let seen = 0, idx = out.length;
+        for (let i = 0; i < out.length; i++) {
+          if (/\d/.test(out[i])) {
+            seen++;
+            if (seen === digitsBefore) { idx = i + 1; break; }
+          }
+        }
+        if (digitsBefore === 0) idx = out.length;
+        try { phoneField.setSelectionRange(idx, idx); } catch (_) {}
+      }
     });
   }
 })();
@@ -537,28 +734,102 @@ function scrollToSection(id, offset = 80) {
   const btn = document.getElementById('back-to-top');
   if (!btn) return;
   window.addEventListener('scroll', () => { btn.classList.toggle('visible', window.scrollY > 400); }, { passive: true });
-  btn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  btn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: scrollBehavior() }); });
 })();
 
-// ===== Botões flutuantes param no footer (o footer é o "chão" deles) =====
+// ===== Botões flutuantes: param no footer, saem da frente do banner, e nunca deixam a tela =====
 (function () {
-  const footer = document.querySelector('.footer');
-  if (!footer) return;
-  const root = document.documentElement;
-  let ticking = false;
-  function update() {
-    // Quanto do footer já entrou na viewport = quanto os botões precisam subir
-    const overlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
-    root.style.setProperty('--float-floor', overlap + 'px');
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(() => { update(); ticking = false; });
+  try {
+    const footer = document.querySelector('.footer');
+    const root = document.documentElement;
+    let ticking = false;
+    let headerH = 0;
+
+    function measureHeader() {
+      const h = document.querySelector('.header');
+      headerH = h ? h.offsetHeight : 0;
+      // Altura só da BARRA (o .container), sem a gaveta mobile — que vive dentro do
+      // mesmo <header> e, aberta, dobraria esse número. O CSS usa isto para limitar
+      // a altura da gaveta a "o que sobra da tela", com fallback de 4.5rem.
+      const bar = h && h.querySelector('.container');
+      if (bar) root.style.setProperty('--header-bar-h', bar.offsetHeight + 'px');
     }
-  }, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
+
+    function update() {
+      // 1) Quanto do footer já entrou na viewport = quanto os botões precisam subir.
+      const footerOverlap = footer
+        ? Math.max(0, window.innerHeight - footer.getBoundingClientRect().top)
+        : 0;
+
+      // 2) O banner de cookie também é chão: ele ocupa a base da tela e cobriria
+      //    o botão do WhatsApp — que é o único controle de conversão do site.
+      //    Sem este termo o contrato do --float-floor era falso (só via o footer).
+      const banner = document.getElementById('cookie-consent');
+      const bannerOverlap = banner
+        ? Math.max(0, window.innerHeight - banner.getBoundingClientRect().top) + 12
+        : 0;
+
+      // 3) Teto — dimensionado pelo WHATSAPP, não pelo par.
+      //    Os dois botões compartilham --float-floor, e o voltar-ao-topo fica 5.5rem
+      //    acima. Um teto que garantisse os DOIS abaixo do cabeçalho (innerHeight -
+      //    headerH - 140) limitava o WhatsApp a menos do que ele precisa para subir
+      //    do banner: em 812x375 o banner pede 204px e esse teto dava 163, deixando
+      //    5px do botão cobertos. Priorizar o par sobre o WhatsApp é a prioridade
+      //    invertida — o WhatsApp É o trabalho da página, o voltar-ao-topo é
+      //    conveniência. Então o teto passa a ser o do WhatsApp sozinho...
+      const WA_H = 52, BTT_H = 44, BASE = 24, BTT_OFFSET = 88, GAP = 8;
+      const cap = Math.max(0, window.innerHeight - headerH - WA_H - BASE - GAP);
+
+      const floor = Math.min(Math.max(footerOverlap, bannerOverlap), cap);
+      root.style.setProperty('--float-floor', floor + 'px');
+
+      // ...e quando esse chão empurra o voltar-ao-topo para debaixo do cabeçalho
+      // (onde o toque acertaria o hambúrguer), ele se esconde em vez de ficar lá
+      // atrás fingindo que é clicável. É o único dos dois que pode sair de cena.
+      const bttTop = window.innerHeight - (BTT_OFFSET + floor) - BTT_H;
+      root.classList.toggle('btt-no-room', bttTop < headerH + GAP);
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      }
+    }, { passive: true });
+    window.addEventListener('resize', () => { measureHeader(); update(); }, { passive: true });
+
+    // O banner monta/desmonta depois deste IIFE. Sem este gancho, update() nunca
+    // roda nos dois únicos momentos em que o chão realmente muda.
+    window.__mgUpdateFloatFloor = update;
+
+    measureHeader();
+    update();
+  } catch (e) { console.error('[float-floor]', e); }
+})();
+
+// ===== Mapa sob demanda (fachada de clique-para-carregar) =====
+(function () {
+  try {
+    const facade = document.getElementById('map-facade');
+    if (!facade) return;
+    facade.addEventListener('click', () => {
+      const src = facade.dataset.mapSrc;
+      if (!src) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = 'Mapa Magnum Torque - Rua Irmã Maria Lucia Roland, 403 - Hauer, Curitiba-PR';
+      iframe.width = '600';
+      iframe.height = '220';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      facade.replaceWith(iframe);
+      // O clique veio de um botão que acabou de sair do DOM: manda o foco para o
+      // mapa, senão ele volta pro início do documento em silêncio.
+      iframe.setAttribute('tabindex', '0');
+      try { iframe.focus({ preventScroll: true }); } catch (_) {}
+    }, { once: true });
+  } catch (e) { console.error('[map-facade]', e); }
 })();
 
 // ===== Modal =====
@@ -599,4 +870,46 @@ function scrollToSection(id, offset = 80) {
     if (e.key === 'Escape') close();
     else trap(e);
   });
+})();
+
+// ===== Motion de chegada: a marca vermelha sendo aplicada =====
+// Quarto contrato JS↔CSS deste arquivo, junto de --float-floor, --header-bar-h
+// e .btt-no-room. Aqui são duas classes: `js-mark` na raiz e `is-marked` em cada
+// alvo. Ver "Motion de chegada" em css/style.css e "A Regra da Marca Aplicada"
+// no DESIGN.md.
+//
+// A ordem importa e é o oposto do reflexo: o CSS em repouso já desenha as
+// marcas, e só a presença de `js-mark` introduz o estado escondido. Por isso a
+// classe entra DEPOIS de confirmar que o IntersectionObserver existe — sem ele,
+// nada é escondido e as marcas nascem prontas. Um script que não roda não pode
+// apagar conteúdo.
+//
+// Por que não `animation-timeline:view()`, que não custaria JS nenhum: toda
+// faixa do site tem `overflow:hidden`, que faz dela um contêiner de rolagem, e
+// view-timeline mede contra o contêiner ancestral mais próximo — não contra a
+// viewport. Medido em navegador real, o progresso ficava fixo e errado. O
+// comentário no CSS tem os números.
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+
+  const targets = document.querySelectorAll('.section-title, .service-card');
+  if (!targets.length) return;
+
+  document.documentElement.classList.add('js-mark');
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-marked');
+      obs.unobserve(entry.target); // a marca é aplicada uma vez, não repete na volta
+    });
+  }, {
+    // Encolhe o fundo da root em 18%: a marca começa a ser traçada quando o
+    // título já subiu para dentro da leitura, não no instante em que a borda
+    // dele raspa a dobra. threshold 0 basta — quem atrasa é a rootMargin.
+    rootMargin: '0px 0px -18% 0px',
+    threshold: 0
+  });
+
+  targets.forEach(t => io.observe(t));
 })();

@@ -41,12 +41,16 @@
     if (!MS) throw new Error('MiniSearch nao carregado');
     const ms = new MS({
       idField: 'id',
-      fields: ['title', 'excerpt', 'category', 'body', 'synonyms'],
+      // cardTitle/cardExcerpt sao o texto que o VISITANTE ve no card. Sem eles, buscar
+      // uma palavra visivel na tela podia devolver "nao temos artigo sobre esse tema" —
+      // o indice guardava um titulo orientado a SEO e a busca casava so contra ele.
+      // Os dois textos ficam indexados: o visivel e o de SEO.
+      fields: ['title', 'cardTitle', 'excerpt', 'cardExcerpt', 'category', 'body', 'synonyms'],
       storeFields: ['id', 'slug', 'title', 'excerpt'],
       processTerm: (term) => norm(term),
       tokenize: (text) => norm(text).split(/[^a-z0-9]+/).filter(Boolean),
       searchOptions: {
-        boost: { title: 3, synonyms: 2.5, excerpt: 1.5, category: 1.5, body: 1 },
+        boost: { title: 3, cardTitle: 3, synonyms: 2.5, excerpt: 1.5, cardExcerpt: 1.5, category: 1.5, body: 1 },
         prefix: true,
         fuzzy: 0.2,
         combineWith: 'AND'
@@ -56,7 +60,9 @@
       id: p.id,
       slug: p.slug,
       title: p.title,
+      cardTitle: p.cardTitle || '',
       excerpt: p.excerpt,
+      cardExcerpt: p.cardExcerpt || '',
       category: p.category,
       body: p.body,
       synonyms: Array.isArray(p.synonyms) ? p.synonyms.join(' · ') : ''
@@ -70,7 +76,7 @@
     if (libPromise) return libPromise;
     libPromise = new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = '/js/vendor/minisearch.min.js?v=20260720';
+      s.src = '/js/vendor/minisearch.min.js?v=20260826';
       s.onload = resolve;
       s.onerror = () => {
         libPromise = null; // permite retry
@@ -226,7 +232,9 @@
         applyResults(raw, results);
         // Só rastreia termos "assentados" (>=3 chars) e não repetidos,
         // senão cada pausa de digitação infla a métrica de busca no GA.
-        if (typeof window.gtag === 'function' && raw.length >= 3 && raw !== lastTrackedSearch) {
+        // Mesmo gate de consentimento do trackEvent em js/main.js: o termo buscado
+        // é dado do visitante e a política promete que ele só sai após o aceite.
+        if (window.mgConsent === 'granted' && typeof window.gtag === 'function' && raw.length >= 3 && raw !== lastTrackedSearch) {
           lastTrackedSearch = raw;
           window.gtag('event', 'search', { search_term: raw, results: results.length });
         }

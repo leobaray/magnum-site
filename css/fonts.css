@@ -2,3 +2,21 @@
    Ambas são fontes variáveis (eixo wght): um único arquivo cobre todos os pesos usados no site. */
 @font-face{font-family:'Montserrat';font-style:normal;font-weight:600 800;font-display:swap;src:url('../assets/fonts/montserrat-var.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'Open Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('../assets/fonts/opensans-var.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* ===== Fallbacks com métrica ajustada =====
+   O problema que estes resolvem: com font-display:swap o texto é pintado primeiro
+   na fonte de sistema e repintado quando a webfont chega. Como a fonte de sistema
+   ocupa uma caixa diferente, a troca REFLUI a página. Medido em 390x844 no Fast 3G:
+   CLS de 0,2078, dos quais 0,1904 num único salto do hero — o container pulava de
+   [0,103,390,613] para [0,86,390,648] a ~2,5s, com a pessoa já lendo o título.
+
+   Estas duas famílias não baixam nada: são o Arial local, reescalado para ocupar
+   exatamente a mesma caixa da webfont. Entram no stack ANTES do sans-serif genérico,
+   então o primeiro paint já tem as medidas certas e a troca não move nada.
+
+   Os números foram MEDIDOS neste site (canvas TextMetrics, string em português no
+   subset real), não copiados de tabela genérica: Montserrat 700 é 8,59% mais larga
+   que Arial 700; Open Sans 400 é 2,33% mais larga que Arial 400.
+   Liberation Sans entra junto porque é metricamente compatível com Arial no Linux. */
+@font-face{font-family:'Montserrat Fallback';src:local('Arial Bold'),local('Arial'),local('Liberation Sans');size-adjust:108.59%;ascent-override:89.33%;descent-override:23.02%;line-gap-override:0%}
+@font-face{font-family:'Open Sans Fallback';src:local('Arial'),local('Liberation Sans');size-adjust:102.33%;ascent-override:104.57%;descent-override:28.34%;line-gap-override:0%}
