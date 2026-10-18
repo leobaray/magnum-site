@@ -1,28 +1,26 @@
 # O que falta no site da Magnum
 
-Gerado pela fábrica de mudanças em 2026-10-17. Nada aqui vai ao ar sem passar pelos cinco critérios de ouro.
+Gerado pela fábrica de mudanças em 2026-10-18. Nada aqui vai ao ar sem passar pelos cinco critérios de ouro.
 
 ## Ouro esperando texto
 - nada
 
 ## Pronto para o próximo lançamento
-- **M033** (corrigir, `blog/sinais-conversor-torque-precisa-retifica/index.html`): Tenho um sintoma no câmbio: levo num mecânico antes ou vou direto na Magnum? Quem diz se é o conversor? — 17 pessoas em 2 dias, nota 9
+- **M038** (corrigir, `faq`): Vocês recebem o conversor já fora do câmbio ou preciso levar o câmbio inteiro? — 8 pessoas em 2 dias, nota 8
 
 ## Em observação
-- **M007** (melhorar, `faq`): Quanto custa retificar o conversor e quanto custa o diagnóstico? Pago se não tiver conserto? — 62 pessoas em 6 dias, nota 6; sinais: gsc
-- **M009** (melhorar, `index.html`): Vocês têm kit, disco, bomba ou válvula para o meu câmbio? Como confiro a compatibilidade? — 56 pessoas em 6 dias, nota 6; sinais: autocomplete, gsc
-- **M010** (melhorar, `index.html`): Vocês retificam o conversor do meu modelo? Tem lista de modelos? — 45 pessoas em 6 dias, nota 5; sinais: gsc
-- **M013** (criar, `faq`): O que é o conversor de torque, é a mesma coisa que a embreagem, e vem no kit de reparo ou é peça separada? — 7 pessoas em 3 dias, nota 5; sinais: autocomplete, gsc
-- **M022** (melhorar, `blog/superaquecimento-cambio-automatico/index.html`): Fluido escuro e queimado já é o conversor? Posso só trocar o fluido e rodar? — 10 pessoas em 4 dias, nota 6; sinais: autocomplete
-- **M023** (melhorar, `blog/sinais-conversor-torque-precisa-retifica/index.html`): Meu sintoma só acontece de manhã, parado ou em baixa velocidade: é o mesmo sinal do conversor? — 18 pessoas em 4 dias, nota 5; sinais: autocomplete, gsc
-- **M026** (melhorar, `index.html`): Os 2 a 3 dias contam a ida e a volta da transportadora ou só o serviço? Quanto leva ao todo se eu moro fora de Curitiba? — 25 pessoas em 3 dias, nota 6; sinais: autocomplete, gsc
-- **M035** (corrigir, `index.html`): A garantia é de 6 meses ou é estendida? Qual vale? — 1 pessoas em 1 dias, nota 6; sem sinal de fora ainda
-- **M036** (corrigir, `blog/teste-pressao-cambio-automatico/index.html`): Pressão baixa e bomba desgastada: a Magnum conserta a bomba ou só o conversor, e onde levo o carro? — 1 pessoas em 1 dias, nota 8; sinais: gsc
-- **M038** (corrigir, `faq`): Vocês recebem o conversor já fora do câmbio ou preciso levar o câmbio inteiro? — 4 pessoas em 1 dias, nota 7; sinais: gsc
-- **M039** (melhorar, `index.html`): Compensa retificar ou comprar um conversor novo, e como sei antes se o meu tem conserto? — 6 pessoas em 1 dias, nota 4; sinais: autocomplete, gsc
-- **M041** (melhorar, `index.html`): Vocês recuperam conversor de caminhão e máquina pesada, e o que o artigo explica vale para eles? — 8 pessoas em 1 dias, nota 4; sem sinal de fora ainda
+- **M009** (melhorar, `index.html`): Vocês têm kit, disco, bomba ou válvula para o meu câmbio? Como confiro a compatibilidade? — 64 pessoas em 7 dias, nota 6; sinais: autocomplete, gsc
+- **M010** (melhorar, `index.html`): Vocês retificam o conversor do meu modelo? Tem lista de modelos? — 51 pessoas em 7 dias, nota 6; sinais: gsc
+- **M013** (criar, `faq`): O que é o conversor de torque, é a mesma coisa que a embreagem, e vem no kit de reparo ou é peça separada? — 8 pessoas em 4 dias, nota 5; sinais: autocomplete, gsc
+- **M022** (melhorar, `blog/superaquecimento-cambio-automatico/index.html`): Fluido escuro e queimado já é o conversor? Posso só trocar o fluido e rodar? — 12 pessoas em 5 dias, nota 6; sinais: autocomplete
+- **M023** (melhorar, `blog/sinais-conversor-torque-precisa-retifica/index.html`): Meu sintoma só acontece de manhã, parado ou em baixa velocidade: é o mesmo sinal do conversor? — 23 pessoas em 5 dias, nota 5; sinais: autocomplete, gsc
+- **M035** (corrigir, `index.html`): A garantia é de 6 meses ou é estendida? Qual vale? — 1 pessoas em 1 dias, nota 5; sem sinal de fora ainda
+- **M036** (corrigir, `blog/teste-pressao-cambio-automatico/index.html`): Pressão baixa e bomba desgastada: a Magnum conserta a bomba ou só o conversor, e onde levo o carro? — 1 pessoas em 1 dias, nota 9; sinais: gsc
+- **M039** (melhorar, `index.html`): Compensa retificar ou comprar um conversor novo, e como sei antes se o meu tem conserto? — 15 pessoas em 2 dias, nota 4; sinais: autocomplete, gsc
+- **M041** (melhorar, `index.html`): Vocês recuperam conversor de caminhão e máquina pesada, e o que o artigo explica vale para eles? — 15 pessoas em 2 dias, nota 6; sem sinal de fora ainda
 
 ## Publicado
+- 2026-10-17 **M033** (corrigir): blog/sinais-conversor-torque-precisa-retifica/index.html → https://www.magnumtorque.com.br/blog/search-index.json
 - 2026-10-15 **M001** (corrigir): blog/cambio-automatico-modo-emergencia/index.html → https://www.magnumtorque.com.br/blog/cambio-automatico-modo-emergencia/
 
 ## Descartado e por quê
@@ -33,6 +31,15 @@ O ajuste: na frase "fale com a gente pelo WhatsApp. A equipe técnica da Magnum 
 - **M004** (texto reprovado): Fluido escuro com cheiro de queimado ou câmbio esquentando: é grave, dá para rodar, só trocar o óleo resolve, a quem levo? — releitura 4/10: Não fica claro se dá para rodar até o mecânico: o texto diz só que rodar assim aumenta o risco de dano maior, e não diz se o carro pode seguir para a oficina ou se deve parar. Também não sei o que fazer quando a luz de temperatura acender, porque o texto manda seguir o "primeiro item das perguntas f
 - **M005** (não afirmável): Como mando o conversor de outra cidade, quem paga o frete e quanto tempo leva contando ida e volta? — É uma pergunta real da oficina de fora com o conversor na mão, e é o item com mais procura (15 por dia), mas o site só diz que recebe e devolve por transportadora; faltaria a Magnum confirmar quem paga o frete de ida e de volta, como embalar e identificar a peça e se indica alguma transportadora, e o tempo de trânsito não pode ser prometido.
 - **M006** (não afirmável): Os 2 a 3 dias úteis contam da chegada do conversor ou da aprovação do orçamento? E se faltar peça? — O marco já está publicado (o FAQ 'Como funciona' dá o orçamento em 1-2 dias úteis depois que a peça chega e o serviço em 2-3 dias úteis após a aprovação), então metade já existe; a outra metade ('e se faltar peça?') precisaria de um fato novo: como fica o prazo quando a peça tem de ser encomendada.
+- **M007** (texto reprovado): Quanto custa retificar o conversor e quanto custa o diagnóstico? Pago se não tiver conserto? — editora: não entra: A única informação nova da resposta é uma política de preço que o site não afirma em lugar nenhum: "O valor não é tabelado" e "por isso não passamos preço sem ver a peça". Conferi no index.html e não há essa frase nem outra equivalente. Não se sabe se a Magnum de fato se recusa a dar uma faixa de preço por telefone, então isso seria inventar um fato sobre ela.
+
+Sem esse trecho, o que sobra repete o que a página já diz:
+- "gratuita e sem compromisso, e se não fizer sentido retificar, a gente diz" e o prazo de 1 a 2 dias úteis estão, com as mesmas palavras, na FAQ "Como funciona o processo" (index.html:726).
+- "Avaliação técnica gratuita" está no card Orçamento Rápido (index.html:393).
+- O caminho pelo WhatsApp (41) 3503-6828 está em "Como solicitar um orçamento?" (index.html:782).
+- A única referência de custo que o site dá ("40-60% menos que um conversor novo") já está em "Vale a pena retificar" (index.html:790).
+
+Os sinais também não sustentam o item: são 3 impressões e 0 cliques, e das três consultas no GSC só "preço do conserto" tem a ver com o tema. A pergunta só ganharia uma resposta própria se o Leonardo confirmar como a Magnum responde a quem pergunta preço antes de mandar a peça. Isso é fato que precisa vir dele, não da redatora.
 - **M008** (não afirmável): Vale mais a pena retificar o conversor ou comprar um novo ou usado? — Já existe na FAQ da home e no post de sinais; deixar clara a base do '40-60%' exigiria saber com que conversor novo a conta foi feita (original, paralelo, importado), e o site não diz nada sobre conversor usado.
 - **M011** (não afirmável): Vocês trabalham com conversor de caminhão e de frota, e emitem nota fiscal em nome da empresa? — O porte já está respondido (a FAQ de veículos cita caminhões e máquinas pesadas); o que seria novo, nota fiscal para CNPJ e condições para frota, depende de a Magnum confirmar, e o sinal é de uma impressão só.
 - **M012** (não afirmável): A garantia de 6 meses cobre o quê? E se o conversor retificado der problema de novo? — Pesa na confiança da oficina, mas o site só dá o prazo (6 meses) e diz de passagem que o flush do trocador protege a garantia; o que ela cobre, se inclui as peças trocadas, as condições de instalação e como acionar são fatos que a Magnum precisaria passar.
@@ -52,6 +59,7 @@ O ajuste: na frase "fale com a gente pelo WhatsApp. A equipe técnica da Magnum 
 3) Detalhe: em (A), "Veja a orientação logo abaixo, depois do sinal 7" funciona melhor como link. Coloque id="antes-de-mandar" no h3 do (B) e transforme a frase em <a href="#antes-de-mandar">. Se quiser, acrescente o item ao sumário (post-toc).
 - **M024** (não afirmável): Vocês fazem conversor de caminhão e o prazo é o mesmo? — Que a Magnum atende caminhão e máquina pesada já está escrito na FAQ e nos serviços da home. Falta o dono confirmar se o prazo de 2 a 3 dias úteis vale também para conversor de caminhão e de máquina pesada.
 - **M025** (não afirmável): Moro em outra cidade: como mando o conversor, quem paga o frete de ida e volta, como embalo e o que mando junto? — O site só diz que recebe de qualquer estado e devolve por transportadora; para responder faltam quem paga o frete de ida e volta, como embalar e o que mandar junto com a peça, além de modelo e sintoma.
+- **M026** (texto reprovado): Os 2 a 3 dias contam a ida e a volta da transportadora ou só o serviço? Quanto leva ao todo se eu moro fora de Curitiba? — releitura 0/10: Quantos dias a transportadora leva na ida e na volta para quem mora fora de Curitiba, então o total não dá para calcular; e o texto não deixa claro se o diagnóstico de 1 a 2 dias entra ou não nos 2 a 3 dias do serviço.; Não sei quantos dias a transportadora leva de ida e volta para quem mora fora de
 - **M027** (não afirmável): Vocês emitem nota fiscal em nome da empresa, aceitam boleto e atendem vários conversores de frota de uma vez? — Frotista é um bom contato, mas o site não diz nada sobre nota fiscal em CNPJ, boleto ou orçamento de vários conversores; falta o Leonardo confirmar essas três coisas.
 - **M028** (não afirmável): A garantia de 6 meses cobre o quê, o que a invalida e como aciono se o conversor voltar? É garantia de 6 meses ou estendida? — Trocar 'garantia estendida' por '6 meses de garantia' é uma correção segura, mas dizer o que a garantia cobre, o que a invalida e como acionar exige as condições reais, que o site não traz.
 - **M029** (texto reprovado): Preciso levar o carro aí ou basta mandar o conversor? E o resto do câmbio, quem faz? — editora mandou reescrever 2 vezes: O conteúdo está certo e não repete a FAQ atual. "Como funciona o processo" descreve o caminho da peça, mas não diz que o carro não vem e que a retirada fica com o mecânico. A frase "Não diagnosticamos nem desmontamos câmbio" já está no blog de modo de emergência. Falta acertar três pontos antes de publicar. (1) Concordância: a primeira frase começa com "a peça" e termina em "o devolve pronto". Use um sujeito só, por exemplo "Só o conversor. Trabalhamos com o conversor já retirado do veículo e o devolvemos pronto." (2) Faltou a entrega em mãos. O site hoje diz "A peça chega em mãos, em Curitiba, ou por transportadora de qualquer estado" e "o conversor volta por transportadora ou você retira na oficina". Do jeito que está, quem é de Curitiba pode achar que precisa despachar a peça. Use essas mesmas duas opções, sem acrescentar nada. (3) A frase "é com ele que você deve procurar o diagnóstico do carro" está errada. Troque por algo como "é a ele que você deve levar o carro para o diagnóstico". Mantenha o fecho "Não diagnosticamos nem desmontamos câmbio" e a indicação do mecânico especializado em transmissão automática.
@@ -61,6 +69,9 @@ O ajuste: na frase "fale com a gente pelo WhatsApp. A equipe técnica da Magnum 
 - **M034** (não afirmável): O que a garantia de 6 meses cobre, vale para envio de outra cidade e para oficina, e como aciono? — O site só diz '6 meses de garantia'; para responder faltam a cobertura, as condições (instalação, fluido, lavagem do trocador) e como acionar à distância, e nada disso pode ser inventado.
 - **M037** (não afirmável): Como mando só o conversor por transportadora, como embalo e quem paga o frete de ida e volta? — Interessa a quem tem o conversor na mão, mas o site não diz como embalar nem quem paga o frete de ida e de volta; faltam esses fatos, que o dono teria de confirmar.
 - **M040** (não afirmável): A garantia de 6 meses cobre o quê exatamente e como aciono? — O site só diz '6 meses de garantia'; o que ela cobre, as exclusões e como acionar teriam de vir do dono.
+- **M042** (não afirmável): Como mando o conversor de outra cidade: quem paga o frete de ida e volta, como embalo, preciso drenar o fluido? — É a maior procura do dia (17) e muito qualificada, mas o site não diz quem paga o frete de ida e de volta, como embalar nem se é preciso drenar o fluido; só o Leonardo pode dar esses fatos.
+- **M043** (não afirmável): Vocês emitem nota fiscal no CNPJ da empresa pela retífica? — Interessa a frotistas, mas o site só mostra o CNPJ no rodapé e não diz que emite nota fiscal para empresa; falta o dono confirmar.
+- **M044** (não afirmável): Vocês vendem kit e disco para oficina ou loja, com preço de revenda? — O site diz que vende peças, mas não fala de venda para revenda nem de preço para oficina ou loja; seria uma política comercial nova, e só 2 pessoas por dia perguntam.
 
 ## Custo
-Últimos 6 dias com rodada: US$ 8.20 no total (hoje: US$ 1.33)
+Últimos 7 dias com rodada: US$ 9.57 no total (hoje: US$ 1.38)
